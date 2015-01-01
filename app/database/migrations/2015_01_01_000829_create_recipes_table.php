@@ -24,9 +24,9 @@ class CreateRecipesTable extends Migration {
             $table->integer('prep_time')->unsigned();   //seconds
             $table->integer('cook_time')->unsigned();   //seconds
 
-            $table->foreign('created_by')->references('id')->on('users');
+            $table->integer('created_by')->unsigned();
             $table->integer('created_on')->unsigned();  //unix timestamp
-            $table->foreign('updated_by')->references('id')->on('users');
+            $table->integer('updated_by')->unsigned();
             $table->integer('updated_on')->unsigned();  //unix timestamp
         });
     }
