@@ -23,8 +23,10 @@ class CreateUsersTable extends Migration {
             $table->string('last_name');
             $table->boolean('active')->unsigned();
 
-            $table->integer('created_on')->unsigned();  //unix timestamp
-            $table->integer('last_login')->unsigned();  //unix timestamp
+            $table->rememberToken();
+            $table->timestamp('created_at');
+            $table->timestamp('updated_at');
+            $table->timestamp('last_login');
         });
     }
 
