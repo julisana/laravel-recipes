@@ -16,6 +16,12 @@ class Direction extends Eloquent {
      */
     protected $hidden = array();
 
+    protected $fillable = array(
+        'recipe_id',    //recipe->id
+        'order_number',
+        'direction',
+    );
+
     public function recipe() {
         return $this->belongsTo('Recipe');
     }

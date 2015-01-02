@@ -17,12 +17,10 @@ class CreateDirectionsTable extends Migration {
             $table->increments('id');
             $table->integer('recipe_id')->unsigned();
 
-            $table->integer('direction_number')->unsigned();
+            $table->integer('order_number')->unsigned();
             $table->string('direction');
 
-            $table->integer('created_by')->unsigned();
             $table->timestamp('created_at');
-            $table->integer('updated_by')->unsigned();
             $table->timestamp('updated_at');
         });
     }

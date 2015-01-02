@@ -16,6 +16,13 @@ class Ingredient extends Eloquent {
      */
     protected $hidden = array();
 
+    protected $fillable = array(
+        'recipe_id',    //recipe->id
+        'quantity',
+        'name',
+        'notes',
+    );
+
     public function recipe() {
         return $this->belongsTo('Recipe');
     }

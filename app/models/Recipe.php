@@ -16,6 +16,18 @@ class Recipe extends Eloquent {
      */
     protected $hidden = array();
 
+    protected $fillable = array(
+        'name',
+        'description',
+        'source',
+        'source_url',
+        'notes',
+        'prep_time',    //seconds
+        'cook_time',    //seconds
+        'created_by',   //user->id
+        'updated_by',   //user->id
+    );
+
     public function ingredients() {
         return $this->hasMany('Ingredient');
     }

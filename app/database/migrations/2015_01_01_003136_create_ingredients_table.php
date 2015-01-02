@@ -21,7 +21,6 @@ class CreateIngredientsTable extends Migration {
             $table->string('name');
             $table->text('notes');
 
-            $table->integer('created_by')->unsigned();
             $table->timestamp('created_at');
             $table->timestamp('updated_at');
         });
