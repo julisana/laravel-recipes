@@ -18,7 +18,7 @@ class CreateDirectionsTable extends Migration {
             $table->integer('recipe_id')->unsigned();
 
             $table->integer('order_number')->unsigned();
-            $table->string('direction');
+            $table->text('direction');
 
             $table->timestamp('created_at');
             $table->timestamp('updated_at');
