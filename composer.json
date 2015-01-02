@@ -5,7 +5,9 @@
 	"license": "MIT",
 	"type": "project",
 	"require": {
-		"laravel/framework": "4.2.*"
+		"laravel/framework": "4.2.*",
+		"zizaco/entrust": "1.2.*@dev",
+		"rcrowe/twigbridge": "0.6.*"
 	},
 	"autoload": {
 		"classmap": [
