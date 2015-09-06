@@ -24,17 +24,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
-        /*Route::filter('auth', function() {
-            if (!Request::secure()) {
-                //return Redirect::secure(Request::path());
-            }
-
-            if (Auth::guest()) {
-                if (!Request::is('*login')) {
-                    return Redirect::guest('/admin/login')->with('admin_redirect', Request::path());
-                }
-            }
-        });*/
+        //
 
         parent::boot($router);
     }
