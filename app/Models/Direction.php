@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Recipe extends Model
+class Direction extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'recipes';
+    protected $table = 'directions';
 
     /**
      * The attributes that are mass assignable.
@@ -19,15 +19,9 @@ class Recipe extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
-        'description',
-        'source',
-        'source_url',
-        'notes',
-        'prep_time',
-        'cook_time',
-        'created_by',
-        'updated_by',
+        'recipe_id',
+        'order_number',
+        'direction',
     ];
 
     /**
@@ -41,13 +35,8 @@ class Recipe extends Model
     ];
 
     //Relationships
-    public function ingredients()
+    public function recipe()
     {
-        return $this->hasMany('App\Models\Ingredient', 'recipe_id');
-    }
-
-    public function directions()
-    {
-        return $this->hasMany('App\Models\Direction', 'recipe_id');
+        return $this->belongsTo('App\Models\Recipe', 'id', 'recipe_id');
     }
 }
