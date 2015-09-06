@@ -21,6 +21,11 @@ class CreateDirectionsTable extends Migration
             $table->text('direction')->nullable();
 
             $table->timestamps();
+
+            $table->foreign('recipe_id')
+                  ->references('id')
+                  ->on('recipes')
+                  ->onDelete('cascade');
         });
     }
 

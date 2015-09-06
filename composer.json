@@ -9,7 +9,7 @@
         "laravel/framework": "5.1.*",
         "nesbot/Carbon": "~1.19",
         "barryvdh/laravel-debugbar": "^2.0",
-        "doctrine/dbal": "~2.5",
+        "doctrine/dbal": "^2.5",
         "davejamesmiller/laravel-breadcrumbs": "^3.0",
         "guzzlehttp/guzzle": "~5.3",
         "ext-curl": "*",

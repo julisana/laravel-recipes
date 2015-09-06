@@ -22,6 +22,11 @@ class CreateIngredientsTable extends Migration
             $table->text('notes')->nullable();
 
             $table->timestamps();
+
+            $table->foreign('recipe_id')
+                  ->references('id')
+                  ->on('recipes')
+                  ->onDelete('cascade');
         });
     }
 
