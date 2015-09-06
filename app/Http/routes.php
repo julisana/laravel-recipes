@@ -12,3 +12,7 @@
 */
 
 Route::get('/', 'HomeController@index');
+
+Route::group(['prefix' => 'admin'], function () {
+
+});
