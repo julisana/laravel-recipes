@@ -26,7 +26,7 @@ class CreateRecipesTable extends Migration
 
             $table->timestamps();
             $table->integer('created_by')->unsigned();
-            $table->integer('modified_by')->unsigned();
+            $table->integer('updated_by')->unsigned();
         });
     }
 
