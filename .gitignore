@@ -8,3 +8,6 @@ composer.lock
 Thumbs.db
 /public/phpinfo.php
 /app/config/local
+/app/storage/*
+/storage/*
+/.vagrant/*
