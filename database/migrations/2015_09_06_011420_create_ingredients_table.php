@@ -16,12 +16,16 @@ class CreateIngredientsTable extends Migration
         {
             $table->increments('id')->unsigned();
             $table->integer('recipe_id')->nullable()->unsigned();
-
-            $table->string('quantity')->nullable();
-            $table->string('name')->nullable();
+            $table->integer('order_number')->nullable()->unsigned();
+            $table->string('ingredient')->nullable();
             $table->text('notes')->nullable();
 
             $table->timestamps();
+
+            $table->foreign('recipe_id')
+                  ->references('id')
+                  ->on('recipes')
+                  ->onDelete('cascade');
         });
     }
 

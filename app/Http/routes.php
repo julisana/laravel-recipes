@@ -16,3 +16,9 @@ Route::get('/', 'HomeController@index');
 Route::group(['prefix' => 'admin', 'middleware' => ['https', 'auth']], function () {
 
 });
+
+Route::group(['prefix' => 'recipes'], function() {
+    Route::get('/', ['as' => 'recipes.index', 'uses' => 'RecipeController@index']);
+    Route::get('{recipeSlug}/{id}', [ 'as' => 'recipes.show', 'uses' => 'RecipeController@show' ])
+        ->where('id', '[\d]+');
+});
