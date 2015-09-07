@@ -20,8 +20,8 @@ class Ingredient extends Model
      */
     protected $fillable = [
         'recipe_id',
-        'quantity',
-        'name',
+        'order_number',
+        'ingredient',
         'notes',
     ];
 
@@ -38,6 +38,6 @@ class Ingredient extends Model
     //Relationships
     public function recipe()
     {
-        return $this->belongsTo('App\Models\Recipe', 'id', 'recipe_id');
+        return $this->belongsTo('App\Models\Recipe');
     }
 }

@@ -26,6 +26,8 @@ class Recipe extends Model
         'notes',
         'prep_time',
         'cook_time',
+        'servings',
+        'serving_size',
         'created_by',
         'updated_by',
     ];
@@ -43,11 +45,16 @@ class Recipe extends Model
     //Relationships
     public function ingredients()
     {
-        return $this->hasMany('App\Models\Ingredient', 'recipe_id');
+        return $this->hasMany('App\Models\Ingredient');
     }
 
     public function directions()
     {
-        return $this->hasMany('App\Models\Direction', 'recipe_id');
+        return $this->hasMany('App\Models\Direction');
+    }
+
+    public function owner()
+    {
+        return $this->belongsTo('App\Models\User');
     }
 }
