@@ -13,6 +13,15 @@
 
 Route::get('/', 'HomeController@index');
 
+
+Route::get('login', 'Auth\AuthController@getLogin');
+Route::post('login', 'Auth\AuthController@postLogin');
+Route::get('logout', 'Auth\AuthController@getLogout');
+
+// Registration routes...
+Route::get('register', 'Auth\AuthController@getRegister');
+Route::post('register', 'Auth\AuthController@postRegister');
+
 Route::group(['prefix' => 'recipes'], function() {
     Route::get('/', ['as' => 'recipes.index', 'uses' => 'RecipeController@index']);
     Route::get('{recipeSlug}/{id}', ['as' => 'recipes.show', 'uses' => 'RecipeController@show'])

@@ -18,7 +18,7 @@ abstract class Controller extends BaseController
         \View::share('current_user', \Auth::user());
         \View::share('current_route', \Route::currentRouteName());
 
-        $messages['errors'] = \Session::get('message_error');
+        $messages['error'] = \Session::get('message_error');
         $messages['success'] = \Session::get('message_success');
         $messages['warning'] = \Session::get('message_warning');
         \View::share('messages', $messages);

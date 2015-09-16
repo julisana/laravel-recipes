@@ -5,6 +5,7 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{ url_asset( 'css/app.css') }}" type="text/css">
         {% block styles %}{% endblock styles %}
         {% block header_scripts %}{% endblock header_scripts %}
     </head>
@@ -24,7 +25,7 @@
                 </div>
             </header>
 
-
+            {% include 'messages.twig' %}
             <div class="row">
                 {% block content %}{% endblock %}
             </div>
