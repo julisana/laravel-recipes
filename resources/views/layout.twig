@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en/us">
+    <head>
+        <title>Furious Foodie</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        {% block styles %}{% endblock styles %}
+        {% block header_scripts %}{% endblock header_scripts %}
+    </head>
+
+    <body>
+        <div class="container">
+            <header>
+                {% include 'navigation.twig' %}
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2>{{ document_title|title }}</h2>
+                    </div>
+                    {% if buttons is not empty %}
+                        {% include 'buttons.twig' with buttons %}
+                    {% endif %}
+                </div>
+            </header>
+
+
+            <div class="row">
+                {% block content %}{% endblock %}
+            </div>
+
+            <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+            <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+            {% block footer_scripts %}{% endblock footer_scripts %}
+            <footer>
+                <hr/>
+            </footer>
+        </div>
+    </body>
+</html>
