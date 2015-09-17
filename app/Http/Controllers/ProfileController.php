@@ -16,7 +16,10 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return Response::view('profile.index');
+        $viewData = [
+            //'user' => Auth::user(),
+        ];
+        return Response::view('profile.index', $viewData);
     }
 
     public function recipes()

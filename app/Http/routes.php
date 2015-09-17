@@ -14,13 +14,25 @@
 Route::get('/', 'HomeController@index');
 
 
-Route::get('login', 'Auth\AuthController@getLogin');
-Route::post('login', 'Auth\AuthController@postLogin');
-Route::get('logout', 'Auth\AuthController@getLogout');
+Route::group(['prefix' => 'auth'], function() {
+    Route::get('login', ['as' => 'auth.login', 'uses' => 'Auth\AuthController@getLogin']);
+    Route::post('login', 'Auth\AuthController@postLogin');
+    Route::get('logout', ['as' => 'auth.logout', 'uses' => 'Auth\AuthController@getLogout']);
 
-// Registration routes...
-Route::get('register', 'Auth\AuthController@getRegister');
-Route::post('register', 'Auth\AuthController@postRegister');
+    // Registration routes...
+    Route::get('register', ['as' => 'auth.register', 'uses' => 'Auth\AuthController@getRegister']);
+    Route::post('register', ['as' => 'auth.create', 'uses' => 'Auth\AuthController@postRegister']);
+});
+
+/*Route::group(['prefix' => 'password'], function() {
+    Route::get('/email', []);
+    Route::get('/reset', []);
+});
+
+Route::controllers([
+    'auth' => 'Auth\AuthController',
+    'password' => 'Auth\PasswordController',
+]);*/
 
 Route::group(['prefix' => 'recipes'], function() {
     Route::get('/', ['as' => 'recipes.index', 'uses' => 'RecipeController@index']);
@@ -28,10 +40,12 @@ Route::group(['prefix' => 'recipes'], function() {
         ->where('id', '[\d]+');
 });
 
-Route::group(['prefix' => 'profile'], function() {
-//Route::group(['prefix' => 'profile', 'middleware' => ['https', 'auth']], function() {
+Route::group(['prefix' => 'profile', 'middleware' => [/*'https', */'auth']], function() {
     Route::get('/', ['as' => 'profile.index', 'uses' => 'ProfileController@index']);
-    Route::get('/recipes', ['as' => 'profile.recipes', 'uses' => 'ProfileController@recipes']);
-    Route::get('/{recipeSlug}/{id}', ['as' => 'profile.recipes.show', 'uses' => 'ProfileController@recipe'])
-        ->where('id', '[\d]+');
+
+    Route::group(['prefix' => 'recipes'], function() {
+        Route::get('/', ['as' => 'profile.recipes.index', 'uses' => 'ProfileController@recipes']);
+        Route::get('/{recipeSlug}/{id}', ['as' => 'profile.recipes.show', 'uses' => 'ProfileController@recipe'])
+            ->where('id', '[\d]+');
+    });
 });

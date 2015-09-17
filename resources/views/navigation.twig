@@ -10,18 +10,26 @@
             <li class="grocery-menu{% if 'grocery.' in current_route %} active{% endif %}">
                 <a href="#">Groceries</a>
             </li>
-            <li class="dropdown profile-menu{% if 'profile.' in current_route %} active{% endif %}">
-                <a href="#" data-toggle="dropdown">Me <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                    <li class="profile-menu{% if 'profile.index' in current_route %} active{% endif %}">
-                        <a href="{{ url_route('profile.index') }}">View Profile</a>
-                    </li>
-                    <li class="profile-menu{% if 'profile.recipes' in current_route %} active{% endif %}">
-                        <a href="{{ url_route('profile.recipes') }}">My Recipes</a>
-                    </li>
-                </ul>
+            {% if current_user is not empty %}
+                <li class="dropdown profile-menu{% if 'profile.' in current_route %} active{% endif %}">
+                    <a href="#" data-toggle="dropdown">Me <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li class="profile-menu{% if 'profile.index' in current_route %} active{% endif %}">
+                            <a href="{{ url_route('profile.index') }}">View Profile</a>
+                        </li>
+                        <li class="profile-menu{% if 'profile.recipes' in current_route %} active{% endif %}">
+                            <a href="{{ url_route('profile.recipes') }}">My Recipes</a>
+                        </li>
+                    </ul>
+                </li>
+            {% endif %}
+            <li class="auth-menu">
+                {% if current_user is not empty %}
+                    <a href="{{ url_route('auth.logout') }}">Logout</a>
+                {% else %}
+                    <a href="{{ url_route('auth.login') }}">Login</a>
+                {% endif %}
             </li>
-            <li class="auth-menu"><a href="#">Login</a></li>
         </ul>
     </div>
 </nav>
