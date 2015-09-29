@@ -1,0 +1,6 @@
+{% import 'macros/meta.twig' as meta %}
+{% extends 'layout' %}
+
+{% block meta_canonical %}
+    {{ meta.canonical( url_route( 'recipes.show', [ str_slug(recipe.name), recipe.id ] ) ) }}
+{% endblock meta_canonical %}

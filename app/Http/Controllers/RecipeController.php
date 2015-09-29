@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Recipe;
+use App\Models\Direction;
+use App\Models\Ingredient;
 
+use Response;
 use App\Http\Requests;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class RecipeController extends Controller
@@ -48,7 +52,12 @@ class RecipeController extends Controller
      */
     public function show($recipeSlug, $id)
     {
-        //
+        $viewData = [
+            'recipe' => Recipe::findOrFail($id)->with('ingredient', 'direction'),
+            //'user' => User::findOrFail(\Auth::user()->id),
+        ];
+
+        return Response::view('recipes.show', $viewData);
     }
 
     /**

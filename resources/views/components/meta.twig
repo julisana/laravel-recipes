@@ -1,0 +1,35 @@
+{% import 'macros/meta.twig' as meta %}
+
+{% block meta %}
+    {% block meta_canonical %}{% endblock %}
+
+    {% block meta_title %}
+        {{ meta.itemprop('name', 'FuriousFoodie (dot) com') }}
+        {{ meta.property('og:title', 'FuriousFoodie (dot) com') }}
+        {{ meta.name('twitter:title', 'FuriousFoodie (dot) com') }}
+    {% endblock %}
+
+    {% block meta_sitename %}
+        {#{ meta.name('twitter:site', '@julisana') }#}
+        {{ meta.property('og:site_name', 'Furious Foodie') }}
+        {{ meta.name('twitter:card', 'summary') }}
+    {% endblock %}
+
+    {% block meta_description %}
+        {{ meta.name('description', 'Find your favorite recipes at the Furious Foodie') }}
+        {{ meta.property('og:description', 'Find your favorite recipes at the Furious Foodie') }}
+        {{ meta.property('twitter:description', 'Find your favorite recipes at the Furious Foodie') }}
+    {% endblock %}
+
+    {% block meta_image %}
+        {#{ meta.itemprop('image', '') }}
+        {{ meta.property('og:image', '') }}
+        {{ meta.name('twitter:image:src', '') }}
+
+        {{ meta.property('og:image:url', '') }}
+        {{ meta.property('og:image:width', '') }}
+        {{ meta.property('og:image:height', '') }#}
+    {% endblock %}
+
+    {% block meta_other %}{% endblock %}
+{% endblock meta %}

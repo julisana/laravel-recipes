@@ -2,34 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Recipe;
+
 use Response;
 use App\Http\Requests;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ProfileController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a details about the logged in user
      *
      * @return Response
      */
     public function index()
     {
         $viewData = [
-            //'user' => Auth::user(),
+            'user' => User::findOrFail(\Auth::user()->id),
         ];
         return Response::view('profile.index', $viewData);
     }
 
+    /**
+     * Display a list of the logged in user's recipes
+     *
+     * @return Response
+     */
     public function recipes()
     {
-        return Response::view('profile.recipes');
-    }
-
-    public function recipe($slug, $id)
-    {
-        return Response::view('profile.recipe');
+        $viewData = [
+            'user' => User::find(\Auth::user()->id)->with('savedRecipes', 'createdRecipes')->first(),
+        ];
+        return Response::view('profile.recipes', $viewData);
     }
 
     /**

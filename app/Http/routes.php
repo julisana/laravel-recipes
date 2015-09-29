@@ -45,7 +45,7 @@ Route::group(['prefix' => 'profile', 'middleware' => [/*'https', */'auth']], fun
 
     Route::group(['prefix' => 'recipes'], function() {
         Route::get('/', ['as' => 'profile.recipes.index', 'uses' => 'ProfileController@recipes']);
-        Route::get('/{recipeSlug}/{id}', ['as' => 'profile.recipes.show', 'uses' => 'ProfileController@recipe'])
-            ->where('id', '[\d]+');
+        //Route::get('/{recipeSlug}/{id}', ['as' => 'profile.recipes.show', 'uses' => 'ProfileController@recipe'])
+        //    ->where('id', '[\d]+');
     });
 });

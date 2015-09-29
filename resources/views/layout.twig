@@ -5,27 +5,29 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="{{ url_asset( 'css/app.css') }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset( 'css/app.css') }}" type="text/css">
         {% block styles %}{% endblock styles %}
         {% block header_scripts %}{% endblock header_scripts %}
+
+        {% include 'components.meta' %}
     </head>
 
     <body>
         <div class="container">
             <header>
-                {% include 'navigation.twig' %}
+                {% include 'components.navigation' %}
 
                 <div class="row">
                     <div class="col-md-6">
                         <h2>{{ document_title|title }}</h2>
                     </div>
                     {% if buttons is not empty %}
-                        {% include 'buttons.twig' with buttons %}
+                        {% include 'components.buttons' with buttons %}
                     {% endif %}
                 </div>
             </header>
 
-            {% include 'messages.twig' %}
+            {% include 'components.messages' %}
             <div class="row">
                 {% block content %}{% endblock %}
             </div>
