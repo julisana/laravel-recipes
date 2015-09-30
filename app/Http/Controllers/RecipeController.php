@@ -53,7 +53,7 @@ class RecipeController extends Controller
     public function show($recipeSlug, $id)
     {
         $viewData = [
-            'recipe' => Recipe::findOrFail($id)->with('ingredient', 'direction'),
+            'recipe' => Recipe::findOrFail($id)->with('ingredients', 'directions')->first(),
             //'user' => User::findOrFail(\Auth::user()->id),
         ];
 
