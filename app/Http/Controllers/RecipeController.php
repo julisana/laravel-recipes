@@ -6,7 +6,6 @@ use App\Models\Recipe;
 use App\Models\Direction;
 use App\Models\Ingredient;
 
-use Response;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -39,7 +38,7 @@ class RecipeController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(RecipeRequest $request)
     {
         //
     }
@@ -57,7 +56,7 @@ class RecipeController extends Controller
             //'user' => User::findOrFail(\Auth::user()->id),
         ];
 
-        return Response::view('recipes.show', $viewData);
+        return view('recipes.show', $viewData);
     }
 
     /**
@@ -78,7 +77,7 @@ class RecipeController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(RecipeRequest $request, $id)
     {
         //
     }

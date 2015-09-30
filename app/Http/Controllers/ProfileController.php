@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Recipe;
 
-use Response;
-use App\Http\Requests;
+use App\Http\Requests\ProfileRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -22,7 +21,7 @@ class ProfileController extends Controller
         $viewData = [
             'user' => User::findOrFail(\Auth::user()->id),
         ];
-        return Response::view('profile.index', $viewData);
+        return view('profile.index', $viewData);
     }
 
     /**
@@ -35,7 +34,7 @@ class ProfileController extends Controller
         $viewData = [
             'user' => User::find(\Auth::user()->id)->with('savedRecipes', 'createdRecipes')->first(),
         ];
-        return Response::view('profile.recipes', $viewData);
+        return view('profile.recipes', $viewData);
     }
 
     /**
@@ -76,9 +75,12 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        $viewData = [
+            'user' => User::find(\Auth::user()->id),
+        ];
+        return view('profile.edit', $viewData);
     }
 
     /**
@@ -88,7 +90,7 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(ProfileRequest $request)
     {
         //
     }

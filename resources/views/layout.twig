@@ -1,4 +1,3 @@
-{% import 'macros/meta.twig' as meta %}
 <!DOCTYPE html>
 <html lang="en/us">
     <head>
@@ -9,6 +8,8 @@
         <link rel="stylesheet" href="{{ asset( 'css/app.css') }}" type="text/css">
         {% block styles %}{% endblock styles %}
         {% block header_scripts %}{% endblock header_scripts %}
+
+        {% import 'macros/meta.twig' as meta %}
 
         {% block meta %}
             {% block meta_canonical %}{% endblock %}
