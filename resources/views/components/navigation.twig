@@ -18,6 +18,9 @@
                             <li class="profile-menu{% if 'profile.index' in current_route %} active{% endif %}">
                                 <a href="{{ url_route('profile.index') }}">View Profile</a>
                             </li>
+                            <li class="profile-menu{% if 'profile.edit' in current_route %} active{% endif %}">
+                                <a href="{{ url_route('profile.edit') }}">Edit Profile</a>
+                            </li>
                             <li class="profile-menu{% if 'profile.recipes' in current_route %} active{% endif %}">
                                 <a href="{{ url_route('profile.recipes.index') }}">My Recipes</a>
                             </li>

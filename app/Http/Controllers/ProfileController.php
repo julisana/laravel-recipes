@@ -95,6 +95,9 @@ class ProfileController extends Controller
      */
     public function update(ProfileRequest $request)
     {
-        dd($request->all());
+        $user = User::find(\Auth::user()->id);
+        $user->update($request->all());
+
+        return redirect()->route('profile.edit');
     }
 }

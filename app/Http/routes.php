@@ -54,7 +54,7 @@ Route::group(['prefix' => 'profile', 'middleware' => [/*'https', */'auth']], fun
         //Edit a recipe that was created by the user.
         Route::get('/{id}/edit', ['as' => 'profile.recipes.edit', 'uses' => 'RecipeController@edit'])
             ->where('id', '[\d]+');
-        Route::post('/{id}/edit', ['as' => 'profile.recipes.update', 'uses' => 'RecipeController@update'])
+        Route::patch('/{id}/edit', ['as' => 'profile.recipes.update', 'uses' => 'RecipeController@update'])
             ->where('id', '[\d]+');
 
         //Create a new recipe
