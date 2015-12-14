@@ -1,0 +1,16 @@
+{% macro text(name, value, id, placeholder) %}
+    {{ form_text( name, value, { class: 'form-control', id: id, text: placeholder, placeholder: placeholder } ) }}
+{% endmacro %}
+
+{% macro password(name, value, id, placeholder) %}
+    {#{ form_password('old_password', {'class': 'form-control', 'required': 'required', 'id': 'old-password'}) }#}
+    {{ form_password( name, { class: 'form-control', id: id, text: placeholder, placeholder: placeholder } ) }}
+{% endmacro %}
+
+{% macro label(for, text, width) %}
+    {{ form_label( for, text, { class: width ~ ' control-label' } ) }}
+{% endmacro %}
+
+{% macro submit(text, color) %}
+    {{ form_submit( text, { class: 'form-control btn btn-' ~ color } ) }}
+{% endmacro %}

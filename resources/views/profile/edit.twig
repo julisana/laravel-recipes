@@ -1,5 +1,5 @@
 {% extends 'layout' %}
 
 {% block content %}
-    hello
+    {% include 'components.user' with { submitButton: 'Update Profile', method: 'PATCH' } %}
 {% endblock %}

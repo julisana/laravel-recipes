@@ -44,7 +44,7 @@ Route::group(['prefix' => 'profile', 'middleware' => [/*'https', */'auth']], fun
 
     //Users can edit their profile
     Route::get('/edit', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
-    Route::post('/edit', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
+    Route::patch('/edit', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
 
     Route::group(['prefix' => 'recipes'], function() {
         Route::get('/', ['as' => 'profile.recipes.index', 'uses' => 'ProfileController@recipes']);

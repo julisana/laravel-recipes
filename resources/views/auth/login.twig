@@ -11,10 +11,9 @@
                     </div>
                     <div class="form-group">
                         {{ form_label( 'password', 'Password' ) }}
-                        {{ form_text('password', null, {'class': 'form-control', 'id': 'password', 'required': 'required', 'placeholder': 'Enter password'}) }}
+                        {{ form_password('password', {'class': 'form-control', 'id': 'password', 'required': 'required', 'placeholder': 'Enter password'}) }}
                     </div>
                     <div class="form-group">
-                        {{ form_token() }}
                         {{ form_submit('Login', {'id': 'login', 'class': 'btn btn-primary'}) }}
                         <a href="#">Forgot Your Password?</a>
                     </div>

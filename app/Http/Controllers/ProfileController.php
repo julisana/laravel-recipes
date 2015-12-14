@@ -31,8 +31,11 @@ class ProfileController extends Controller
      */
     public function recipes()
     {
+        $user = User::find(\Auth::user()->id)->with('savedRecipes', 'createdRecipes')->first();
         $viewData = [
-            'user' => User::find(\Auth::user()->id)->with('savedRecipes', 'createdRecipes')->first(),
+            'user' => $user,
+            'savedRecipes' => $user->savedRecipes,
+            'createdRecipes' => $user->createdRecipes,
         ];
         return view('profile.recipes', $viewData);
     }
@@ -92,6 +95,6 @@ class ProfileController extends Controller
      */
     public function update(ProfileRequest $request)
     {
-        //
+        dd($request->all());
     }
 }

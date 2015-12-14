@@ -13,7 +13,7 @@ class ProfileRequest extends Request
      */
     public function authorize()
     {
-        return false;
+        return ($this->request->get('id') == \Auth::id());
     }
 
     /**
@@ -23,10 +23,31 @@ class ProfileRequest extends Request
      */
     public function rules()
     {
-        return [
-            'username' => 'required|max:255|unique:users|alpha_num',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:8',
-        ];
+        switch($this->method)
+        {
+            case 'GET':
+            case 'DELETE':
+                return [];
+            break;
+
+            case 'POST':
+                return [
+                    'username' => 'required|max:255|alpha_num|unique:users',
+                    'email' => 'required|email|max:255|unique:users',
+                    'password' => 'required|confirmed|min:8',
+                ];
+            break;
+
+            case 'PUT':
+            case 'PATCH':
+                return [
+                    //'username' => 'required|max:255|alpha_num',
+                    'email' => 'required|email|max:255',
+                ];
+            break;
+
+            default:
+            break;
+        }
     }
 }
