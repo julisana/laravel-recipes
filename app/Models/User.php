@@ -28,7 +28,7 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['first_name', 'last_name', 'email', 'password'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -36,4 +36,15 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    //Relationships
+    public function savedRecipes()
+    {
+        return $this->belongsToMany('App\Models\Recipe');
+    }
+
+    public function createdRecipes()
+    {
+        return $this->hasMany('App\Models\Recipe', 'user_id', 'id');
+    }
 }

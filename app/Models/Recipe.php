@@ -53,8 +53,13 @@ class Recipe extends Model
         return $this->hasMany('App\Models\Direction');
     }
 
-    public function owner()
+    public function author()
     {
         return $this->belongsTo('App\Models\User');
+    }
+
+    public function savedBy()
+    {
+        return $this->belongsToMany('App\Models\User');
     }
 }
