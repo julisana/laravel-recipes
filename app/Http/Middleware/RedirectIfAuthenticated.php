@@ -20,7 +20,7 @@ class RedirectIfAuthenticated
      * @param  Guard  $auth
      * @return void
      */
-    public function __construct(Guard $auth)
+    public function __construct( Guard $auth )
     {
         $this->auth = $auth;
     }
@@ -32,12 +32,12 @@ class RedirectIfAuthenticated
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle( $request, Closure $next )
     {
-        if ($this->auth->check()) {
-            return redirect('/home');
+        if ( $this->auth->check() ) {
+            return redirect( '/home' );
         }
 
-        return $next($request);
+        return $next( $request );
     }
 }

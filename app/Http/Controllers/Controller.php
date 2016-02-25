@@ -13,14 +13,14 @@ abstract class Controller extends BaseController
 
     public function __construct()
     {
-        date_default_timezone_set('America/Chicago');
+        date_default_timezone_set( 'America/Chicago' );
 
-        \View::share('current_user', \Auth::user());
-        \View::share('current_route', \Route::currentRouteName());
+        \View::share( 'current_user', \Auth::user() );
+        \View::share( 'current_route', \Route::currentRouteName() );
 
-        $messages['error'] = \Session::get('message_error');
-        $messages['success'] = \Session::get('message_success');
-        $messages['warning'] = \Session::get('message_warning');
-        \View::share('messages', $messages);
+        $messages[ 'error' ] = \Session::get( 'message_error' );
+        $messages[ 'success' ] = \Session::get( 'message_success' );
+        $messages[ 'warning' ] = \Session::get( 'message_warning' );
+        \View::share( 'messages', $messages );
     }
 }

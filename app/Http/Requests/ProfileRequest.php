@@ -13,7 +13,7 @@ class ProfileRequest extends Request
      */
     public function authorize()
     {
-        return ($this->request->get('id') == \Auth::id());
+        return ( $this->request->get( 'id' ) == \Auth::id() );
     }
 
     /**
@@ -23,7 +23,7 @@ class ProfileRequest extends Request
      */
     public function rules()
     {
-        switch($this->method)
+        switch( $this->method )
         {
             case 'GET':
             case 'DELETE':

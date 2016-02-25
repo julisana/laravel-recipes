@@ -38,7 +38,7 @@ class RecipeController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function store(RecipeRequest $request)
+    public function store( RecipeRequest $request )
     {
         //
     }
@@ -49,14 +49,14 @@ class RecipeController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show($recipeSlug, $id)
+    public function show( $recipeSlug, $id )
     {
         $viewData = [
-            'recipe' => Recipe::findOrFail($id)->with('ingredients', 'directions')->first(),
-            //'user' => User::findOrFail(\Auth::user()->id),
+            'recipe' => Recipe::findOrFail( $id )->with( 'ingredients', 'directions' )->first(),
+            //'user' => User::findOrFail( \Auth::user()->id ),
         ];
 
-        return view('recipes.show', $viewData);
+        return view( 'recipes.show', $viewData );
     }
 
     /**
@@ -65,7 +65,7 @@ class RecipeController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function edit($id)
+    public function edit( $id )
     {
         //
     }
@@ -77,7 +77,7 @@ class RecipeController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(RecipeRequest $request, $id)
+    public function update( RecipeRequest $request, $id )
     {
         //
     }
@@ -88,7 +88,7 @@ class RecipeController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroy( $id )
     {
         //
     }

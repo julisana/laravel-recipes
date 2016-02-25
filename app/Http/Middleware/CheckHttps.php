@@ -19,12 +19,12 @@ class CheckHttps
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle( $request, Closure $next )
     {
-        if (!$request->secure()) {
-            return redirect()->secure($request->path());
+        if ( !$request->secure() ) {
+            return redirect()->secure( $request->path() );
         }
 
-        return $next($request);
+        return $next( $request );
     }
 }

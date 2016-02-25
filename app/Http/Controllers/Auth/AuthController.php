@@ -33,7 +33,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => 'getLogout']);
+        $this->middleware( 'guest', [ 'except' => 'getLogout' ] );
     }
 
     /**
@@ -42,13 +42,13 @@ class AuthController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
+    protected function validator( array $data )
     {
-        return Validator::make($data, [
+        return Validator::make( $data, [
             'username' => 'required|max:255|unique:users',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:8',
-        ]);
+        ] );
     }
 
     /**
@@ -57,12 +57,12 @@ class AuthController extends Controller
      * @param  array  $data
      * @return User
      */
-    protected function create(array $data)
+    protected function create( array $data )
     {
-        return User::create([
-            'username' => $data['username'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+        return User::create( [
+            'username' => $data[ 'username' ],
+            'email' => $data[ 'email' ],
+            'password' => bcrypt( $data[ 'password' ] ),
+        ] );
     }
 }

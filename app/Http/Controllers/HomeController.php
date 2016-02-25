@@ -14,9 +14,9 @@ class HomeController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index( )
     {
         //return Response::view('welcome');
-        return Response::view('index');
+        return Response::view( 'index' );
     }
 }
