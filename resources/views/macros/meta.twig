@@ -1,15 +1,15 @@
-{% macro itemprop(itemprop, content) %}
+{% macro itemprop( itemprop, content ) %}
     <meta itemprop="{{ itemprop }}" content="{{ content }}" />
 {% endmacro %}
 
-{% macro property(property, content) %}
+{% macro property( property, content ) %}
     <meta property="{{ property }}" content="{{ content }}" />
 {% endmacro %}
 
-{% macro name(name, content) %}
+{% macro name( name, content ) %}
     <meta name="{{ name }}" content="{{ content }}" />
 {% endmacro %}
 
-{% macro canonical(url) %}
+{% macro canonical( url ) %}
     <link rel="canonical" href="{{ url }}" />
 {% endmacro %}

@@ -1,3 +1,4 @@
+{% import 'macros/form.twig' as form %}
 {% extends 'layout' %}
 
 {% block content %}
@@ -6,15 +7,15 @@
             <div id="auth-login">
                 {{ form_open({'route': 'auth.login', 'method': 'post', 'id': 'login'}) }}
                     <div class="form-group">
-                        {{ form_label( 'username', 'Username' ) }}
-                        {{ form_text('username', old('username'), {'class': 'form-control', 'id': 'username', 'required': 'required', 'placeholder': 'Enter username'}) }}
+                        {{ form.label( 'username', 'Username' ) }}
+                        {{ form.text( 'username', old( 'usrename' ), 'username', 'Enter username', true ) }}
                     </div>
                     <div class="form-group">
-                        {{ form_label( 'password', 'Password' ) }}
-                        {{ form_password('password', {'class': 'form-control', 'id': 'password', 'required': 'required', 'placeholder': 'Enter password'}) }}
+                        {{ form.label( 'password', 'Password' ) }}
+                        {{ form.password( 'password', 'password', 'Enter password', true ) }}
                     </div>
                     <div class="form-group">
-                        {{ form_submit('Login', {'id': 'login', 'class': 'btn btn-primary'}) }}
+                        {{ form.submit( 'Login', 'login', 'primary' ) }}
                         <a href="#">Forgot Your Password?</a>
                     </div>
                 {{ form_close() }}

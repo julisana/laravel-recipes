@@ -67,7 +67,11 @@ class RecipeController extends Controller
      */
     public function edit( $id )
     {
-        //
+        $viewData = [
+            'recipe' => Recipe::findOrFail( $id )->with( 'ingredients', 'directions' )->first(),
+            //'user' => User::findOrFail( \Auth::user()->id ),
+        ];
+        return view( 'recipes.edit', $viewData );
     }
 
     /**

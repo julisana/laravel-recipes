@@ -2,7 +2,7 @@
 {% extends 'layout' %}
 
 {% block meta_canonical %}
-    {{ meta.canonical( url_route( 'recipes.show', [ str_slug(recipe.name), recipe.id ] ) ) }}
+    {{ meta.canonical( url_route( 'recipes.show', [ str_slug( recipe.name ), recipe.id ] ) ) }}
 {% endblock meta_canonical %}
 
 {% block meta_title %}{% endblock %}

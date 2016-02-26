@@ -1,3 +1,5 @@
+{% import 'macros/navigation.twig' as nav %}
+
 {% block navigation %}
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
@@ -5,35 +7,22 @@
                 <span class="navbar-brand"><big>Foodie</big></span>
             </div>
             <ul class="nav navbar-nav">
-                <li class="recipe-menu{% if 'recipes.' in current_route %} active{% endif %}">
-                    <a href="#">Recipes</a>
-                </li>
-                <li class="grocery-menu{% if 'grocery.' in current_route %} active{% endif %}">
-                    <a href="#">Groceries</a>
-                </li>
+                {{ nav.item( 'recipe-menu', 'recipes.', current_route, '#', 'Recipes' ) }}
+                {{ nav.item( 'grocery-menu', 'grocery.', current_route, '#', 'Groceries' ) }}
+
                 {% if current_user is not empty %}
-                    <li class="dropdown profile-menu{% if 'profile.' in current_route %} active{% endif %}">
-                        <a href="#" data-toggle="dropdown">Me <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li class="profile-menu{% if 'profile.index' in current_route %} active{% endif %}">
-                                <a href="{{ url_route('profile.index') }}">View Profile</a>
-                            </li>
-                            <li class="profile-menu{% if 'profile.edit' in current_route %} active{% endif %}">
-                                <a href="{{ url_route('profile.edit') }}">Edit Profile</a>
-                            </li>
-                            <li class="profile-menu{% if 'profile.recipes' in current_route %} active{% endif %}">
-                                <a href="{{ url_route('profile.recipes.index') }}">My Recipes</a>
-                            </li>
-                        </ul>
-                    </li>
+                    {{ nav.dropdown( 'start', 'profile-menu', 'profile.', current_route, 'Me' ) }}
+                        {{ nav.item( 'profile-menu', 'profile.index', current_route, url_route( 'profile.index' ), 'View Profile' ) }}
+                        {{ nav.item( 'profile-menu', 'profile.edit', current_route, url_route( 'profile.edit' ), 'Edit Profile' ) }}
+                        {{ nav.item( 'profile-menu', 'profile.recipes', current_route, url_route( 'profile.recipes.index' ), 'My Recipes' ) }}
+                    {{ nav.dropdown( 'end' ) }}
                 {% endif %}
-                <li class="auth-menu">
-                    {% if current_user is not empty %}
-                        <a href="{{ url_route('auth.logout') }}">Logout</a>
-                    {% else %}
-                        <a href="{{ url_route('auth.login') }}">Login</a>
-                    {% endif %}
-                </li>
+
+                {% if current_user is not empty %}
+                    {{ nav.item( 'auth-menu', 'auth.', current_route, url_route( 'auth.logout' ), 'Logout' ) }}
+                {% else %}
+                    {{ nav.item( 'auth-menu', 'auth.', current_route, url_route( 'auth.login' ), 'Login' ) }}
+                {% endif %}
             </ul>
         </div>
     </nav>

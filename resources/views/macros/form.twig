@@ -1,16 +1,35 @@
-{% macro text(name, value, id, placeholder) %}
-    {{ form_text( name, value, { class: 'form-control', id: id, text: placeholder, placeholder: placeholder } ) }}
+{% macro text( name, value, id, placeholder, required ) %}
+    {% set parameters = {
+        class: 'form-control',
+        id: id,
+        text: placeholder,
+        placeholder: placeholder
+    } %}
+    {% if required %}
+        {% set parameters = parameters|merge( { 'required': 'required' } ) %}
+    {% endif %}
+
+    {{ form_text( name, value, parameters ) }}
 {% endmacro %}
 
-{% macro password(name, value, id, placeholder) %}
-    {#{ form_password('old_password', {'class': 'form-control', 'required': 'required', 'id': 'old-password'}) }#}
-    {{ form_password( name, { class: 'form-control', id: id, text: placeholder, placeholder: placeholder } ) }}
+{% macro password( name, id, placeholder, required ) %}
+    {% set parameters = {
+        class: 'form-control',
+        id: id,
+        text: placeholder,
+        placeholder: placeholder
+    } %}
+    {% if required %}
+        {% set parameters = parameters|merge( { 'required': 'required' } ) %}
+    {% endif %}
+
+    {{ form_password( name, parameters ) }}
 {% endmacro %}
 
-{% macro label(for, text, width) %}
-    {{ form_label( for, text, { class: width ~ ' control-label' } ) }}
+{% macro label( for, text, class ) %}
+    {{ form_label( for, text, { class: class ~ ' control-label' } ) }}
 {% endmacro %}
 
-{% macro submit(text, color) %}
-    {{ form_submit( text, { class: 'form-control btn btn-' ~ color } ) }}
+{% macro submit( text, id, color, class ) %}
+    {{ form_submit( text, { id: id, class: class ~ ' btn btn-' ~ color } ) }}
 {% endmacro %}

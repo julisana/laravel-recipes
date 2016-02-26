@@ -1,0 +1,28 @@
+{% macro display_messages( messages, class ) %}
+    <div class="row">
+        <div class="alert {{ class }} col-md-12">
+            {% if messages is iterable %}
+                {% for message in messages %}
+                    <p>{{ message|raw }}</p>
+                {% endfor %}
+            {% elseif messages is not empty %}
+                {{ messages|raw }}
+            {% endif %}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro errors( messages ) %}
+    {% import _self as msg %}
+    {{ msg.display_messages( messages, 'alert-danger' ) }}
+{% endmacro %}
+
+{% macro success( messages ) %}
+    {% import _self as msg %}
+    {{ msg.display_messages( messages, 'alert-success' ) }}
+{% endmacro %}
+
+{% macro warning( messages ) %}
+    {% import _self as msg %}
+    {{ msg.display_messages( messages, 'alert-warning' ) }}
+{% endmacro %}

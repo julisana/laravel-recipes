@@ -1,51 +1,21 @@
-{% if messages.error is not empty or messages.success is not empty or messages.warning is not empty or errors is not empty %}
-    <div id="messages">
-        {% if messages.errors is not empty or errors is not empty %}
-            <div class="row">
-                <div class="alert alert-danger col-xs-12">
-                    {% if messages.errors is iterable %}
-                        {% for error in messages.errors %}
-                            <p>{{ error|raw }}</p>
-                        {% endfor %}
-                    {% elseif messages.errors is not empty %}
-                        {{ messages.errors|raw }}
-                    {% endif %}
+{% import 'macros/messages.twig' as msg %}
 
-                    {% if errors.any %}
-                        {% for error in errors.all %}
-                            <p>{{ error|raw }}</p>
-                        {% endfor %}
-                    {% elseif errors is not empty %}
-                        {{ errors|raw }}
-                    {% endif %}
-                </div>
-            </div>
+{% if messages.error is not empty or errors.any or messages.success is not empty or messages.warning is not empty %}
+    <div id="messages">
+        {% if messages.errors is not empty %}
+            {{ msg.errors( messages.errors ) }}
         {% endif %}
+
+        {% if errors.any %}
+            {{ msg.errors( errors.all ) }}
+        {% endif %}
+
         {% if messages.success is not empty %}
-            <div class="row">
-                <div class="alert alert-success col-xs-12">
-                    {% if messages.success is iterable %}
-                        {% for success in messages.success %}
-                            <p>{{ success|raw }}</p>
-                        {% endfor %}
-                    {% elseif messages.success is not empty %}
-                        {{ messages.success|raw }}
-                    {% endif %}
-                </div>
-            </div>
+            {{ msg.success( messages.success ) }}
         {% endif %}
+
         {% if messages.warning is not empty %}
-            <div class="row">
-                <div class="alert alert-warning col-xs-12">
-                    {% if messages.warning is iterable %}
-                        {% for warning in messages.warning %}
-                            <p>{{ warning|raw }}</p>
-                        {% endfor %}
-                    {% elseif messages.warning is not empty %}
-                        {{ messages.warning|raw }}
-                    {% endif %}
-                </div>
-            </div>
+            {{ msg.warning( messages.warning ) }}
         {% endif %}
     </div>
 {% endif %}
