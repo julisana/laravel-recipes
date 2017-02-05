@@ -1,3 +1,11 @@
+{% macro open( record, route, name, id ) %}
+    {{ form_model( record, { route: route, name: name, id: id, enctype: 'multipart/form-data' } ) }}
+{% endmacro %}
+
+{% macro close() %}
+    {{ form_close() }}
+{% endmacro %}
+
 {% macro text( name, value, id, placeholder, required ) %}
     {% set parameters = {
         class: 'form-control',
