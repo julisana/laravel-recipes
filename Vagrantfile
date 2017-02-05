@@ -1,28 +1,27 @@
-require 'json'
-require 'yaml'
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
 
-VAGRANTFILE_API_VERSION ||= "2"
-confDir = $confDir ||= File.expand_path("vendor/laravel/homestead", File.dirname(__FILE__))
+Vagrant.configure( 2 ) do |config|
+    config.vm.box = "bento/ubuntu-16.04"
+    config.vm.hostname = 'furious-foodie.vm'
 
-homesteadYamlPath = "Homestead.yaml"
-homesteadJsonPath = "Homestead.json"
-afterScriptPath = "after.sh"
-aliasesPath = "aliases"
+    config.vm.network :private_network, ip: "192.168.11.80"
+    config.vm.network "forwarded_port", guest: 80, host: 8484, auto_correct: true
+    config.vm.network "forwarded_port", guest: 443, host: 446, auto_correct: true
+    config.vm.synced_folder "./" , "/vagrant", :mount_options => ["dmode=777","fmode=666"]
 
-require File.expand_path(confDir + '/scripts/homestead.rb')
-
-Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-    if File.exists? aliasesPath then
-        config.vm.provision "file", source: aliasesPath, destination: "~/.bash_aliases"
+    config.vm.provider :virtualbox do |v|
+        v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+        v.customize ["modifyvm", :id, "--memory", 1024]
+        v.customize ["modifyvm", :id, "--name", "furious-foodie"]
     end
 
-    if File.exists? homesteadYamlPath then
-        Homestead.configure(config, YAML::load(File.read(homesteadYamlPath)))
-    elsif File.exists? homesteadJsonPath then
-        Homestead.configure(config, JSON.parse(File.read(homesteadJsonPath)))
+    config.vm.provision "shell" do |s|
+        s.inline = "test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)"
     end
 
-    if File.exists? afterScriptPath then
-        config.vm.provision "shell", path: afterScriptPath
+    config.vm.provision "ansible" do |ansible|
+        ansible.playbook = "ansible/vagrant.yml"
+        ansible.sudo = true
     end
 end

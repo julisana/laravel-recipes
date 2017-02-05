@@ -1,0 +1,31 @@
+upstream backend {
+    server unix:/var/run/php/php7.0-fpm.sock weight=100 max_fails=5 fail_timeout=5;
+}
+
+server {
+  listen 80 default;
+  listen 443 ssl;
+
+  ssl_certificate /etc/nginx/ssl/server.crt;
+  ssl_certificate_key /etc/nginx/ssl/server.key;
+
+  server_name {{ server_name }};
+
+  sendfile off;
+
+  root /vagrant/public;
+  index index.php;
+
+  location / {
+    try_files $uri $uri/ /index.php?$query_string;
+  }
+
+  location ~ \.php$ {
+    try_files $uri /index.php =404;
+    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    fastcgi_pass   backend;
+    fastcgi_index  index.php;
+    fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    include        fastcgi_params;
+  }
+}
