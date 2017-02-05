@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -15,12 +18,12 @@ abstract class Controller extends BaseController
     {
         date_default_timezone_set( 'America/Chicago' );
 
-        \View::share( 'current_user', \Auth::user() );
-        \View::share( 'current_route', \Route::currentRouteName() );
+        View::share( 'current_user', auth()->user() );
+        View::share( 'current_route', Route::currentRouteName() );
 
-        $messages[ 'error' ] = \Session::get( 'message_error' );
-        $messages[ 'success' ] = \Session::get( 'message_success' );
-        $messages[ 'warning' ] = \Session::get( 'message_warning' );
-        \View::share( 'messages', $messages );
+        $messages[ 'error' ] = Session::get( 'message_error' );
+        $messages[ 'success' ] = Session::get( 'message_success' );
+        $messages[ 'warning' ] = Session::get( 'message_warning' );
+        View::share( 'messages', $messages );
     }
 }

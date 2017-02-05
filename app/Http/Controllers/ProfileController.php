@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Recipe;
 
-use App\Http\Requests\ProfileRequest;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
+use App\Http\Requests\ProfileRequest;
 
 class ProfileController extends Controller
 {
@@ -19,8 +19,9 @@ class ProfileController extends Controller
     public function index()
     {
         $viewData = [
-            'user' => User::findOrFail( \Auth::user()->id ),
+            'user' => User::findOrFail( auth()->user()->id ),
         ];
+
         return view( 'profile.index', $viewData );
     }
 
@@ -31,12 +32,13 @@ class ProfileController extends Controller
      */
     public function recipes()
     {
-        $user = User::find( \Auth::user()->id )->with( 'savedRecipes', 'createdRecipes' )->first();
+        $user = User::find( auth()->user()->id )->with( 'savedRecipes', 'createdRecipes' )->first();
         $viewData = [
             'user' => $user,
             'savedRecipes' => $user->savedRecipes,
             'createdRecipes' => $user->createdRecipes,
         ];
+
         return view( 'profile.recipes', $viewData );
     }
 
@@ -53,7 +55,7 @@ class ProfileController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param  Request $request
      * @return Response
      */
     public function store( Request $request )
@@ -64,7 +66,7 @@ class ProfileController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function show( $id )
@@ -75,27 +77,26 @@ class ProfileController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
      * @return Response
      */
     public function edit()
     {
         $viewData = [
-            'user' => User::find( \Auth::user()->id ),
+            'user' => User::find( auth()->user()->id ),
         ];
+
         return view( 'profile.edit', $viewData );
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  int  $id
-     * @return Response
+     * @param  ProfileRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update( ProfileRequest $request )
     {
-        $user = User::find( \Auth::user()->id );
+        $user = User::find( auth()->user()->id );
         $user->update( $request->all() );
 
         return redirect()->route( 'profile.edit' );
