@@ -82,6 +82,9 @@
         name: recipes
         state: present
 
+    - name: Run artisan migrate
+      shell: php /vagrant/artisan migrate
+
     - name: Install Gulp globally
       shell: npm install -g gulp
 
