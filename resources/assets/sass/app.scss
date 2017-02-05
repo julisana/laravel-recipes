@@ -1,7 +1,9 @@
-// @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
-body {
-  font-family: source-sans-pro, sans-serif;
-  font-size: 15px;
-  padding-top: 50px;
-}
+// Fonts
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
