@@ -4,6 +4,7 @@
     composer_path: /usr/local/bin/composer
     composer_path_dir: /usr/local/bin
     server_name: furious-foodie.vm
+    mysql_root_password: homestead
   tasks:
     - name: Add ppa repository for PHP
       apt_repository: repo=ppa:ondrej/php
@@ -34,6 +35,53 @@
     - name: Install NodeJS
       apt: pkg=nodejs state=latest
 
+    - name: Install MySQL
+      apt: pkg={{ item }} state=present update_cache=yes cache_valid_time=3600
+      with_items:
+      - python-mysqldb
+      - mysql-server
+
+    - name: Start MySQL service
+      service:
+        name: mysql
+        state: started
+        enabled: true
+
+    - name: Update MySQL root password for all root accounts
+      mysql_user:
+        name: root
+        host: "{{ item }}"
+        password: "{{ mysql_root_password }}"
+        login_user: root
+        login_password: "{{ mysql_root_password }}"
+        check_implicit_admin: yes
+        priv: "*.*:ALL,GRANT"
+      with_items:
+        - "{{ ansible_hostname }}"
+        - 127.0.0.1
+        - ::1
+        - localhost
+
+    - name: Make new MySQL user
+      mysql_user:
+        name: recipes
+        host: "{{ item }}"
+        password: "{{ mysql_root_password }}"
+        login_user: recipes
+        login_password: "{{ mysql_root_password }}"
+        check_implicit_admin: yes
+        priv: "*.*:ALL,GRANT"
+      with_items:
+        - "{{ ansible_hostname }}"
+        - 127.0.0.1
+        - ::1
+        - localhost
+
+    - name: Create default database
+      mysql_db:
+        name: recipes
+        state: present
+
     - name: Install Gulp globally
       shell: npm install -g gulp
 
@@ -59,6 +107,7 @@
         - php7.0-fpm
         - php7.0-cli
         - php7.0-memcached
+        - php7.0-mysql
         - php7.0-redis
         - php7.0-common
         - php7.0-intl
@@ -76,7 +125,7 @@
       action: service name=php7.0-fpm state=restarted enabled=yes
 
     - name: Install composer globally
-      shell:  curl -sS https://getcomposer.org/installer | /usr/bin/php && sudo /bin/mv -f composer.phar {{ composer_path }} creates={{ composer_path }}
+      shell: curl -sS https://getcomposer.org/installer | /usr/bin/php && sudo /bin/mv -f composer.phar {{ composer_path }} creates={{ composer_path }}
       args:
         warn: False
 

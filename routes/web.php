@@ -13,14 +13,14 @@
 
 Route::get( '/', 'HomeController@index' );
 
-//Route::group( [ 'prefix' => 'auth' ], function() {
-//    Route::get( 'login', [ 'as' => 'auth.login', 'uses' => 'Auth\AuthController@getLogin' ] );
-//    Route::post( 'login', 'Auth\AuthController@postLogin' );
-//    Route::get( 'logout', [ 'as' => 'auth.logout', 'uses' => 'Auth\AuthController@getLogout' ] );
-//    // Registration routes...
-//    Route::get( 'register', [ 'as' => 'auth.register', 'uses' => 'Auth\AuthController@getRegister' ] );
-//    Route::post( 'register', [ 'as' => 'auth.create', 'uses' => 'Auth\AuthController@postRegister' ] );
-//} );
+Route::group( [ 'prefix' => 'auth' ], function() {
+    Route::get( 'login', [ 'as' => 'auth.login', 'uses' => 'Auth\LoginController@showLoginForm' ] );
+    Route::post( 'login', 'Auth\LoginController@login' );
+    Route::get( 'logout', [ 'as' => 'auth.logout', 'uses' => 'Auth\LoginController@logout' ] );
+    // Registration routes...
+    Route::get( 'register', [ 'as' => 'auth.register', 'uses' => 'Auth\LoginController@showRegistrationForm' ] );
+    Route::post( 'register', [ 'as' => 'auth.create', 'uses' => 'Auth\LoginController@register' ] );
+} );
 
 Route::group( [ 'prefix' => 'recipes' ], function() {
     //All Recipes
