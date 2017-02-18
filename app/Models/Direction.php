@@ -37,6 +37,6 @@ class Direction extends Model
     //Relationships
     public function recipe()
     {
-        return $this->belongsTo('App\Models\Recipe');
+        return $this->belongsTo( 'App\Models\Recipe' );
     }
 }
