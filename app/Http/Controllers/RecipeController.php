@@ -6,9 +6,10 @@ use App\Models\Recipe;
 use App\Models\Direction;
 use App\Models\Ingredient;
 
+
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Http\Controllers\Controller;
+use App\Http\Requests\RecipeRequest;
 
 class RecipeController extends Controller
 {
@@ -52,8 +53,8 @@ class RecipeController extends Controller
     public function show( $recipeSlug, $id )
     {
         $viewData = [
-            'recipe' => Recipe::findOrFail( $id )->with( 'ingredients', 'directions' )->first(),
-            //'user' => User::findOrFail( \Auth::user()->id ),
+            'recipe' => recipe()->findOrFail( $id )->with( 'ingredients', 'directions' )->first(),
+            //'user' => user()->findOrFail( \Auth::user()->id ),
         ];
 
         return view( 'recipes.show', $viewData );
@@ -68,8 +69,8 @@ class RecipeController extends Controller
     public function edit( $id )
     {
         $viewData = [
-            'recipe' => Recipe::findOrFail( $id )->with( 'ingredients', 'directions' )->first(),
-            //'user' => User::findOrFail( \Auth::user()->id ),
+            'recipe' => recipe()->findOrFail( $id )->with( 'ingredients', 'directions' )->first(),
+            //'user' => user()->findOrFail( \Auth::user()->id ),
         ];
 
         return view( 'recipes.edit', $viewData );

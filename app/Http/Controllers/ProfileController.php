@@ -19,7 +19,7 @@ class ProfileController extends Controller
     public function index()
     {
         $viewData = [
-            'user' => User::findOrFail( auth()->user()->id ),
+            'user' => user()->findOrFail( auth()->user()->id ),
         ];
 
         return view( 'profile.index', $viewData );
@@ -32,7 +32,7 @@ class ProfileController extends Controller
      */
     public function recipes()
     {
-        $user = User::find( auth()->user()->id )->with( 'savedRecipes', 'createdRecipes' )->first();
+        $user = user()->find( auth()->user()->id )->with( 'savedRecipes', 'createdRecipes' )->first();
         $viewData = [
             'user' => $user,
             'savedRecipes' => $user->savedRecipes,
@@ -82,7 +82,7 @@ class ProfileController extends Controller
     public function edit()
     {
         $viewData = [
-            'user' => User::find( auth()->user()->id ),
+            'user' => user()->find( auth()->user()->id ),
         ];
 
         return view( 'profile.edit', $viewData );
@@ -96,7 +96,7 @@ class ProfileController extends Controller
      */
     public function update( ProfileRequest $request )
     {
-        $user = User::find( auth()->user()->id );
+        $user = user()->find( auth()->user()->id );
         $user->update( $request->all() );
 
         return redirect()->route( 'profile.edit' );
