@@ -1,27 +1,27 @@
-{% import 'nav.macros' as nav %}
+{% import 'macros.nav' as nav %}
 
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container obits no-gutter">
         <div class="navbar-header">
-            <span class="navbar-brand">Foodie</span>
+            <span class="navbar-brand">Furious Foodie</span>
         </div>
 
         <ul class="nav navbar-nav">
             {{ nav.menuItem( 'recipes.index', {}, currentRoute, 'Recipes' ) }}
             {{ nav.menuItem( 'index', {}, currentRoute, 'Groceries' ) }}
 
-            {% if currentUser is not empty %}
-                {{ nav.dropdown( 'start', 'profile-menu', 'profile.', current_route, 'Me' ) }}
-                    {{ nav.item( 'profile-menu', 'profile.index', current_route, url_route( 'profile.index' ), 'View Profile' ) }}
-                    {{ nav.item( 'profile-menu', 'profile.edit', current_route, url_route( 'profile.edit' ), 'Edit Profile' ) }}
-                    {{ nav.item( 'profile-menu', 'profile.recipes', current_route, url_route( 'profile.recipes.index' ), 'My Recipes' ) }}
-                {{ nav.dropdown( 'end' ) }}
+            {% if auth_user() is not empty %}
+                {{ nav.dropdownOpen( currentRoute, 'profile.', 'Me', 'profile-menu' ) }}
+                    {{ nav.dropdownItem( 'profile.index', {}, currentRoute, 'View Profile', 'profile-menu' ) }}
+                    {{ nav.dropdownItem( 'profile.edit', {}, currentRoute, 'Edit Profile', 'profile-menu' ) }}
+                    {{ nav.dropdownItem( 'profile.recipes.index', {}, currentRoute, 'My Recipes', 'profile-menu' ) }}
+                {{ nav.dropdownClose() }}
             {% endif %}
 
-            {% if currentUser is not empty %}
-                {{ nav.item( 'auth-menu', 'auth.', current_route, url_route( 'auth.logout' ), 'Logout' ) }}
+            {% if auth_user() is not empty %}
+                {{ nav.menuItem( 'logout', {}, currentRoute, 'Logout' ) }}
             {% else %}
-                {{ nav.item( 'auth-menu', 'auth.', current_route, url_route( 'auth.login' ), 'Login' ) }}
+                {{ nav.menuItem( 'login', {}, currentRoute, 'Login' ) }}
             {% endif %}
         </ul>
     </div>

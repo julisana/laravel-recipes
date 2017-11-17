@@ -1,6 +1,6 @@
 {% macro menuItem(route, parameters, current, name, disabled) %}
     <li class="{% if route == current.getName() %}active{% endif %}{% if disabled %} disabled{% endif %}">
-        <a href="{% if not disabled %}{{ route( route, parameters ) }}{% else %}#{% endif %}">
+        <a {% if not disabled %}href="{{ route( route, parameters ) }}"{% endif %}>
             {{ name }}
         </a>
     </li>

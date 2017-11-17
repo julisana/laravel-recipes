@@ -1,0 +1,38 @@
+---
+- name: Remove the nginx example configuration files
+  file:
+    path: /etc/nginx/{{ item }}
+    state: absent
+  with_items:
+    - sites-available/default
+    - sites-enabled/default
+    - conf.d/default.conf
+    - conf.d/example_ssl.conf
+
+- name: Create directory for ssl
+  when: create_ssl|default(True)
+  become_user: 'root'
+  file:
+    path: /etc/nginx/ssl/
+    owner: root
+    group: root
+    state: directory
+    mode: 0775
+    recurse: yes
+
+- name: create self-signed SSL cert
+  when: create_ssl|default(True)
+  become_user: 'root'
+  command: openssl req -new -nodes -x509 -subj "/C=US/ST=Minnesota/L=Minneapolis/O=ST/CN={{ server_name }}" -days 3650 -keyout /etc/nginx/ssl/server.key -out /etc/nginx/ssl/server.crt -extensions v3_ca creates=/etc/nginx/ssl/server.crt
+
+- name: Place nginx site config
+  template:
+    src: nginx-vhost.j2
+    dest: /etc/nginx/sites-available/{{ server_name }}
+
+- name: Create the links to enable site configurations
+  file: path=/etc/nginx/sites-enabled/{{ server_name }} state=link src=/etc/nginx/sites-available/{{ server_name }}
+
+- name: Restart nginx
+  become_user: 'root'
+  action: service name=nginx state=restarted enabled=yes
