@@ -5,7 +5,7 @@ Vagrant.configure( 2 ) do |config|
     config.vm.box = "bento/ubuntu-16.04"
     config.vm.hostname = 'furious-foodie.vm'
 
-    config.vm.network :private_network, ip: "192.168.11.80"
+    config.vm.network :private_network, ip: "192.168.11.94"
     config.vm.network "forwarded_port", guest: 80, host: 8484, auto_correct: true
     config.vm.network "forwarded_port", guest: 443, host: 446, auto_correct: true
     config.vm.synced_folder "./" , "/vagrant", :mount_options => ["dmode=777","fmode=666"]

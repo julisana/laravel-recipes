@@ -11,7 +11,7 @@
         {
             "name": "Lisa Riggle",
             "email": "julisana@gmail.com",
-            "role": "PHP Developer"
+            "role": "Software Engineer"
         }
     ],
     "license": "MIT",
@@ -37,10 +37,10 @@
     },
     "autoload": {
         "classmap": [
-            "database",
-            "app/Http/Controllers",
-            "app/Console",
-            "app/Models"
+            "database"
+        ],
+        "files": [
+            "app/helpers/common.php"
         ],
         "psr-4": {
             "App\\": "app/"

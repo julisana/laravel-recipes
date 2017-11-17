@@ -2,6 +2,9 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\ForceSSL;
+use App\Http\Middleware\CheckLogin;
+use App\Http\Middleware\ViewVariables;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -57,5 +60,9 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+
+        'force.ssl' => ForceSSL::class,
+        'check.login' => CheckLogin::class,
+        'global.variables' => ViewVariables::class,
     ];
 }
