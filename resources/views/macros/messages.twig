@@ -12,7 +12,7 @@
     </div>
 {% endmacro %}
 
-{% macro errors( messages ) %}
+{% macro error( messages ) %}
     {% import _self as msg %}
     {{ msg.display_messages( messages, 'alert-danger' ) }}
 {% endmacro %}

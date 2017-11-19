@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: lisa
+ * Date: 11/13/17
+ * Time: 7:36 PM
+ */
 
 namespace App\Models;
 
@@ -7,29 +13,13 @@ use Illuminate\Database\Eloquent\Model;
 class Recipe extends Model
 {
     /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
-    protected $table = 'recipes';
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name',
-        'description',
-        'source',
-        'source_url',
-        'notes',
-        'prep_time',
-        'cook_time',
-        'servings',
-        'serving_size',
-        'created_by',
-        'updated_by',
+        'name', 'description', 'source', 'source_url', 'notes', 'prep_time', 'cook_time', 'servings', 'serving_size',
+        'created_by', 'updated_by',
     ];
 
     /**
@@ -38,28 +28,38 @@ class Recipe extends Model
      * @var array
      */
     protected $dates = [
-        'created_at',
-        'updated_at',
+        'created_at', 'updated_at',
     ];
 
-    //Relationships
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function ingredients()
     {
-        return $this->hasMany( 'App\Models\Ingredient' );
+        return $this->hasMany( Ingredient::class );
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function directions()
     {
-        return $this->hasMany( 'App\Models\Direction' );
+        return $this->hasMany( Direction::class );
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function author()
     {
-        return $this->belongsTo( 'App\Models\User' );
+        return $this->belongsTo( User::class );
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function savedBy()
     {
-        return $this->belongsToMany( 'App\Models\User' );
+        return $this->belongsToMany( User::class );
     }
 }

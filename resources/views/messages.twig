@@ -1,0 +1,23 @@
+{% import 'macros.messages' as msg %}
+
+{% if messages.errors is not empty or messages.success is not empty or messages.warning is not empty or errors is not empty %}
+        <div id="messages" class="col-md-6">
+        {% if messages.errors is not empty %}
+            {{ msg.error( messages.errors ) }}
+        {% endif %}
+
+        {% if errors.any %}
+            {{ msg.error( errors.any ) }}
+        {% elseif errors is not empty %}
+            {{ msg.error( errors ) }}
+        {% endif %}
+
+        {% if messages.warning is not empty %}
+            {{ msg.warning( messages.warning ) }}
+        {% endif %}
+
+        {% if messages.success is not empty %}
+            {{ msg.success( messages.success ) }}
+        {% endif %}
+    </div>
+{% endif %}

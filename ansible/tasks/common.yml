@@ -1,0 +1,81 @@
+---
+- name: Install NodeJS
+  apt: pkg=nodejs state=latest
+
+- name: Install Compass
+  gem: name=compass
+
+- name: Add Yarn APT key
+  apt_key: url=https://dl.yarnpkg.com/debian/pubkey.gpg id=1646B01B86E50310
+
+- name: Add Yarn APT repository
+  apt_repository: repo='deb http://dl.yarnpkg.com/debian/ stable main'
+
+- name: Install Yarn package manager
+  apt: name=yarn update_cache=yes cache_valid_time=3600
+
+- name: Install PHP {{ php_version }}, modules, and tools
+  apt: pkg={{ item }} state=latest update_cache=yes cache_valid_time=3600
+  with_items:
+    - php{{ php_version }}
+    - php{{ php_version }}-fpm
+    - php{{ php_version }}-cli
+    - php{{ php_version }}-memcached
+    - php{{ php_version }}-mysql
+    - php{{ php_version }}-redis
+    - php{{ php_version }}-common
+    - php{{ php_version }}-intl
+    - php{{ php_version }}-curl
+    - php{{ php_version }}-dev
+    - php{{ php_version }}-gd
+    - php{{ php_version }}-xml
+    - php{{ php_version }}-json
+    - php{{ php_version }}-mbstring
+    - php{{ php_version }}-zip
+    - phpunit
+
+- name: Ensure "post_max_size=50M is in section [PHP]" in php.ini
+  ini_file:
+    path: /etc/php/{{ php_version }}/fpm/php.ini
+    section: PHP
+    option: post_max_size
+    value: "{{ upload_size_limit }}"
+    backup: yes
+
+- name: Restart php{{ php_version }}-fpm
+  become_user: 'root'
+  action: service name=php{{ php_version }}-fpm state=restarted enabled=yes
+
+- name: Install composer globally
+  shell:  curl -sS https://getcomposer.org/installer | /usr/bin/php && sudo /bin/mv -f composer.phar {{ composer_path }} creates={{ composer_path }}
+  args:
+    warn: False
+
+- name: Create MySQL User
+  user:
+    name: mysql
+
+- name: MySQL | Install MySQL Server
+  apt: pkg=mysql-server state=latest update_cache=yes cache_valid_time=3600
+
+- name: MySQL | Set my.cnf template
+  template:
+    src=templates/mysql.my.cnf.j2
+    dest=/etc/mysql/my.cnf
+    owner=root mode=0644
+
+- name: MySQL | Add recipes user
+  mysql_user: name=recipes host=% priv=*.*:ALL state=present
+
+- name: MySQL | Create a barebones database called recipes
+  mysql_db:
+    login_user: "recipes"
+    login_password: ""
+    name: "recipes"
+    state: present
+
+- name: MySQL | Grant recipes access from anywhere
+  command: mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO 'recipes'@'%' WITH GRANT OPTION;"
+
+- name: MySQL | Restart mysql via systemd
+  systemd: name=mysql state=restarted enabled=yes

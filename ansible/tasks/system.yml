@@ -1,0 +1,51 @@
+---
+- name: Add ppa repository for PHP
+  apt_repository: repo=ppa:ondrej/php
+
+- name: Add ppa repository for nginx
+  apt_repository: repo=ppa:nginx/development
+
+- name: Add source for NodeJS {{ node_version }}
+  shell: 'curl -sL https://deb.nodesource.com/setup_{{ node_version }} | sudo -E bash -'
+  args:
+    warn: False
+
+- name: Install system packages
+  apt: pkg={{ item }} state=latest update_cache=yes cache_valid_time=3600
+  with_items:
+    - acl
+    - build-essential
+    - curl
+    - git
+    - htop
+    - imagemagick
+    - libnotify-bin
+    - mysql-client
+    - python-software-properties
+    - python-selinux
+    - python-mysqldb
+    - wget
+    - vim
+
+- name: Install Ruby and related dev packages
+  become: True
+  apt: pkg={{ item }} state=latest update_cache=yes cache_valid_time=3600
+  with_items:
+    - ruby
+    - ruby-dev
+    - make
+    - g++
+    - diffutils
+    - patch
+    - libxml2-dev
+    - libxslt1-dev
+    - zlib1g-dev
+
+- name: Install nginx
+  apt: pkg=nginx state=latest
+
+- name: Install Postfix
+  apt: pkg=postfix state=latest
+
+- name: Restart the Postfix service
+  service: name=postfix state=restarted enabled=yes

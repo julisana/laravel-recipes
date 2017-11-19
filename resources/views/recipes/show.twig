@@ -1,12 +1,13 @@
-{% import 'macros/meta.twig' as meta %}
 {% extends 'layout' %}
 
+{% import 'macros.meta' as meta %}
+
 {% block meta_canonical %}
-    {{ meta.canonical( url_route( 'recipes.show', [ str_slug( recipe.name ), recipe.id ] ) ) }}
+    {{ meta.canonical( route( 'recipes.show', { slug: recipe.name|str_slug, id: recipe.id } ) ) }}
 {% endblock meta_canonical %}
 
 {% block meta_title %}{% endblock %}
 
 {% block content %}
-    {{ dump(recipe) }}
+    {{ dump( recipe ) }}
 {% endblock content %}

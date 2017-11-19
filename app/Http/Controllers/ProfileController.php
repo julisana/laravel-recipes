@@ -3,75 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Recipe;
-
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Http\Requests\ProfileRequest;
+use App\Http\Requests\Profile as ProfileRequest;
 
 class ProfileController extends Controller
 {
     /**
-     * Display a details about the logged in user
-     *
      * @return Response
      */
     public function index()
     {
-        $viewData = [
-            'user' => user()->findOrFail( auth()->user()->id ),
-        ];
+        $this->addContext( 'user', auth()->user() );
 
-        return view( 'profile.index', $viewData );
+        return response()->view( 'profile.index', $this->context );
     }
 
     /**
-     * Display a list of the logged in user's recipes
-     *
      * @return Response
      */
     public function recipes()
     {
-        $user = user()->find( auth()->user()->id )->with( 'savedRecipes', 'createdRecipes' )->first();
-        $viewData = [
-            'user' => $user,
-            'savedRecipes' => $user->savedRecipes,
-            'createdRecipes' => $user->createdRecipes,
-        ];
+        /** @var User $user */
+        $user = auth()->user();
 
-        return view( 'profile.recipes', $viewData );
-    }
+        $this->addContext( 'user', $user )
+            ->addContext( 'savedRecipes', $user->savedRecipes() )
+            ->addContext( 'createdRecipes', $user->createdRecipes() );
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  Request $request
-     * @return Response
-     */
-    public function store( Request $request )
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return Response
-     */
-    public function show( $id )
-    {
-        //
+        return response()->view( 'profile.recipes', $this->context );
     }
 
     /**
@@ -81,22 +40,22 @@ class ProfileController extends Controller
      */
     public function edit()
     {
-        $viewData = [
-            'user' => user()->find( auth()->user()->id ),
-        ];
+        $this->addContext( 'user', auth()->user() );
 
-        return view( 'profile.edit', $viewData );
+        return view( 'profile.edit', $this->context );
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  ProfileRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param ProfileRequest $request
+     *
+     * @return Response
      */
     public function update( ProfileRequest $request )
     {
-        $user = user()->find( auth()->user()->id );
+        /** @var User $user */
+        $user = auth()->user();
         $user->update( $request->all() );
 
         return redirect()->route( 'profile.edit' );

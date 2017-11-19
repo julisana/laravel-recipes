@@ -10,20 +10,59 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-abstract class Controller extends BaseController
+class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function __construct()
+    /**
+     * @var array
+     */
+    protected $context = [];
+
+    /**
+     * If we need to add an error message (or any other kind of message), pull the existing messages
+     * and add to it.
+     *
+     * @param string $type
+     * @param mixed $value
+     *
+     * @return Controller
+     */
+    protected function addMessage( $type, $value )
     {
-        date_default_timezone_set( 'America/Chicago' );
+        $messages = view()->shared( 'messages', [] );
+        if ( empty( $messages ) ) {
+            $messages = array_get( $this->context, 'messages', [] );
+        }
 
-        View::share( 'current_user', auth()->user() );
-        View::share( 'current_route', Route::currentRouteName() );
+        //Errors is the only 'message' that's got a plural name, let's check for the singular just in case.
+        if ( $type == 'error' ) {
+            $type = 'errors';
+        }
 
-        $messages[ 'error' ] = Session::get( 'message_error' );
-        $messages[ 'success' ] = Session::get( 'message_success' );
-        $messages[ 'warning' ] = Session::get( 'message_warning' );
-        View::share( 'messages', $messages );
+        if ( !is_array( $messages[ $type ] ) ) {
+            $newMessages = [];
+        }
+        if ( !empty( $messages[ $type ] ) ) {
+            $newMessages[] = [ $messages[ $type ] ];
+        }
+
+        $newMessages[] = $value;
+        $messages[ $type ] = $newMessages;
+
+        return $this->addContext( 'messages', $messages );
+    }
+
+    /**
+     * @param string $key
+     * @param mixed $value
+     *
+     * @return $this
+     */
+    protected function addContext( $key, $value )
+    {
+        array_set( $this->context, $key, $value );
+
+        return $this;
     }
 }

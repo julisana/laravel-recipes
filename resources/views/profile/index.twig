@@ -13,11 +13,10 @@
             <div class="col-md-6">
                 <ul>
                     {% for recipe in user.createdRecipes %}
-                        <li><a href="{{ url_route( 'recipes.show', [ str_slug(recipe.name), recipe.id ] ) }}">{{ recipe.name }}</a></li>
+                        <li><a href="{{ route( 'recipes.show', { slug: recipe.name|str_slug, id: recipe.id } ) }}">{{ recipe.name }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
         </div>
     </div>
-
 {% endblock %}

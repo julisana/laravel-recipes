@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Response;
+
 class HomeController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function index( )
+    public function index()
     {
-        return view( 'index' );
+        return response()->view( 'index' );
     }
 }

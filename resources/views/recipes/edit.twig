@@ -1,10 +1,8 @@
-{% import 'macros/meta.twig' as meta %}
-{% import 'macros/form.twig' as form %}
-
 {% extends 'layout' %}
 
-{% block meta %}{% endblock %}
+{% import 'macros.meta' as meta %}
+{% import 'macros.form' as form %}
 
 {% block content %}
-    {{ dump(recipe) }}
+    {{ dump( recipe ) }}
 {% endblock content %}

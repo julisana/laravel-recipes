@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: lisa
+ * Date: 11/13/17
+ * Time: 7:33 PM
+ */
 
 namespace App\Models;
 
@@ -8,21 +14,12 @@ use Illuminate\Database\Eloquent\Builder;
 class Direction extends Model
 {
     /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
-    protected $table = 'directions';
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'recipe_id',
-        'order_number',
-        'direction',
+        'recipe_id', 'order_number', 'direction',
     ];
 
     /**
@@ -31,13 +28,14 @@ class Direction extends Model
      * @var array
      */
     protected $dates = [
-        'created_at',
-        'updated_at',
+        'created_at', 'updated_at',
     ];
 
-    //Relationships
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function recipe()
     {
-        return $this->belongsTo( 'App\Models\Recipe' );
+        return $this->belongsTo( Recipe::class );
     }
 }

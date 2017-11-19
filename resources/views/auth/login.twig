@@ -1,9 +1,13 @@
-{% import 'macros/form.twig' as form %}
 {% extends 'layout' %}
+
+{% import 'macros.form' as form %}
+
+{% block title %}Login{% endblock %}
+{% block pageTitle %}Login{% endblock %}
 
 {% block content %}
     <div class="row">
-        <div id="auth" class="col-md-4 col-md-offset-1">
+        <div id="auth" class="col-md-5">
             <div id="auth-login">
                 {{ form.open('user', 'auth.login', 'login', 'login') }}
                     <div class="form-group">

@@ -1,18 +1,24 @@
-{% macro open( record, route, name, id ) %}
-    {{ form_model( record, { route: route, name: name, id: id, enctype: 'multipart/form-data' } ) }}
+{% macro open( record, route, name, id, parameters ) %}
+    {% set parameters = parameters|default( {} )|merge( {
+        route: route,
+        name: name,
+        id: id,
+        enctype: 'multipart/form-data'
+    } ) %}
+    {{ form_model( record, parameters ) }}
 {% endmacro %}
 
 {% macro close() %}
     {{ form_close() }}
 {% endmacro %}
 
-{% macro text( name, value, id, placeholder, required ) %}
-    {% set parameters = {
+{% macro text( name, value, id, placeholder, required, parameters ) %}
+    {% set parameters = parameters|default( {} )|merge( {
         class: 'form-control',
         id: id,
         text: placeholder,
         placeholder: placeholder
-    } %}
+    } ) %}
     {% if required %}
         {% set parameters = parameters|merge( { 'required': 'required' } ) %}
     {% endif %}
@@ -20,13 +26,13 @@
     {{ form_text( name, value, parameters ) }}
 {% endmacro %}
 
-{% macro password( name, id, placeholder, required ) %}
-    {% set parameters = {
+{% macro password( name, id, placeholder, required, parameters ) %}
+    {% set parameters = parameters|default( {} )|merge( {
         class: 'form-control',
         id: id,
         text: placeholder,
         placeholder: placeholder
-    } %}
+    } ) %}
     {% if required %}
         {% set parameters = parameters|merge( { 'required': 'required' } ) %}
     {% endif %}
@@ -34,10 +40,17 @@
     {{ form_password( name, parameters ) }}
 {% endmacro %}
 
-{% macro label( for, text, class ) %}
-    {{ form_label( for, text, { class: class ~ ' control-label' } ) }}
+{% macro label( for, text, class, parameters ) %}
+    {% set parameters = parameters|default( {} )|merge( {
+        class: class ~ ' control-label'
+    } ) %}
+    {{ form_label( for, text, parameters ) }}
 {% endmacro %}
 
-{% macro submit( text, id, color, class ) %}
-    {{ form_submit( text, { id: id, class: class ~ ' btn btn-' ~ color } ) }}
+{% macro submit( text, id, color, class, parameters ) %}
+    {% set parameters = parameters|default( {} )|merge( {
+        id: id,
+        class: class ~ ' btn btn-' ~ color
+    } ) %}
+    {{ form_submit( text, parameters ) }}
 {% endmacro %}
