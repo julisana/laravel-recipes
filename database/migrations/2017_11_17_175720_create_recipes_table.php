@@ -21,8 +21,8 @@ class CreateRecipesTable extends Migration
             $table->string( 'source' )->nullable();
             $table->string( 'source_url' )->nullable();
             $table->text( 'notes' )->nullable();
-            $table->unsignedBigInteger( 'prep_time' )->default( 0 );   //seconds
-            $table->unsignedBigInteger( 'cook_time' )->default( 0 );   //seconds
+            $table->unsignedBigInteger( 'prep_time' )->default( 0 );   //minutes
+            $table->unsignedBigInteger( 'cook_time' )->default( 0 );   //minutes
             $table->unsignedInteger( 'servings' )->nullable();       //how many servings
             $table->string( 'serving_size' )->nullable();                //what size the serving is (people, cups, etc)
 
