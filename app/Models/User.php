@@ -11,8 +11,8 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 class User extends Model implements AuthenticatableContract,
-                                    AuthorizableContract,
-                                    CanResetPasswordContract
+    AuthorizableContract,
+    CanResetPasswordContract
 {
     use Authenticatable, Authorizable, CanResetPassword;
 
@@ -28,23 +28,23 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $fillable = ['first_name', 'last_name', 'email', 'password'];
+    protected $fillable = [ 'first_name', 'last_name', 'email', 'password' ];
 
     /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token'];
+    protected $hidden = [ 'password', 'remember_token' ];
 
     //Relationships
     public function savedRecipes()
     {
-        return $this->belongsToMany('App\Models\Recipe');
+        return $this->belongsToMany( 'App\Models\Recipe' );
     }
 
     public function createdRecipes()
     {
-        return $this->hasMany('App\Models\Recipe', 'user_id', 'id');
+        return $this->hasMany( 'App\Models\Recipe', 'user_id', 'id' );
     }
 }

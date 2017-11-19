@@ -25,7 +25,7 @@ return [
     |
     */
 
-    'env' => env('APP_ENV', 'production'),
+    'env' => env( 'APP_ENV', 'production' ),
 
     /*
     |--------------------------------------------------------------------------
@@ -38,7 +38,7 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', false),
+    'debug' => env( 'APP_DEBUG', false ),
 
     /*
     |--------------------------------------------------------------------------
@@ -51,7 +51,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env( 'APP_URL', 'http://localhost' ),
 
     /*
     |--------------------------------------------------------------------------
@@ -103,7 +103,7 @@ return [
     |
     */
 
-    'key' => env('APP_KEY'),
+    'key' => env( 'APP_KEY' ),
 
     'cipher' => 'AES-256-CBC',
 
@@ -120,9 +120,9 @@ return [
     |
     */
 
-    'log' => env('APP_LOG', 'single'),
+    'log' => env( 'APP_LOG', 'single' ),
 
-    'log_level' => env('APP_LOG_LEVEL', 'debug'),
+    'log_level' => env( 'APP_LOG_LEVEL', 'debug' ),
 
     /*
     |--------------------------------------------------------------------------
@@ -180,7 +180,7 @@ return [
         /*
          * Support Service Providers
          */
-        Barryvdh\Debugbar\ServiceProvider::class,
+//        Barryvdh\Debugbar\ServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         TwigBridge\ServiceProvider::class,

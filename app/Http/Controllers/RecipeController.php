@@ -6,9 +6,10 @@ use App\Models\Recipe;
 use App\Models\Direction;
 use App\Models\Ingredient;
 
-use App\Http\Requests;
+
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
+use App\Http\Requests\RecipeRequest;
 
 class RecipeController extends Controller
 {
@@ -35,7 +36,7 @@ class RecipeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param  RecipeRequest $request
      * @return Response
      */
     public function store( RecipeRequest $request )
@@ -46,14 +47,14 @@ class RecipeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function show( $recipeSlug, $id )
     {
         $viewData = [
-            'recipe' => Recipe::findOrFail( $id )->with( 'ingredients', 'directions' )->first(),
-            //'user' => User::findOrFail( \Auth::user()->id ),
+            'recipe' => recipe()->findOrFail( $id )->with( 'ingredients', 'directions' )->first(),
+            //'user' => user()->findOrFail( \Auth::user()->id ),
         ];
 
         return view( 'recipes.show', $viewData );
@@ -62,23 +63,24 @@ class RecipeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function edit( $id )
     {
         $viewData = [
-            'recipe' => Recipe::findOrFail( $id )->with( 'ingredients', 'directions' )->first(),
-            //'user' => User::findOrFail( \Auth::user()->id ),
+            'recipe' => recipe()->findOrFail( $id )->with( 'ingredients', 'directions' )->first(),
+            //'user' => user()->findOrFail( \Auth::user()->id ),
         ];
+
         return view( 'recipes.edit', $viewData );
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  int  $id
+     * @param  RecipeRequest $request
+     * @param  int $id
      * @return Response
      */
     public function update( RecipeRequest $request, $id )
@@ -89,7 +91,7 @@ class RecipeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function destroy( $id )

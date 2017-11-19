@@ -45,21 +45,21 @@ class Recipe extends Model
     //Relationships
     public function ingredients()
     {
-        return $this->hasMany('App\Models\Ingredient');
+        return $this->hasMany( 'App\Models\Ingredient' );
     }
 
     public function directions()
     {
-        return $this->hasMany('App\Models\Direction');
+        return $this->hasMany( 'App\Models\Direction' );
     }
 
     public function author()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo( 'App\Models\User' );
     }
 
     public function savedBy()
     {
-        return $this->belongsToMany('App\Models\User');
+        return $this->belongsToMany( 'App\Models\User' );
     }
 }

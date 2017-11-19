@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -12,7 +13,7 @@ class CreateRecipesTable extends Migration
      */
     public function up()
     {
-        Schema::create('recipes', function($table)
+        Schema::create('recipes', function(Blueprint $table)
         {
             $table->increments('id')->unsigned();
             $table->integer('user_id')->nullable()->unsigned();        //author

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Direction extends Model
 {
@@ -37,6 +38,6 @@ class Direction extends Model
     //Relationships
     public function recipe()
     {
-        return $this->belongsTo('App\Models\Recipe');
+        return $this->belongsTo( 'App\Models\Recipe' );
     }
 }
