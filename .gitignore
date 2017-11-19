@@ -15,7 +15,6 @@ npm-debug.log
 /resources/assets/vendor/*
 /public/jspm_packages
 /public/js
-/public/css
 /public/img
 /public/build
 /public/fonts

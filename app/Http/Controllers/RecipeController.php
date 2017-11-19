@@ -6,6 +6,7 @@ use App\Models\Recipe;
 use Illuminate\Http\Response;
 use App\Http\Requests\Recipe as RecipeRequest;
 
+
 class RecipeController extends Controller
 {
     /**
@@ -42,7 +43,7 @@ class RecipeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function show( $slug, $id )
@@ -55,7 +56,7 @@ class RecipeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function edit( $id )

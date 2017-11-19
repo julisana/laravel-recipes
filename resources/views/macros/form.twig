@@ -1,3 +1,17 @@
+{% macro open( record, route, name, id, parameters ) %}
+    {% set parameters = parameters|default( {} )|merge( {
+        route: route,
+        name: name,
+        id: id,
+        enctype: 'multipart/form-data'
+    } ) %}
+    {{ form_model( record, parameters ) }}
+{% endmacro %}
+
+{% macro close() %}
+    {{ form_close() }}
+{% endmacro %}
+
 {% macro text( name, value, id, placeholder, required, parameters ) %}
     {% set parameters = parameters|default( {} )|merge( {
         class: 'form-control',

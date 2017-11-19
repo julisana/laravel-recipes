@@ -61,6 +61,5 @@ class Recipe extends Model
     public function savedBy()
     {
         return $this->belongsToMany( User::class );
-
     }
 }
