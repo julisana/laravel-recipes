@@ -1,5 +1,5 @@
 {% macro text( name, value, id, placeholder, required, parameters ) %}
-    {% set parameters = parameters|merge( {
+    {% set parameters = parameters|default( {} )|merge( {
         class: 'form-control',
         id: id,
         text: placeholder,
@@ -13,7 +13,7 @@
 {% endmacro %}
 
 {% macro password( name, id, placeholder, required, parameters ) %}
-    {% set parameters = parameters|merge( {
+    {% set parameters = parameters|default( {} )|merge( {
         class: 'form-control',
         id: id,
         text: placeholder,
@@ -27,14 +27,14 @@
 {% endmacro %}
 
 {% macro label( for, text, class, parameters ) %}
-    {% set parameters = parameters|merge( {
+    {% set parameters = parameters|default( {} )|merge( {
         class: class ~ ' control-label'
     } ) %}
     {{ form_label( for, text, parameters ) }}
 {% endmacro %}
 
 {% macro submit( text, id, color, class, parameters ) %}
-    {% set parameters = parameters|merge( {
+    {% set parameters = parameters|default( {} )|merge( {
         id: id,
         class: class ~ ' btn btn-' ~ color
     } ) %}

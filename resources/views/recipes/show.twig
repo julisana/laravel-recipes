@@ -1,0 +1,13 @@
+{% extends 'layout' %}
+
+{% import 'macros.meta' as meta %}
+
+{% block meta_canonical %}
+    {{ meta.canonical( route( 'recipes.show', { slug: recipe.name|str_slug, id: recipe.id } ) ) }}
+{% endblock meta_canonical %}
+
+{% block meta_title %}{% endblock %}
+
+{% block content %}
+    {{ dump( recipe ) }}
+{% endblock content %}

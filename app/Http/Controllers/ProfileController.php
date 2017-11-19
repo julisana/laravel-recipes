@@ -13,11 +13,9 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $context = [
-            'user' => auth()->user(),
-        ];
+        $this->addContext( 'user', auth()->user() );
 
-        return response()->view( 'profile.index', $context );
+        return response()->view( 'profile.index', $this->context );
     }
 
     /**
@@ -28,13 +26,11 @@ class ProfileController extends Controller
         /** @var User $user */
         $user = auth()->user();
 
-        $context = [
-            'user' => $user,
-            'savedRecipes' => $user->savedRecipes(),
-            'createdRecipes' => $user->createdRecipes(),
-        ];
+        $this->addContext( 'user', $user )
+            ->addContext( 'savedRecipes', $user->savedRecipes() )
+            ->addContext( 'createdRecipes', $user->createdRecipes() );
 
-        return response()->view( 'profile.recipes', $context );
+        return response()->view( 'profile.recipes', $this->context );
     }
 
     /**
@@ -44,17 +40,15 @@ class ProfileController extends Controller
      */
     public function edit()
     {
-        $context = [
-            'user' => auth()->user(),
-        ];
+        $this->addContext( 'user', auth()->user() );
 
-        return view( 'profile.edit', $context );
+        return view( 'profile.edit', $this->context );
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  ProfileRequest $request
+     * @param ProfileRequest $request
      *
      * @return Response
      */

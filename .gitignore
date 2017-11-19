@@ -6,6 +6,7 @@ Homestead.yaml
 Homestead.json
 _ide_helper.php
 Thumbs.db
+npm-debug.log
 
 /build/**/*
 /coverage/**

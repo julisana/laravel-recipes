@@ -1,0 +1,47 @@
+{% extends 'layout' %}
+
+{% import 'macros.form' as form %}
+
+{% block content %}
+    <div class="col-md-12">
+        {{ form_model( user, { method: 'PATCH', name: 'profile_form', id: 'profile-form', class: 'form-horizontal' } ) }}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form.label( 'first-name', 'First Name:', 'col-md-4' ) }}
+                    <div class="col-md-8">
+                        {{ form.text( 'first_name', null, 'first-name', '' ) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form.label( 'email', 'Email:', 'col-md-4' ) }}
+                    <div class="col-md-8">
+                        {{ form.text( 'email', null, 'email', '' ) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form.label( 'last-name', 'Last Name:', 'col-md-4' ) }}
+                    <div class="col-md-8">
+                        {{ form.text( 'last_name', null, 'last-name', '' ) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form.label( 'password', 'Password:', 'col-md-4' ) }}
+                    <div class="col-md-8">
+                        {{ form.password( 'password', null, 'password', '' ) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-2">
+                {{ form.submit( 'Update Profile', 'primary' ) }}
+            </div>
+        </div>
+        {{ form_close() }}
+    </div>
+{% endblock %}
