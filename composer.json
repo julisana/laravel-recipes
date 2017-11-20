@@ -40,9 +40,7 @@
             "database"
         ],
         "files": [
-            "app/helpers/common.php"
-        ],
-        "files": [
+            "app/Helpers/common.php",
             "app/Helpers/models.php"
         ],
         "psr-4": {
