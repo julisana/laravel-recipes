@@ -28,7 +28,7 @@ Route::group( [ 'middleware' => [ 'force.ssl', 'global.variables' ] ], function 
         Route::get( '/', [ 'as' => 'recipes.index', 'uses' => 'RecipeController@index' ] );
 
         //Specific Recipe
-        Route::get( '{slug}/{id}', [ 'as' => 'recipes.show', 'uses' => 'RecipeController@show' ] )
+        Route::get( '{slug}/{id}', [ 'middleware' => [ 'check.slug' ], 'as' => 'recipes.show', 'uses' => 'RecipeController@show' ] )
             ->where( 'id', '[\d]+' );
     } );
 

@@ -14,7 +14,8 @@
                 {{ nav.dropdownOpen( currentRoute, 'profile.', 'Me', 'profile-menu' ) }}
                     {{ nav.dropdownItem( 'profile.index', {}, currentRoute, 'View Profile', 'profile-menu' ) }}
                     {{ nav.dropdownItem( 'profile.edit', {}, currentRoute, 'Edit Profile', 'profile-menu' ) }}
-                    {{ nav.dropdownItem( 'profile.recipes.index', {}, currentRoute, 'My Recipes', 'profile-menu' ) }}
+                    {{ nav.dropdownItem( 'profile.recipes.index', {}, currentRoute, 'Saved Recipes', 'profile-menu' ) }}
+                    {{ nav.dropdownItem( 'profile.recipes.index', {}, currentRoute, 'Created Recipes', 'profile-menu' ) }}
                 {{ nav.dropdownClose() }}
             {% endif %}
 

@@ -14,6 +14,6 @@ if ( !function_exists( 'current_route' ) ) {
      */
     function current_route()
     {
-        return Route::currentRouteName();
+        return Route::getCurrentRoute();
     }
 }

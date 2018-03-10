@@ -4,16 +4,14 @@
     <div class="col-md-12">
         <div class="row">
             <div class="col-md-6">
-                {{ user.username }}<br />
                 {{ user.email }}<br />
-                {{ user.first_name }}<br />
-                {{ user.last_name }}<br />
+                {{ user.name }}<br />
                 {{ user.created_at }}
             </div>
             <div class="col-md-6">
                 <ul>
                     {% for recipe in user.createdRecipes %}
-                        <li><a href="{{ route( 'recipes.show', { slug: recipe.name|str_slug, id: recipe.id } ) }}">{{ recipe.name }}</a></li>
+                        <li><a href="{{ recipe.getUrl() }}">{{ recipe.name }}</a></li>
                     {% endfor %}
                 </ul>
             </div>

@@ -19,7 +19,7 @@ class Direction extends Model
      * @var array
      */
     protected $fillable = [
-        'recipe_id', 'order_number', 'direction',
+        'recipe_id', 'order_number', 'name',
     ];
 
     /**

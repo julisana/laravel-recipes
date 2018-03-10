@@ -1,9 +1,13 @@
 {% extends 'layout' %}
 
+{% block title %}My Recipes{% endblock %}
+
+{% block pageTitle %}My Recipes{% endblock %}
+
 {% block content %}
     Saved recipes:<br />
-    {{ dump( savedRecipes ) }}
+    {{ dump( savedRecipes.get() ) }}
 
     Created recipes:<br />
-    {{ dump( createdRecipes ) }}
+    {{ dump( createdRecipes.get() ) }}
 {% endblock content %}

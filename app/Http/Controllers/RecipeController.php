@@ -33,6 +33,7 @@ class RecipeController extends Controller
      * Store a newly created resource in storage.
      *
      * @param RecipeRequest $request
+     *
      * @return Response
      */
     public function store( RecipeRequest $request )
@@ -44,11 +45,12 @@ class RecipeController extends Controller
      * Display the specified resource.
      *
      * @param  int $id
+     *
      * @return Response
      */
     public function show( $slug, $id )
     {
-        $this->addContext( 'recipe', Recipe::findOrFail( $id )->with( 'ingredients', 'directions' )->first() );
+        $this->addContext( 'recipe', Recipe::with( [ 'ingredients', 'directions' ] )->findOrFail( $id ) );
 
         return view( 'recipes.show', $this->context );
     }
@@ -57,11 +59,12 @@ class RecipeController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int $id
+     *
      * @return Response
      */
     public function edit( $id )
     {
-        $this->addContext( 'recipe', Recipe::findOrFail( $id )->with( 'ingredients', 'directions' )->first() );
+        $this->addContext( 'recipe', Recipe::with( 'ingredients', 'directions' )->findOrFail( $id ) );
 
         return view( 'recipes.edit', $this->context );
     }
@@ -70,7 +73,8 @@ class RecipeController extends Controller
      * Update the specified resource in storage.
      *
      * @param RecipeRequest $request
-     * @param int $id
+     * @param int           $id
+     *
      * @return Response
      */
     public function update( RecipeRequest $request, $id )
@@ -82,6 +86,7 @@ class RecipeController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
+     *
      * @return Response
      */
     public function destroy( $id )

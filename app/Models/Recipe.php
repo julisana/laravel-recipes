@@ -36,7 +36,7 @@ class Recipe extends Model
      */
     public function ingredients()
     {
-        return $this->hasMany( Ingredient::class );
+        return $this->hasMany( Ingredient::class )->orderBy( 'order_number', 'asc' );
     }
 
     /**
@@ -44,7 +44,7 @@ class Recipe extends Model
      */
     public function directions()
     {
-        return $this->hasMany( Direction::class );
+        return $this->hasMany( Direction::class )->orderBy( 'order_number', 'asc' );
     }
 
     /**
@@ -61,5 +61,21 @@ class Recipe extends Model
     public function savedBy()
     {
         return $this->belongsToMany( User::class );
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl()
+    {
+        return route( 'recipes.show', [ 'slug' => $this->getSlug(), 'id' => $this->id ] );
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        return str_slug( $this->name );
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http;
 use App\Http\Middleware\ForceSSL;
 use App\Http\Middleware\CheckLogin;
 use App\Http\Middleware\ViewVariables;
+use App\Http\Middleware\CheckContentSlug;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -63,6 +64,7 @@ class Kernel extends HttpKernel
 
         'force.ssl' => ForceSSL::class,
         'check.login' => CheckLogin::class,
+        'check.slug' => CheckContentSlug::class,
         'global.variables' => ViewVariables::class,
     ];
 }
