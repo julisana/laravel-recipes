@@ -7,23 +7,21 @@
 
 {% block content %}
     <div class="row">
-        <div id="auth" class="col-md-5">
-            <div id="auth-login">
-                {{ form.open('user', 'login', 'login', 'login') }}
-                    <div class="form-group">
-                        {{ form.label( 'email', 'Email Address' ) }}
-                        {{ form.text( 'email', old( 'email' ), 'email', 'Enter email address', true ) }}
-                    </div>
-                    <div class="form-group">
-                        {{ form.label( 'password', 'Password' ) }}
-                        {{ form.password( 'password', 'password', 'Enter password', true ) }}
-                    </div>
-                    <div class="form-group">
-                        {{ form.submit( 'Login', 'login', 'primary' ) }}
-                        <a href="#">Forgot Your Password?</a>
-                    </div>
-                {{ form.close() }}
-            </div>
+        <div class="col-md-6 col-sm-12">
+            {{ form.open('user', 'login', 'login', 'login-form') }}
+                <div class="form-group">
+                    {{ form.label( 'email', 'Email Address' ) }}
+                    {{ form.text( 'email', old( 'email' ), 'email', 'Enter email address', true ) }}
+                </div>
+                <div class="form-group">
+                    {{ form.label( 'password', 'Password' ) }}
+                    {{ form.password( 'password', 'password', 'Enter password', true ) }}
+                </div>
+                <div class="form-group">
+                    {{ form.submit( 'Login', 'submit', 'primary' ) }}
+                    {#<a href="#">Forgot Your Password?</a>#}
+                </div>
+            {{ form.close() }}
         </div>
     </div>
 {% endblock content %}

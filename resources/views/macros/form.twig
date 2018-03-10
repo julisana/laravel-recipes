@@ -50,7 +50,7 @@
 {% macro submit( text, id, color, class, parameters ) %}
     {% set parameters = parameters|default( {} )|merge( {
         id: id,
-        class: class ~ ' btn btn-' ~ color
+        class: class ~ ' col-md-12 btn btn-' ~ color
     } ) %}
     {{ form_submit( text, parameters ) }}
 {% endmacro %}

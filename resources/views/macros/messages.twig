@@ -1,12 +1,12 @@
 {% macro display_messages( messages, class ) %}
     <div class="row">
-        <div class="alert {{ class }} col-md-12">
+        <div class="alert {{ class }} col-12">
             {% if messages is iterable %}
                 {% for message in messages %}
-                    <p>{{ message|raw }}</p>
+                    {{ message|raw }}<br />
                 {% endfor %}
             {% elseif messages is not empty %}
-                {{ messages|raw }}
+                {{ messages|raw }}<br />
             {% endif %}
         </div>
     </div>

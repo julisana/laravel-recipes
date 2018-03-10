@@ -17,7 +17,7 @@ if ( !function_exists( 'user' ) ) {
      */
     function user()
     {
-        return app( App\Models\User::class );
+        return app( User::class );
     }
 }
 
@@ -37,7 +37,7 @@ if ( !function_exists( 'direction' ) ) {
      */
     function direction()
     {
-        return app( App\Models\Direction::class );
+        return app( Direction::class );
     }
 }
 

@@ -1,5 +1,13 @@
-body {
-    font-family: source-sans-pro, sans-serif;
-    font-size: 15px;
-    padding-top: 50px;
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);body {
+  background-color: #fff !important;
 }
+
+header {
+  margin-bottom: 15px;
+}
+
+nav {
+  background-color: #ccc;
+  width: 100%;
+}
+

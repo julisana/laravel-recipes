@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use Illuminate\Http\Response;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Profile as ProfileRequest;
 
 class ProfileController extends Controller
@@ -33,6 +34,11 @@ class ProfileController extends Controller
         return response()->view( 'profile.recipes', $this->context );
     }
 
+    public function recipe( $id )
+    {
+
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -56,7 +62,13 @@ class ProfileController extends Controller
     {
         /** @var User $user */
         $user = auth()->user();
-        $user->update( $request->all() );
+        $user->setAttribute( 'name', $request->get( 'name', '' ) );
+        $user->setAttribute( 'email', $request->get( 'email', '' ) );
+
+        if ( !empty( $request->get( 'password', '' ) ) ) {
+            $user->setAttribute( 'password', bcrypt( $request->get( 'password' ) ) );
+        }
+        $user->save();
 
         return redirect()->route( 'profile.edit' );
     }

@@ -2,10 +2,10 @@
 <html lang="en/us">
     <head>
         <title>{% block title %}{% endblock %} | Furious Foodie</title>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="{{ asset( 'css/app.css') }}" type="text/css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" />
+        <link rel="stylesheet" href="{{ asset( 'css/app.css' ) }}" type="text/css" />
+
         {% block styles %}{% endblock styles %}
         {% block header_scripts %}{% endblock header_scripts %}
 
@@ -42,25 +42,27 @@
     </head>
 
     <body>
-        <div class="container">
-            <header>
-                {% include 'navigation' %}
-                {% include 'messages' %}
+        <header>
+            {% include 'navigation' %}
+        </header>
 
-                <div class="row">
-                    <div class="col-md-6">
-                        <h2>{% block pageTitle %}{% endblock %}</h2>
-                    </div>
-                    {% if buttons is not empty %}
-                        {% include 'buttons' %}
-                    {% endif %}
+        <div class="container">
+            {% include 'messages' %}
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>{% block pageTitle %}{% endblock %}</h2>
                 </div>
-            </header>
+                {% if buttons is not empty %}
+                    {% include 'buttons' %}
+                {% endif %}
+            </div>
+            <div class="row">&nbsp;</div>
 
             {% block content %}{% endblock %}
 
-            <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-            <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+            <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
             {% block footer_scripts %}{% endblock footer_scripts %}
             <footer>

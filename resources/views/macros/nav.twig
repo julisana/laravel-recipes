@@ -1,27 +1,30 @@
 {% macro menuItem(route, parameters, current, name, disabled) %}
-    <li class="{% if route == current.getName() %}active{% endif %}{% if disabled %} disabled{% endif %}">
-        <a {% if not disabled %}href="{{ route( route, parameters ) }}"{% endif %}>
+    <li class="nav-item {#% if disabled %} disabled{% endif %#}">
+        <a class="nav-link {% if route == current.getName() %}active{% endif %}" {% if not disabled %}href="{{ route( route, parameters ) }}"{% endif %}>
             {{ name }}
         </a>
     </li>
 {% endmacro %}
 
 {% macro dropdownOpen(route, partialRoute, name, class) %}
-<li class="dropdown {{ class }}-menu{% if partialRoute in route.getName() %} active{% endif %}">
-    <a href="#" class="dropdown-toggle" id="{{ class }}-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+<li class="nav-item dropdown {{ class }}-menu{% if partialRoute in route.getName() %} active{% endif %}">
+    <a href="#" class="nav-link dropdown-toggle" id="{{ class }}-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
         {{ name }} <span class="caret"></span>
     </a>
-    <ul class="dropdown-menu" role="menu">
+    <div class="dropdown-menu" role="menu">
 {% endmacro %}
 
 {% macro dropdownItem(route, parameters, current, name, class, disabled) %}
     {% set linkUrl = route( route, parameters ) %}
-    <li class="{{ class }}-menu{% if linkUrl == url_current() %} active{% endif %}{% if disabled %} disabled{% endif %}">
+        <a class="dropdown-item {{ class }}-menu{% if linkUrl == url_current() %} active{% endif %}{% if disabled %} disabled{% endif %}" href="{{ linkUrl }}">
+            {{ name }}
+        </a>
+    {#<li class="dropdown-item {{ class }}-menu">
         <a href="{{ linkUrl }}">{{ name }}</a>
-    </li>
+    </li>#}
 {% endmacro %}
 
 {% macro dropdownClose() %}
-    </ul>
+    </div>
 </li>
 {% endmacro %}
