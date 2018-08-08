@@ -40,6 +40,20 @@
     {{ form_password( name, parameters ) }}
 {% endmacro %}
 
+{% macro textarea( name, value, id, placeholder, required, cols, rows ) %}
+    {% set parameters = {
+        class: 'form-control',
+        id: 'id',
+        text: placeholder
+        placeholder: placeholder
+    } %}
+
+    {% if required %}
+        {% set parameters = parameters|merge( { 'required': 'required' } ) %}
+    {% endif %}
+    {#{ form_textarea(  ) }#}
+{% endmacro %}
+
 {% macro label( for, text, class, parameters ) %}
     {% set parameters = parameters|default( {} )|merge( {
         class: class ~ ' control-label'

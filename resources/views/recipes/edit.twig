@@ -3,6 +3,45 @@
 {% import 'macros.meta' as meta %}
 {% import 'macros.form' as form %}
 
+{#% block content %}
+    <h1>{{ recipe.getAttribute( 'name' ) }}</h1>
+    <h4>Yield: {{ recipe.getAttribute( 'servings' ) }} {{ recipe.getAttribute( 'serving_size' ) }}</h4>
+
+    <div>
+        <h3>Ingredients</h3>
+        <ul>
+            {% for ingredient in recipe.ingredients.sortBy( 'order_number' ) %}
+                <li>{{ ingredient.getAttribute( 'ingredient' ) }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div>
+        <h3>Directions</h3>
+        <ol>
+            {% for direction in recipe.directions.sortBy( 'order_number' ) %}
+                <li>{{ direction.getAttribute( 'direction' ) }}</li>
+            {% endfor %}
+        </ol>
+    </div>
+{% endblock content %#}
+
 {% block content %}
-    {{ dump( recipe ) }}
+    <div id="recipe-{{ recipe.id }}" class="recipe form col-md-6 col-md-offset-3">
+        {{ form.open( recipe, route, 'recipe_data', 'recipe-form' ) }}
+
+        <fieldset class="recipe-basics">
+            {{ form.text( 'name', old( 'name' ), 'name', 'Recipe Name', true ) }}
+            <br />
+            {#{{ form.textarea( 'description', old( 'description' ), 'description', 'Recipe Description' ) }}
+            <br />
+            {{ form.text( 'source', old( 'source' ), 'source', 'Recipe Source' ) }}
+            <br />
+            {{ form.text( 'source_url', old( 'source_url' ), 'source-url', 'Source URL' ) }}
+            <br />
+            {{ form.textarea( 'notes', old( 'notes' ), 'notes', 'Recipe Notes' ) }}#}
+        </fieldset>
+
+        {{ form.close() }}
+    </div>
 {% endblock content %}

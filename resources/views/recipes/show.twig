@@ -10,23 +10,35 @@
     {{ meta.canonical( route( 'recipes.show', { slug: recipe.getSlug(), id: recipe.id } ) ) }}
 {% endblock meta_canonical %}
 
+{% block meta_title %}
+    {% set name = recipe.getAttribute( 'name' ) %}
+    {{ parent() }}
+{% endblock %}
+
+{% block meta_description %}
+    {% set description = recipe.getAttribute( 'description' ) %}
+    {{ parent() }}
+{% endblock %}
+
 {% block content %}
-    <div class="row">
-        <div class="col-md-6">
-            <h4>Ingredients</h4>
-            <ul>
-                {% for ingredient in recipe.ingredients().get() %}
-                    <li>{{ ingredient.name }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-        <div class="col-md-6">
-            <h4>Directions</h4>
-            <ol>
-                {% for direction in recipe.directions().get() %}
-                    <li>{{ direction.name }}</li>
-                {% endfor %}
-            </ol>
-        </div>
+    <h1>{{ recipe.getAttribute( 'name' ) }}</h1>
+    <h4>Yield: {{ recipe.getAttribute( 'servings' ) }} {{ recipe.getAttribute( 'serving_size' ) }}</h4>
+
+    <div>
+        <h3>Ingredients</h3>
+        <ul>
+            {% for ingredient in recipe.ingredients.sortBy( 'order_number' ) %}
+                <li>{{ ingredient.getAttribute( 'ingredient' ) }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div>
+        <h3>Directions</h3>
+        <ol>
+            {% for direction in recipe.directions.sortBy( 'order_number' ) %}
+                <li>{{ direction.getAttribute( 'direction' ) }}</li>
+            {% endfor %}
+        </ol>
     </div>
 {% endblock content %}

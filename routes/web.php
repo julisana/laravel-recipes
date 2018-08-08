@@ -19,6 +19,7 @@ Route::group( [ 'middleware' => [ 'force.ssl', 'global.variables' ] ], function 
 
     Route::get( 'logout', [ 'as' => 'logout', 'uses' => 'Auth\LoginController@logout' ] );
 
+
     // Registration routes...
     Route::get( 'register', [ 'as' => 'register', 'uses' => 'Auth\LoginController@showRegistrationForm' ] );
     Route::post( 'register', [ 'uses' => 'Auth\LoginController@register' ] );

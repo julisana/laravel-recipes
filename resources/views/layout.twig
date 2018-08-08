@@ -14,9 +14,12 @@
         {% block meta %}
             {% block meta_canonical %}{% endblock %}
             {% block meta_title %}
-                {{ meta.itemprop( 'name', 'FuriousFoodie (dot) com' ) }}
-                {{ meta.property( 'og:title', 'FuriousFoodie (dot) com' ) }}
-                {{ meta.name( 'twitter:title', 'FuriousFoodie (dot) com' ) }}
+                {% if name is not defined %}
+                    {% set name = 'FuriousFoodie (dot) com' %}
+                {% endif %}
+                {{ meta.itemprop('name', name) }}
+                {{ meta.property('og:title', name) }}
+                {{ meta.name('twitter:title', name) }}
             {% endblock %}
             {% block meta_sitename %}
                 {#{ meta.name( 'twitter:site', '@julisana' ) }#}
@@ -24,9 +27,12 @@
                 {{ meta.name( 'twitter:card', 'summary' ) }}
             {% endblock %}
             {% block meta_description %}
-                {{ meta.name( 'description', 'Find your favorite recipes with the Furious Foodie' ) }}
-                {{ meta.property( 'og:description', 'Find your favorite recipes with the Furious Foodie' ) }}
-                {{ meta.property( 'twitter:description', 'Find your favorite recipes with the Furious Foodie' ) }}
+                {% if description is not defined %}
+                    {% set description = 'Find your favorite recipes at the Furious Foodie' %}
+                {% endif %}
+                {{ meta.name('description', description) }}
+                {{ meta.property('og:description', description) }}
+                {{ meta.property('twitter:description', description) }}
             {% endblock %}
             {% block meta_image %}
                 {#{ meta.itemprop( 'image', '' ) }#}
@@ -66,7 +72,7 @@
 
             {% block footer_scripts %}{% endblock footer_scripts %}
             <footer>
-                <hr/>
+                <hr />
             </footer>
         </div>
     </body>
