@@ -15,7 +15,9 @@ class RecipeController extends Controller
      */
     public function index()
     {
-        //
+        $this->addContext( 'recipes', recipe()->all() );
+
+        return view( 'recipes.index', $this->context );
     }
 
     /**

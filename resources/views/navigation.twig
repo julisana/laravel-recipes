@@ -15,10 +15,10 @@
             {{ nav.dropdownClose() }}
         {% endif %}
 
-        {% if auth_user() is not empty %}
+        {#% if auth_user() is not empty %}
             {{ nav.menuItem( 'logout', {}, currentRoute, 'Logout' ) }}
         {% else %}
             {{ nav.menuItem( 'login', {}, currentRoute, 'Login' ) }}
-        {% endif %}
+        {% endif %#}
     </ul>
 </nav>
