@@ -17,7 +17,7 @@ class CreateDirectionsTable extends Migration
             $table->increments( 'id' );
             $table->unsignedInteger( 'recipe_id' )->nullable();
             $table->unsignedInteger( 'order_number' )->default( 1 );
-            $table->text( 'direction' )->nullable();
+            $table->text( 'name' )->nullable();
 
             $table->timestamps();
 
