@@ -30,33 +30,41 @@ Route::group( [ 'middleware' => [ 'force.ssl', 'global.variables' ] ], function 
         //Specific Recipe
         Route::get( '{slug}/{id}', [ 'middleware' => [ 'check.slug' ], 'as' => 'recipes.show', 'uses' => 'RecipeController@show' ] )
             ->where( 'id', '[\d]+' );
+
+        Route::get( '/id}/edit', [ 'as' => 'recipes.edit', 'uses' => 'RecipeController@edit' ] )
+            ->where( 'id', '[\d]+' );
+        Route::patch( '{id}/edit', [ 'uses' => 'RecipeController@update' ] )
+            ->where( 'id', '[\d]+' );
+
+        Route::get( 'new', [ 'as' => 'recipes.create', 'uses' => 'RecipeController@create' ] );
+        Route::post( 'new', [ 'uses' => 'RecipeController@store' ] );
     } );
 
-    Route::group( [ 'prefix' => '/profile', 'middleware' => [ 'auth' ] ], function () {
-
-        //Profile Index (My Profile)
-        Route::get( '/', [ 'as' => 'profile.index', 'uses' => 'Admin\ProfileController@index' ] );
-
-        //Edit profile (My Profile)
-        Route::get( 'edit', [ 'as' => 'profile.edit', 'uses' => 'Admin\ProfileController@edit' ] );
-        Route::patch( 'edit', [ 'uses' => 'Admin\ProfileController@update' ] );
-
-        //My Recipes (Saved and My Creation)
-        Route::group( [ 'prefix' => '/recipes' ], function () {
-            Route::get( '/', [ 'as' => 'profile.recipes.index', 'uses' => 'Admin\ProfileController@recipes' ] );
-            Route::get( '{id}', [ 'as' => 'profile.recipes.show', 'uses' => 'Admin\ProfileController@recipe' ] )
-                ->where( 'id', '[\d]+' );
-
-            //Edit Recipe (My Creation)
-            Route::get( '/id}/edit', [ 'as' => 'profile.recipes.edit', 'uses' => 'RecipeController@edit' ] )
-                ->where( 'id', '[\d]+' );
-            Route::patch( '{id}/edit', [ 'uses' => 'RecipeController@update' ] )
-                ->where( 'id', '[\d]+' );
-
-            //New Recipe (My Creation)
-            Route::get( 'new', [ 'as' => 'profile.recipes.create', 'uses' => 'RecipeController@create' ] );
-            Route::post( 'new', [ 'uses' => 'RecipeController@store' ] );
-            //Route::get( '/new/preview', [ 'uses' => 'RecipeController@preview' ] );
-        } );
-    } );
+//    Route::group( [ 'prefix' => '/profile', 'middleware' => [ 'auth' ] ], function () {
+//
+//        //Profile Index (My Profile)
+//        Route::get( '/', [ 'as' => 'profile.index', 'uses' => 'Admin\ProfileController@index' ] );
+//
+//        //Edit profile (My Profile)
+//        Route::get( 'edit', [ 'as' => 'profile.edit', 'uses' => 'Admin\ProfileController@edit' ] );
+//        Route::patch( 'edit', [ 'uses' => 'Admin\ProfileController@update' ] );
+//
+//        //My Recipes (Saved and My Creation)
+//        Route::group( [ 'prefix' => '/recipes' ], function () {
+//            Route::get( '/', [ 'as' => 'profile.recipes.index', 'uses' => 'Admin\ProfileController@recipes' ] );
+//            Route::get( '{id}', [ 'as' => 'profile.recipes.show', 'uses' => 'Admin\ProfileController@recipe' ] )
+//                ->where( 'id', '[\d]+' );
+//
+//            //Edit Recipe (My Creation)
+//            Route::get( '/id}/edit', [ 'as' => 'profile.recipes.edit', 'uses' => 'RecipeController@edit' ] )
+//                ->where( 'id', '[\d]+' );
+//            Route::patch( '{id}/edit', [ 'uses' => 'RecipeController@update' ] )
+//                ->where( 'id', '[\d]+' );
+//
+//            //New Recipe (My Creation)
+//            Route::get( 'new', [ 'as' => 'profile.recipes.create', 'uses' => 'RecipeController@create' ] );
+//            Route::post( 'new', [ 'uses' => 'RecipeController@store' ] );
+//            //Route::get( '/new/preview', [ 'uses' => 'RecipeController@preview' ] );
+//        } );
+//    } );
 } );
