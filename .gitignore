@@ -1,12 +1,14 @@
 composer.phar
 config.codekit
 .DS_Store
+.phpunit.result.cache
 .env
 Homestead.yaml
 Homestead.json
 _ide_helper.php
 Thumbs.db
 npm-debug.log
+yarn-error.log
 
 /build/**/*
 /coverage/**
@@ -18,6 +20,8 @@ npm-debug.log
 /public/img
 /public/build
 /public/fonts
+/public/hot
+/public/storage
 /vendor
 .vagrant
 vagrant.retry

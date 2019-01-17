@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -24,7 +21,7 @@ class Controller extends BaseController
      * and add to it.
      *
      * @param string $type
-     * @param mixed $value
+     * @param mixed  $value
      *
      * @return Controller
      */
@@ -55,7 +52,7 @@ class Controller extends BaseController
 
     /**
      * @param string $key
-     * @param mixed $value
+     * @param mixed  $value
      *
      * @return $this
      */
