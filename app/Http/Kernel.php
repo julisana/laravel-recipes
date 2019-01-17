@@ -2,6 +2,10 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\ForceSSL;
+use App\Http\Middleware\CheckLogin;
+use App\Http\Middleware\ViewVariables;
+use App\Http\Middleware\CheckContentSlug;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -60,6 +64,11 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+
+        'force.ssl' => ForceSSL::class,
+        'check.login' => CheckLogin::class,
+        'check.slug' => CheckContentSlug::class,
+        'global.variables' => ViewVariables::class,
     ];
 
     /**
