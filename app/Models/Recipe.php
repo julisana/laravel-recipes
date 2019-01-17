@@ -8,10 +8,13 @@
 
 namespace App\Models;
 
+use Spatie\Tags\HasTags;
 use Illuminate\Database\Eloquent\Model;
 
 class Recipe extends Model
 {
+    use HasTags;
+
     /**
      * The attributes that are mass assignable.
      *

@@ -6,6 +6,7 @@
  * Time: 10:09 PM
  */
 
+use Spatie\Tags\Tag;
 use App\Models\User;
 use App\Models\Recipe;
 use App\Models\Direction;
@@ -48,5 +49,15 @@ if ( !function_exists( 'ingredient' ) ) {
     function ingredient()
     {
         return app( Ingredient::class );
+    }
+}
+
+if ( !function_exists( 'category' ) ) {
+    /**
+     * @return Tag
+     */
+    function tag()
+    {
+        return app( Tag::class );
     }
 }
