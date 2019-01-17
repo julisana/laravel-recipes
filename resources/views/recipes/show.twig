@@ -29,4 +29,11 @@
             </ol>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            {% for tag in recipe.tags %}
+                {{ tag.getAttribute( 'name' ) }}{% if recipe.tags.last().getAttribute( 'name' ) != tag.getAttribute( 'name' ) %},{% endif %}
+            {% endfor %}
+        </div>
+    </div>
 {% endblock content %}
