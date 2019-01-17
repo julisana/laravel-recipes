@@ -52,7 +52,7 @@ if ( !function_exists( 'ingredient' ) ) {
     }
 }
 
-if ( !function_exists( 'category' ) ) {
+if ( !function_exists( 'tag' ) ) {
     /**
      * @return Tag
      */
