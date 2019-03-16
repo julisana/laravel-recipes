@@ -4,6 +4,7 @@
     <span class="navbar-brand">Furious Foodie</span>
     <ul class="nav navbar-nev">
         {{ nav.menuItem( 'recipes.index', {}, currentRoute, 'Recipes' ) }}
+        {{ nav.menuItem( 'index', {}, currentRoute, 'Pantry' ) }}
         {{ nav.menuItem( 'index', {}, currentRoute, 'Groceries' ) }}
 
         {% if auth_user() is not empty %}
