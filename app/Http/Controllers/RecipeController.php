@@ -27,7 +27,7 @@ class RecipeController extends Controller
      */
     public function create()
     {
-        //
+        return view( 'recipes.new', $this->context );
     }
 
     /**
@@ -51,7 +51,8 @@ class RecipeController extends Controller
      */
     public function show( $slug, $id )
     {
-        $this->addContext( 'recipe', recipe()->with( [ 'ingredients', 'directions' ] )->findOrFail( $id ) );
+        $this->addContext( 'slug', $slug )
+            ->addContext( 'recipe', recipe()->with( [ 'ingredients', 'directions' ] )->findOrFail( $id ) );
 
         return view( 'recipes.show', $this->context );
     }

@@ -11,6 +11,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return response()->view( 'index' );
+        return redirect()->route( 'recipes.index' );
     }
 }

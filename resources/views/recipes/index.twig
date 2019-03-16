@@ -9,11 +9,15 @@
 {% block content %}
     <div class="row">
         <div class="col-md-12">
-            <ol>
-                {% for recipe in recipes %}
-                    <li><a href="{{ recipe.getUrl() }}">{{ recipe.getAttribute( 'name' ) }}</a></li>
-                {% endfor %}
-            </ol>
+            {% if recipes.isNotEmpty() %}
+                <ol>
+                    {% for recipe in recipes %}
+                        <li><a href="{{ recipe.getUrl() }}">{{ recipe.getAttribute( 'name' ) }}</a></li>
+                    {% endfor %}
+                </ol>
+            {% else %}
+                No Recipes Added
+            {% endif %}
         </div>
     </div>
 {% endblock content %}
