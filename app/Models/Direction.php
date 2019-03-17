@@ -11,6 +11,27 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * App\Models\Direction
+ *
+ * @property-read \App\Models\Recipe $recipe
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Direction newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Direction newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Direction query()
+ * @mixin \Eloquent
+ * @property int $id
+ * @property int|null $recipe_id
+ * @property int $order_number
+ * @property string|null $name
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Direction whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Direction whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Direction whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Direction whereOrderNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Direction whereRecipeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Direction whereUpdatedAt($value)
+ */
 class Direction extends Model
 {
     /**
