@@ -1,0 +1,16 @@
+{% if key is not defined %}
+    {% set key = 0 %}
+{% endif %}
+<div class="row direction">
+    <div class="col-md-10">
+        {{ form.text( 'directions[0][name]', old( 'directions[' ~ key ~ '][name]', '' ), '', 'direction-name', 'Direction' ) }}
+        <br />
+        {{ form.textarea( 'directions[0][notes]', old( 'directions[' ~ key ~ '][notes]', '' ), '', 'direction-notes', 'Direction Notes', false, 2 ) }}
+        {{ form.hidden( 'directions[0][id]', old( 'directions[' ~ key ~ '][id]', '' ) ) }}
+    </div>
+    <div class="col-md-2">
+        <span class="btn btn-light sort-item d-none form-control">&#9776;</span>
+        <br /><br />
+        <span class="btn btn-danger remove-item d-none form-control" data-row="{{ key }}">X</span>
+    </div>
+</div>

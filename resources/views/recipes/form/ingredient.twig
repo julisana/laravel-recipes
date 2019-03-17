@@ -1,0 +1,16 @@
+{% if key is not defined %}
+    {% set key = 0 %}
+{% endif %}
+<div class="row ingredient">
+    <div class="col-md-10">
+        {{ form.text( 'ingredients[0][name]', old( 'ingredients[' ~ key ~ '][name]', '' ), '', 'ingredient-name', 'Ingredient Quantity and Name' ) }}
+        <br />
+        {{ form.textarea( 'ingredients[0][notes]', old( 'ingredients[' ~ key ~ '][notes]', '' ), '', 'ingredient-notes', 'Ingredient Notes', false, 2 ) }}
+        {{ form.hidden( 'ingredients[0][id]', old( 'ingredients[' ~ key ~ '][id]', '' ) ) }}
+    </div>
+    <div class="col-md-2">
+        <span class="btn btn-light sort-item d-none form-control">&#9776;</span>
+        <br /><br />
+        <span class="btn btn-danger remove-item d-none form-control" data-row="{{ key }}">X</span>
+    </div>
+</div>

@@ -15,8 +15,8 @@ class CreateRecipesTable extends Migration
     {
         Schema::create( 'recipes', function ( Blueprint $table ) {
             $table->increments( 'id' );
-            $table->unsignedInteger( 'user_id' )->nullable();        //author
             $table->string( 'name' )->nullable();
+            $table->string( 'difficulty' )->nullable();
             $table->text( 'description' )->nullable();
             $table->string( 'source' )->nullable();
             $table->string( 'source_url' )->nullable();

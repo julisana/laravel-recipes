@@ -10,3 +10,9 @@ nav {
   background-color: #ccc;
   width: 100%;
 }
+
+.ingredient:not(:last-child), .direction:not(:last-child) {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
