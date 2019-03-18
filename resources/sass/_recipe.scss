@@ -1,0 +1,20 @@
+/* Show */
+.details {
+  padding-left: 0;
+  margin-bottom: 0px;
+
+  & > li {
+    display: inline;
+
+    &:not(:first-child):before {
+      content:" • "
+    }
+  }
+}
+
+/* Create/Edit */
+.ingredient:not(:last-child), .direction:not(:last-child) {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}

@@ -1,0 +1,9 @@
+<ul class="subnav">
+    {% if currentRoute.getName() != 'recipes.show' %}
+        <li><a href="{{ recipe.getUrl() }}">Show</a></li>
+    {% endif %}
+
+    {% if currentRoute.getName() != 'recipes.edit' %}
+        <li><a href="{{ route( 'recipes.edit', { id: recipe.id } ) }}">Edit</a></li>
+    {% endif %}
+</ul>

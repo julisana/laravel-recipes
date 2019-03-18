@@ -16,7 +16,8 @@
                     {% endfor %}
                 </ol>
             {% else %}
-                No Recipes Added
+                No Recipes Added.<br />
+                <a href="{{ route( 'recipes.create' ) }}" class="btn btn-success">Create Recipe</a>
             {% endif %}
         </div>
     </div>

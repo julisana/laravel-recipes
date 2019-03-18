@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Direction;
-use App\Models\Ingredient;
+use Carbon\Carbon;
 use App\Models\Recipe;
 use Illuminate\Http\Response;
 use App\Http\Requests\Recipe as RecipeRequest;
@@ -57,11 +56,13 @@ class RecipeController extends Controller
         ] );
 
         foreach ( $request->get( 'ingredients', [] ) as $key => $row ) {
+            //Set the order number value. Items should already be in the correct order, just need to add the value
             $row[ 'order_number' ] = $key + 1;
             $recipe->ingredients()->create( $row );
         }
 
         foreach ( $request->get( 'directions', [] ) as $key => $row ) {
+            //Set the order number value. Items should already be in the correct order, just need to add the value
             $row[ 'order_number' ] = $key + 1;
             $recipe->directions()->create( $row );
         }
@@ -78,6 +79,8 @@ class RecipeController extends Controller
      */
     public function show( $slug, $id )
     {
+        $recipe = recipe()->with( [ 'ingredients', 'directions' ] )->findOrFail( $id );
+        $recipe->prep_time->forHumans();
         $this->addContext( 'slug', $slug )
             ->addContext( 'recipe', recipe()->with( [ 'ingredients', 'directions' ] )->findOrFail( $id ) );
 

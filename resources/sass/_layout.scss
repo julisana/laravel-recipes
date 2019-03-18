@@ -11,8 +11,13 @@ nav {
   width: 100%;
 }
 
-.ingredient:not(:last-child), .direction:not(:last-child) {
-  margin-bottom: 10px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #ccc;
+.subnav {
+  padding-left: 0;
+  & > li {
+    display: inline;
+
+    &:not(:first-child):before {
+      content:" | "
+    }
+  }
 }

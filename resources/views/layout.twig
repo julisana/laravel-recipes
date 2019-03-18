@@ -54,11 +54,10 @@
                 <div class="col-md-6">
                     <h2>{% block pageTitle %}{% endblock %}</h2>
                 </div>
-                {% if buttons is not empty %}
-                    {% include 'buttons' %}
-                {% endif %}
+                <div class="col-md-6">
+                    {% block buttons %}{% endblock %}
+                </div>
             </div>
-            <div class="row">&nbsp;</div>
 
             {% block content %}{% endblock %}
 
