@@ -3,13 +3,28 @@
     <br />
     {{ form.textarea( 'description', old( 'description' ), 'description', 'recipe-description', 'Recipe Description', false, 5 ) }}
     <br />
-    {{ form.text( 'source', old( 'source' ), 'source', 'recipe-source', 'Recipe Source' ) }}
+    <div class="form-row">
+        <div class="col-md-6">
+            {{ form.number( 'prep_time', old( 'prep_time' ), 'prep-time', 'prep-time', 'Prep Time, in minutes', true ) }}
+        </div>
+        <div class="col-md-6">
+            {{ form.number( 'cook_time', old( 'cook_time' ), 'cook-time', 'cook-time', 'Cooking Time, in minutes', true ) }}
+        </div>
+    </div>
     <br />
-    {{ form.text( 'source_url', old( 'source_url' ), 'source-url', 'source-url', 'Source URL' ) }}
+    <div class="form-row">
+        <div class="col-md-3">
+            {{ form.number( 'servings', old( 'servings' ), 'servings', 'servings', '# of Servings', true ) }}
+        </div>
+        <div class="col-md-7">
+            {{ form.text( 'serving_size', old( 'serving_size' ), 'serving-size', 'serving-size', 'Serving Units', true ) }}
+        </div>
+        <div class="col-md-2 form-control border-0">
+            Ex: 3 scoops
+        </div>
+    </div>
     <br />
-    {{ form.textarea( 'notes', old( 'notes' ), 'notes', 'recipe-notes', 'Recipe Notes', false, 5 ) }}
-    <br />
-    <select name="difficulty" class="form-control difficulty">
+    <select name="difficulty" class="form-control difficulty" required>
         <option value="">--Difficulty--</option>
         <option value="beginner"{{ old( 'difficulty' ) == 'beginner' ? ' selected' : '' }}>Beginner</option>
         <option value="easy"{{ old( 'difficulty' ) == 'easy' ? ' selected' : '' }}>Easy</option>
@@ -17,4 +32,10 @@
         <option value="hard"{{ old( 'difficulty' ) == 'hard' ? ' selected' : '' }}>Hard</option>
         <option value="expert"{{ old( 'difficulty' ) == 'expert' ? ' selected' : '' }}>Expert</option>
     </select>
+    <br />
+    {{ form.text( 'source', old( 'source' ), 'source', 'recipe-source', 'Recipe Source' ) }}
+    <br />
+    {{ form.text( 'source_url', old( 'source_url' ), 'source-url', 'source-url', 'Source URL' ) }}
+    <br />
+    {{ form.textarea( 'notes', old( 'notes' ), 'notes', 'recipe-notes', 'Recipe Notes', false, 5 ) }}
 </fieldset>

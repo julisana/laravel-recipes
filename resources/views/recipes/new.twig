@@ -8,7 +8,7 @@
 
 {% block content %}
     {{ form.open( 'recipe', 'recipes.create', 'create_recipe', 'create-recipe' ) }}
-    <div class="row">
+    <div class="form-row">
         <div class="col-md-6">
             <h4>Details</h4>
             {% include 'recipes.form.details' %}
@@ -20,9 +20,9 @@
         </div>
     </div>
 
-    <div class="row">&nbsp;</div>
+    <div class="form-row">&nbsp;</div>
 
-    <div class="row">
+    <div class="form-row">
         <div class="col-md-6 directions" id="directions">
             <h4>Directions</h4>
             {% include 'recipes.form.direction' %}
@@ -33,9 +33,9 @@
         </div>
     </div>
 
-    <div class="row">&nbsp;</div>
+    <div class="form-row">&nbsp;</div>
 
-    <div class="row">
+    <div class="form-row">
         <div class="offset-md-3 col-md-6">
             {{ form.submit( 'Save Recipe', 'success', 'save-recipe' ) }}
         </div>

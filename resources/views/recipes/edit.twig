@@ -3,6 +3,10 @@
 {% import 'macros.meta' as meta %}
 {% import 'macros.form' as form %}
 
+{% block title %}{{ recipe.name }}{% endblock %}
+{% block pageTitle %}{{ recipe.name }}{% endblock %}
+{% block buttons %}{% include 'recipes.buttons' %}{% endblock %}
+
 {% block content %}
     {{ dump( recipe ) }}
 {% endblock content %}

@@ -30,27 +30,30 @@
     {{ form_text( name, value, parameters ) }}
 {% endmacro %}
 
+{% macro number( name, value, id, class, placeholder, required, parameters ) %}
+    {% set parameters = parameters|default( {} )|merge( {
+        class: 'form-control ' ~ class,
+        id: id,
+        text: placeholder,
+        placeholder: placeholder
+    } ) %}
+    {% if required %}
+        {% set parameters = parameters|merge( { 'required': 'required' } ) %}
+    {% endif %}
+
+    {{ form_number( name, value, parameters ) }}
+{% endmacro %}
+
 {% macro textarea( name, value, id, class, placeholder, required, rows, cols ) %}
     {% set parameters = {
         class: 'form-control ' ~ class,
         placeholder: placeholder
     } %}
 
-    {% if id %}
-        {% set parameters = parameters|merge( { 'id': id } ) %}
-    {% endif %}
-
-    {% if rows %}
-        {% set parameters = parameters|merge( { 'rows': rows } ) %}
-    {% endif %}
-
-    {% if cols %}
-        {% set parameters = parameters|merge( { 'cols': cols } ) %}
-    {% endif %}
-
-    {% if required %}
-        {% set parameters = parameters|merge( { 'required': 'required' } ) %}
-    {% endif %}
+    {% if id %}{% set parameters = parameters|merge( { 'id': id } ) %}{% endif %}
+    {% if rows %}{% set parameters = parameters|merge( { 'rows': rows } ) %}{% endif %}
+    {% if cols %}{% set parameters = parameters|merge( { 'cols': cols } ) %}{% endif %}
+    {% if required %}{% set parameters = parameters|merge( { 'required': 'required' } ) %}{% endif %}
 
     {{ form_textarea( name, value, parameters ) }}
 {% endmacro %}
@@ -59,6 +62,7 @@
     {% set parameters = parameters|default( {} )|merge( {
         class: class ~ ' control-label'
     } ) %}
+
     {{ form_label( for, text, parameters ) }}
 {% endmacro %}
 
@@ -66,5 +70,6 @@
     {% set parameters = parameters|default( {} )|merge( {
         class: class ~ ' col-md-12 btn btn-' ~ color
     } ) %}
+
     {{ form_submit( text, parameters ) }}
 {% endmacro %}
