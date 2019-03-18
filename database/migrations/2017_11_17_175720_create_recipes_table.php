@@ -15,14 +15,14 @@ class CreateRecipesTable extends Migration
     {
         Schema::create( 'recipes', function ( Blueprint $table ) {
             $table->increments( 'id' );
-            $table->unsignedInteger( 'user_id' )->nullable();        //author
             $table->string( 'name' )->nullable();
+            $table->string( 'difficulty' )->nullable();
             $table->text( 'description' )->nullable();
             $table->string( 'source' )->nullable();
             $table->string( 'source_url' )->nullable();
             $table->text( 'notes' )->nullable();
-            $table->unsignedBigInteger( 'prep_time' )->default( 0 );   //minutes
-            $table->unsignedBigInteger( 'cook_time' )->default( 0 );   //minutes
+            $table->unsignedBigInteger( 'prep_time' )->default( 0 )->nullable();   //minutes
+            $table->unsignedBigInteger( 'cook_time' )->default( 0 )->nullable();   //minutes
             $table->unsignedInteger( 'servings' )->nullable();       //how many servings
             $table->string( 'serving_size' )->nullable();                //what size the serving is (people, cups, etc)
 

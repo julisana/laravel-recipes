@@ -1,1 +1,108 @@
 {% extends 'layout' %}
+
+{% import 'macros.meta' as meta %}
+{% import 'macros.form' as form %}
+
+{% block title %}Create New Recipe{% endblock %}
+{% block pageTitle %}Create New Recipe{% endblock %}
+
+{% block content %}
+    {{ form.open( 'recipe', 'recipes.create', 'create_recipe', 'create-recipe' ) }}
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Details</h4>
+            {% include 'recipes.form.details' %}
+        </div>
+
+        <div class="col-md-6 ingredients" id="ingredients">
+            <h4>Ingredients</h4>
+            {% include 'recipes.form.ingredient' %}
+        </div>
+    </div>
+
+    <div class="row">&nbsp;</div>
+
+    <div class="row">
+        <div class="col-md-6 directions" id="directions">
+            <h4>Directions</h4>
+            {% include 'recipes.form.direction' %}
+        </div>
+
+        <div class="col-md-6">
+            <h4>Photos</h4>
+        </div>
+    </div>
+
+    <div class="row">&nbsp;</div>
+
+    <div class="row">
+        <div class="offset-md-3 col-md-6">
+            {{ form.submit( 'Save Recipe', 'success', 'save-recipe' ) }}
+        </div>
+    </div>
+    {{ form.close() }}
+{% endblock content %}
+
+{% block footer_scripts %}
+    <script type="text/javascript" src="{{ asset( 'js/form.js' ) }}"></script>
+    <script type="text/javascript" src="{{ asset( 'js/Sortable.js' ) }}"></script>
+    <script type="text/javascript">
+        //Remove the line and record the ID in the delete input
+        $(document).on('click', '.ingredient .btn-danger.remove-item', function () {
+            removeRow(this, 'ingredient');
+            renameRows('ingredients');
+        });
+
+        $(document).on('click', '.direction .btn-danger.remove-item', function () {
+            removeRow(this, 'direction');
+            renameRows('directions');
+        });
+
+        //Generate a new line via tab
+        $('.ingredients').on('keydown', '.ingredient-notes', function (event) {
+            if (event.key === 'Tab' && $(this).prop('name') === $('.ingredient-notes').last().prop('name')) {
+                $('.ingredients').append(addRow('ingredient'));
+                renameRows('ingredients');
+
+                //Show the remove button if there is more than one item in the list
+                if ($('.ingredient').length > 1) {
+                    $('.ingredient .remove-item').removeClass('d-none');
+                    $('.ingredient .sort-item').removeClass('d-none');
+                }
+            }
+        });
+
+        $('.directions').on('keydown', '.direction-notes', function (event) {
+            if (event.key === 'Tab' && $(this).prop('name') === $('.direction-notes').last().prop('name')) {
+                $('.directions').append(addRow('direction'));
+                renameRows('directions');
+
+                //Show the remove button if there is more than one item in the list
+                if ($('.direction').length > 1) {
+                    $('.direction .remove-item').removeClass('d-none');
+                    $('.direction .sort-item').removeClass('d-none');
+                }
+            }
+        });
+
+        //Make the ingredient list sortable
+        new Sortable(document.getElementById('ingredients'), {
+            animation: 150,
+            handle: '.sort-item',
+            draggable: '.ingredient',
+            onEnd: function() {
+                renameRows('ingredients');
+            }
+        });
+
+        //Make the direction list sortable
+        new Sortable(document.getElementById('directions'), {
+            animation: 150,
+            handle: '.sort-item',
+            draggable: '.direction',
+            onEnd: function() {
+                renameRows('directions');
+            }
+        });
+    </script>
+{% endblock footer_scripts %}

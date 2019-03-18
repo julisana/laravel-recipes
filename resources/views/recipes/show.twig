@@ -3,14 +3,49 @@
 {% import 'macros.meta' as meta %}
 
 {% block title %}{{ recipe.name }}{% endblock %}
-
 {% block pageTitle %}{{ recipe.name }}{% endblock %}
+{% block buttons %}{% include 'recipes.buttons' %}{% endblock %}
 
 {% block meta_canonical %}
     {{ meta.canonical( route( 'recipes.show', { slug: recipe.getSlug(), id: recipe.id } ) ) }}
 {% endblock meta_canonical %}
 
 {% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <p>{{ recipe.description }}</p>
+
+            <ul class="details">
+                <li>
+                    <strong>Prep:</strong> {{ recipe.prep_time.forHumans( true ) ?: '0m' }}
+                </li>
+                <li>
+                    <strong>Cook:</strong> {{ recipe.cook_time.forHumans( true ) ?: '0m' }}
+                </li>
+                <li><strong>Total:</strong> {{ recipe.getTotalTime().cascade().forHumans( true ) ?: '0m' }}</li>
+                <li><strong>Servings:</strong> {{ recipe.servings }} {{ recipe.serving_size|capitalize }}</li>
+                <li><strong>Difficulty:</strong> {{ recipe.difficulty|capitalize }}</li>
+            </ul>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                {{ recipe.notes }}<br />
+                {% if recipe.source_url and recipe.source %}
+                    Source: <a href="{{ recipe.source_url }}"><span itemprop="author">{{ recipe.source }}</span></a>
+                {% elseif recipe.source_url %}
+                    Source: <a href="{{ recipe.source_url }}">{{ recipe.source_url }}</a>
+                {% elseif recipe.source %}
+                    Source: {{ recipe.source }}
+                {% endif %}
+            </p>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-6">
             <h4>Ingredients</h4>

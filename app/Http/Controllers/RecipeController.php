@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Recipe;
 use Illuminate\Http\Response;
 use App\Http\Requests\Recipe as RecipeRequest;
 
@@ -39,7 +40,33 @@ class RecipeController extends Controller
      */
     public function store( RecipeRequest $request )
     {
-        //
+        /** @var Recipe $recipe */
+        $recipe = Recipe::create( [
+            'name' => $request->get( 'name', null ),
+            'difficulty' => $request->get( 'difficulty', null ),
+            'description' => $request->get( 'description', null ),
+            'source' => $request->get( 'source', null ),
+            'source_url' => $request->get( 'source_url', null ),
+            'notes' => $request->get( 'notes', null ),
+            'prep_time' => $request->get( 'prep_time', null ),
+            'cook_time' => $request->get( 'cook_time', null ),
+            'servings' => $request->get( 'servings', null ),
+            'serving_size' => $request->get( 'serving_size', null )
+        ] );
+
+        foreach ( $request->get( 'ingredients', [] ) as $key => $row ) {
+            //Set the order number value. Items should already be in the correct order, just need to add the value
+            $row[ 'order_number' ] = $key + 1;
+            $recipe->ingredients()->create( $row );
+        }
+
+        foreach ( $request->get( 'directions', [] ) as $key => $row ) {
+            //Set the order number value. Items should already be in the correct order, just need to add the value
+            $row[ 'order_number' ] = $key + 1;
+            $recipe->directions()->create( $row );
+        }
+
+        return redirect( $recipe->getUrl() );
     }
 
     /**

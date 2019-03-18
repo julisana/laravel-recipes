@@ -10,3 +10,14 @@ nav {
   background-color: #ccc;
   width: 100%;
 }
+
+.subnav {
+  padding-left: 0;
+  & > li {
+    display: inline;
+
+    &:not(:first-child):before {
+      content:" | "
+    }
+  }
+}

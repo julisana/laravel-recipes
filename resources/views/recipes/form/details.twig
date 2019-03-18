@@ -1,0 +1,20 @@
+<fieldset class="recipe-details">
+    {{ form.text( 'name', old( 'name' ), 'recipe-name', 'recipe-name', 'Recipe Name', true ) }}
+    <br />
+    {{ form.textarea( 'description', old( 'description' ), 'description', 'recipe-description', 'Recipe Description', false, 5 ) }}
+    <br />
+    {{ form.text( 'source', old( 'source' ), 'source', 'recipe-source', 'Recipe Source' ) }}
+    <br />
+    {{ form.text( 'source_url', old( 'source_url' ), 'source-url', 'source-url', 'Source URL' ) }}
+    <br />
+    {{ form.textarea( 'notes', old( 'notes' ), 'notes', 'recipe-notes', 'Recipe Notes', false, 5 ) }}
+    <br />
+    <select name="difficulty" class="form-control difficulty">
+        <option value="">--Difficulty--</option>
+        <option value="beginner"{{ old( 'difficulty' ) == 'beginner' ? ' selected' : '' }}>Beginner</option>
+        <option value="easy"{{ old( 'difficulty' ) == 'easy' ? ' selected' : '' }}>Easy</option>
+        <option value="medium"{{ old( 'difficulty' ) == 'medium' ? ' selected' : '' }}>Medium</option>
+        <option value="hard"{{ old( 'difficulty' ) == 'hard' ? ' selected' : '' }}>Hard</option>
+        <option value="expert"{{ old( 'difficulty' ) == 'expert' ? ' selected' : '' }}>Expert</option>
+    </select>
+</fieldset>

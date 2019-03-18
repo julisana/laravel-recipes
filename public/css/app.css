@@ -13,6 +13,42 @@ nav {
   width: 100%;
 }
 
+.subnav {
+  padding-left: 0;
+}
+
+.subnav > li {
+  display: inline;
+}
+
+.subnav > li:not(:first-child):before {
+  content: " | ";
+}
+
+/* Show */
+
+.details {
+  padding-left: 0;
+  margin-bottom: 0px;
+}
+
+.details > li {
+  display: inline;
+}
+
+.details > li:not(:first-child):before {
+  content: " \2022   ";
+}
+
+/* Create/Edit */
+
+.ingredient:not(:last-child),
+.direction:not(:last-child) {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
 /*!
  * Bootstrap v4.2.1 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors

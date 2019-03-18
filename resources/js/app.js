@@ -5,29 +5,34 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+let token = document.head.querySelector('meta[name="csrf-token"]');
 
-window.Vue = require('vue');
+if (token) {
+    window.csrfToken = token.content;
+} else {
+    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+}
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
+//Set debug on the window object if the application is in debug mode
+window.appDebug = false;
+let debug = document.head.querySelector('meta[name="app-debug"]');
+if (debug) {
+    window.appDebug = ( debug.content === '1' );
+}
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-const app = new Vue({
-    el: '#app'
+//Hide the popover if the popover box has been clicked
+$(document).on('click', '.popover', function () {
+    (($('[data-toggle="popover"]').popover('hide').data('bs.popover') || {}).inState || {}).click = false  // fix for BS 3.3.6
 });
+
+//Hide the popover if outside the popover box has been clicked
+$(document).on('click', function (e) {
+    $('[data-toggle="popover"],[data-original-title]').each(function () {
+        //the 'is' for buttons that trigger popups
+        //the 'has' for icons within a button that triggers a popup
+        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+            (($(this).popover('hide').data('bs.popover') || {}).inState || {}).click = false  // fix for BS 3.3.6
+        }
+    });
+});
+
