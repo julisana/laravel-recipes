@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
 use App\Models\Recipe;
 use Illuminate\Http\Response;
 use App\Http\Requests\Recipe as RecipeRequest;
@@ -79,8 +78,6 @@ class RecipeController extends Controller
      */
     public function show( $slug, $id )
     {
-        $recipe = recipe()->with( [ 'ingredients', 'directions' ] )->findOrFail( $id );
-        $recipe->prep_time->forHumans();
         $this->addContext( 'slug', $slug )
             ->addContext( 'recipe', recipe()->with( [ 'ingredients', 'directions' ] )->findOrFail( $id ) );
 
