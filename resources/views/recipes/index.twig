@@ -5,6 +5,10 @@
 {% block title %}All Recipes{% endblock %}
 {% block pageTitle %}All Recipes{% endblock %}
 
+{% block buttons %}
+    <a href="{{ route( 'recipes.create' ) }}" class="btn btn-success btn-sm">New Recipe</a>
+{% endblock %}
+
 {% block content %}
     <div class="row">
         <div class="col-md-12">

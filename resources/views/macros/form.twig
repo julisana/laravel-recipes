@@ -58,6 +58,21 @@
     {{ form_textarea( name, value, parameters ) }}
 {% endmacro %}
 
+{% macro file( name, id, class, placeholder, required, parameters ) %}
+    {% set parameters = parameters|default( {} )|merge( {
+        class: 'form-control ' ~ class,
+        id: id,
+    } ) %}
+    {% if required %}
+        {% set parameters = parameters|merge( { 'required': 'required' } ) %}
+    {% endif %}
+
+    <div class="custom-file">
+        {{ form_file( name, parameters ) }}
+        {{ form_label( id, placeholder, { class: 'custom-file-label' } ) }}
+    </div>
+{% endmacro %}
+
 {% macro label( for, text, class, parameters ) %}
     {% set parameters = parameters|default( {} )|merge( {
         class: class ~ ' control-label'

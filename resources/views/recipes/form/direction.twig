@@ -6,6 +6,8 @@
         {{ form.text( 'directions[0][name]', old( 'directions[' ~ key ~ '][name]', '' ), '', 'direction-name', 'Direction' ) }}
         <br />
         {{ form.textarea( 'directions[0][notes]', old( 'directions[' ~ key ~ '][notes]', '' ), '', 'direction-notes', 'Direction Notes', false, 2 ) }}
+        <br />
+        {{ form.file( 'directions[0][photo][]', '', 'custom-file-input direction-photo', 'Add Photo (Optional)' ) }}
         {{ form.hidden( 'directions[0][id]', old( 'directions[' ~ key ~ '][id]', '' ) ) }}
     </div>
     <div class="col-md-1 pl-1 pr-1">

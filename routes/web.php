@@ -14,15 +14,6 @@
 Route::group( [ 'middleware' => [ 'force.ssl', 'global.variables' ] ], function () {
     Route::get( '/', [ 'as' => 'index', 'uses' => 'HomeController@index' ] );
 
-    Route::get( 'login', [ 'as' => 'login', 'uses' => 'Auth\LoginController@showLoginForm' ] );
-    Route::post( 'login', [ 'uses' => 'Auth\LoginController@login' ] );
-
-    Route::get( 'logout', [ 'as' => 'logout', 'uses' => 'Auth\LoginController@logout' ] );
-
-    // Registration routes...
-    Route::get( 'register', [ 'as' => 'register', 'uses' => 'Auth\LoginController@showRegistrationForm' ] );
-    Route::post( 'register', [ 'uses' => 'Auth\LoginController@register' ] );
-
     Route::group( [ 'prefix' => '/recipes' ], function () {
         //All Recipes
         Route::get( '/', [ 'as' => 'recipes.index', 'uses' => 'RecipeController@index' ] );
