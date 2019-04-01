@@ -51,7 +51,7 @@ class RecipeController extends Controller
             'prep_time' => $request->get( 'prep_time', null ),
             'cook_time' => $request->get( 'cook_time', null ),
             'servings' => $request->get( 'servings', null ),
-            'serving_size' => $request->get( 'serving_size', null )
+            'serving_size' => $request->get( 'serving_size', null ),
         ] );
 
         foreach ( $request->get( 'ingredients', [] ) as $key => $row ) {
@@ -72,7 +72,7 @@ class RecipeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
@@ -87,7 +87,7 @@ class RecipeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
