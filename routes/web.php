@@ -24,7 +24,7 @@ Route::group( [ 'middleware' => [ 'force.ssl', 'global.variables' ] ], function 
 
         Route::get( '{id}/edit', [ 'as' => 'recipes.edit', 'uses' => 'RecipeController@edit' ] )
             ->where( 'id', '[\d]+' );
-        Route::patch( '{id}/edit', [ 'uses' => 'RecipeController@update' ] )
+        Route::post( '{id}/edit', [ 'uses' => 'RecipeController@update' ] )
             ->where( 'id', '[\d]+' );
 
         Route::get( 'new', [ 'as' => 'recipes.create', 'uses' => 'RecipeController@create' ] );

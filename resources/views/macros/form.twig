@@ -1,19 +1,19 @@
-{% macro open( model, route, name, id, parameters ) %}
+{% macro open( route, name, id, parameters ) %}
     {% set parameters = parameters|default( {} )|merge( {
         route: route,
         name: name,
         id: id,
         enctype: 'multipart/form-data'
     } ) %}
-    {{ form_model( model, parameters ) }}
+    {{ form_open( parameters ) }}
 {% endmacro %}
 
 {% macro close() %}
     {{ form_close() }}
 {% endmacro %}
 
-{% macro hidden( name, value ) %}
-    {{ form_hidden( name, value ) }}
+{% macro hidden( name, value, parameters ) %}
+    {{ form_hidden( name, value, parameters ) }}
 {% endmacro %}
 
 {% macro text( name, value, id, class, placeholder, required, parameters ) %}

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddFilesToDirections extends Migration
+class AddFilesToRecipes extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddFilesToDirections extends Migration
      */
     public function up()
     {
-        Schema::table( 'directions', function ( Blueprint $table ) {
-            $table->string( 'files' )->after( 'name' );
+        Schema::table( 'recipes', function ( Blueprint $table ) {
+            $table->text( 'files' )->nullable()->after( 'serving_size' );
         } );
     }
 
@@ -25,7 +25,7 @@ class AddFilesToDirections extends Migration
      */
     public function down()
     {
-        Schema::table( 'directions', function ( Blueprint $table ) {
+        Schema::table( 'recipes', function ( Blueprint $table ) {
             $table->dropColumn( 'files' );
         } );
     }

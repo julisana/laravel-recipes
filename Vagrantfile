@@ -3,7 +3,7 @@
 
 Vagrant.configure( 2 ) do |config|
     config.vm.box = "bento/ubuntu-16.04"
-    config.vm.hostname = 'furious-foodie.vm'
+    config.vm.hostname = 'vm-www.furious-foodie.com'
 
     config.vm.network :private_network, ip: "192.168.11.94"
     config.vm.network "forwarded_port", guest: 80, host: 8484, auto_correct: true

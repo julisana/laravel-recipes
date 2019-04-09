@@ -1,16 +1,25 @@
 {% if key is not defined %}
     {% set key = 0 %}
 {% endif %}
-<div class="row ingredient">
-    <div class="col-md-11">
-        {{ form.text( 'ingredients[0][name]', old( 'ingredients[' ~ key ~ '][name]', '' ), '', 'ingredient-name', 'Ingredient Quantity and Name' ) }}
-        <br />
-        {{ form.textarea( 'ingredients[0][notes]', old( 'ingredients[' ~ key ~ '][notes]', '' ), '', 'ingredient-notes', 'Ingredient Notes', false, 2 ) }}
-        {{ form.hidden( 'ingredients[0][id]', old( 'ingredients[' ~ key ~ '][id]', '' ) ) }}
-    </div>
-    <div class="col-md-1 pl-1 pr-1">
-        <span class="btn btn-light sort-item d-none w-100">&#9776;</span>
-        <br /><br />
-        <span class="btn btn-danger remove-item d-none w-100" data-row="{{ key }}">X</span>
+
+<div class="form-row ingredient">
+    <div class="col-md-12">
+        <div class="form-row mb-2">
+            <div class="col-md-11">
+                {{ form.text( 'ingredients[' ~ key ~ '][name]', old( 'ingredients[' ~ key ~ '][name]', ingredient.name ), '', 'ingredient-name', 'Ingredient Quantity and Name' ) }}
+                {{ form.hidden( 'ingredients[' ~ key ~ '][id]', old( 'ingredients[' ~ key ~ '][id]', ingredient.id ), { class: 'id' } ) }}
+            </div>
+            <div class="col-md-1 pl-1 pr-1">
+                <span class="btn btn-light sort-item {{ recipe.ingredients is defined and recipe.ingredients.isNotEmpty() ? '' : 'd-none' }} w-100">&#9776;</span>
+            </div>
+        </div>
+        <div class="form-row mb-2">
+            <div class="col-md-11">
+                {{ form.textarea( 'ingredients[' ~ key ~ '][notes]', old( 'ingredients[' ~ key ~ '][notes]', ingredient.notes ), '', 'ingredient-notes', 'Ingredient Notes', false, 2 ) }}
+            </div>
+            <div class="col-md-1 pl-1 pr-1">
+                <span class="btn btn-danger remove-item {{ recipe.ingredients is defined and recipe.ingredients.isNotEmpty() ? '' : 'd-none' }} w-100" data-row="{{ key }}">X</span>
+            </div>
+        </div>
     </div>
 </div>

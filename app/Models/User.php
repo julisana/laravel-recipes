@@ -47,20 +47,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function savedRecipes()
-    {
-        return $this->belongsToMany( Recipe::class );
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function createdRecipes()
-    {
-        return $this->hasMany( Recipe::class, 'user_id', 'id' );
-    }
 }

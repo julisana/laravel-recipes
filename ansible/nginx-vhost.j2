@@ -11,6 +11,8 @@ server {
 
   server_name {{ server_name }};
 
+  client_max_body_size {{ upload_size_limit }};
+
   sendfile off;
 
   root /vagrant/public;

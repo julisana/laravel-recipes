@@ -1,10 +1,9 @@
 //Add a row
 function addRow(rowClass) {
     var html = $('.' + rowClass).last().html();
-    var rowId = parseInt($(html).find('.remove-item').first().attr('data-row'), 10) + 1;
 
     var item = document.createElement('div');
-    item.setAttribute('class', 'row ' + rowClass);
+    item.setAttribute('class', 'form-row ' + rowClass);
     item.innerHTML = html;
 
     //If there are any values in any input or textarea, reset them.
@@ -29,29 +28,27 @@ function addRow(rowClass) {
 }
 
 //Remove a row
-function removeRow(element, rowClass) {
+function removeRow(element, rowClass, parentClass) {
+    //If we're removing the last row, make sure to add a fresh one in
+    if ( $('.' + rowClass).length < 2 ) {
+        $('.' + parentClass).append(addRow(rowClass));
+    }
+
     var parent = $(element).parents('.' + rowClass);
     var id = $(parent).find('.id').first().val();
-    console.log(parent, id);
 
     //Make sure the ID is defined. Newly added rows won't have an ID
     if (typeof id !== 'undefined') {
         var deleteIds = [];
-        if (document.getElementById('delete').value.length) {
-            deleteIds = document.getElementById('delete').value.split(',');
+        if (document.getElementById('delete-' + rowClass).value.length) {
+            deleteIds = document.getElementById('delete-' + rowClass).value.split(',');
         }
 
         deleteIds.push(id);
-        document.getElementById('delete').value = deleteIds.join(',');
+        document.getElementById('delete-' + rowClass).value = deleteIds.join(',');
     }
 
     $(parent).remove();
-
-    //Hide the remove button if there is only one item in the list
-    if (!($('.' + rowClass).length > 1)) {
-        $('.' + rowClass + ' .remove-item').addClass('d-none');
-        $('.' + rowClass + ' .sort-item').addClass('d-none');
-    }
 }
 
 //Rename the rows so they are sequential

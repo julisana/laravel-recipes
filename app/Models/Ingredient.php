@@ -13,11 +13,6 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Ingredient
  *
- * @property-read \App\Models\Recipe $recipe
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ingredient newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ingredient newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ingredient query()
- * @mixin \Eloquent
  * @property int $id
  * @property int|null $recipe_id
  * @property int $order_number
@@ -25,6 +20,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $notes
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Recipe|null $recipe
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ingredient newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ingredient newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ingredient query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ingredient whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ingredient whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ingredient whereName($value)
@@ -32,6 +31,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ingredient whereOrderNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ingredient whereRecipeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ingredient whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class Ingredient extends Model
 {
@@ -51,6 +51,15 @@ class Ingredient extends Model
      */
     protected $dates = [
         'created_at', 'updated_at',
+    ];
+
+    /**
+     * The relationships that should be touched on save.
+     *
+     * @var array
+     */
+    protected $touches = [
+        'recipe'
     ];
 
     /**

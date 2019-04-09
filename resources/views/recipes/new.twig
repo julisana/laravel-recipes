@@ -7,7 +7,7 @@
 {% block pageTitle %}Create New Recipe{% endblock %}
 
 {% block content %}
-    {{ form.open( 'recipe', 'recipes.create', 'create_recipe', 'create-recipe' ) }}
+    {{ form.open( 'recipes.create', 'create_recipe', 'create-recipe' ) }}
     <div class="form-row">
         <div class="col-md-6">
             <h4>Details</h4>
@@ -37,6 +37,8 @@
 
     <div class="form-row">
         <div class="offset-md-3 col-md-6">
+            {{ form.hidden( 'delete_ingredient', '', { id: 'delete-ingredient' } ) }}
+            {{ form.hidden( 'delete_direction', '', { id: 'delete-direction' } ) }}
             {{ form.submit( 'Save Recipe', 'success', 'save-recipe' ) }}
         </div>
     </div>
@@ -49,12 +51,12 @@
     <script type="text/javascript">
         //Remove the line and record the ID in the delete input
         $(document).on('click', '.ingredient .btn-danger.remove-item', function () {
-            removeRow(this, 'ingredient');
+            removeRow(this, 'ingredient', 'ingredients');
             renameRows('ingredients');
         });
 
         $(document).on('click', '.direction .btn-danger.remove-item', function () {
-            removeRow(this, 'direction');
+            removeRow(this, 'direction', 'directions');
             renameRows('directions');
         });
 
@@ -90,7 +92,7 @@
             animation: 150,
             handle: '.sort-item',
             draggable: '.ingredient',
-            onEnd: function() {
+            onEnd: function () {
                 renameRows('ingredients');
             }
         });
@@ -100,7 +102,7 @@
             animation: 150,
             handle: '.sort-item',
             draggable: '.direction',
-            onEnd: function() {
+            onEnd: function () {
                 renameRows('directions');
             }
         });

@@ -4,7 +4,7 @@
     cert_name: furious-foodie
     composer_path: /usr/local/bin/composer
     composer_path_dir: /usr/local/bin
-    server_name: furious-foodie.vm
+    server_name: vm-www.furious-foodie.com
     node_version: 6.x
     php_version: 7.1
     upload_size_limit: 50M

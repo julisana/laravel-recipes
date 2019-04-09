@@ -7,10 +7,21 @@
  */
 
 use Spatie\Tags\Tag;
+use App\Models\File;
 use App\Models\User;
 use App\Models\Recipe;
 use App\Models\Direction;
 use App\Models\Ingredient;
+
+if ( !function_exists( 'file' ) ) {
+    /**
+     * @return File
+     */
+    function file()
+    {
+        return app( File::class );
+    }
+}
 
 if ( !function_exists( 'user' ) ) {
     /**
