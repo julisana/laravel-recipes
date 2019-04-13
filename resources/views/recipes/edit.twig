@@ -17,9 +17,13 @@
 
         <div class="col-md-6 ingredients" id="ingredients">
             <h4>Ingredients</h4>
-            {% for key, ingredient in recipe.ingredients %}
+            {% if recipe.ingredients.isNotEmpty() %}
+                {% for key, ingredient in recipe.ingredients %}
+                    {% include 'recipes.form.ingredient' %}
+                {% endfor %}
+            {% else %}
                 {% include 'recipes.form.ingredient' %}
-            {% endfor %}
+            {% endif %}
         </div>
     </div>
 
@@ -28,13 +32,24 @@
     <div class="form-row">
         <div class="col-md-6 directions" id="directions">
             <h4>Directions</h4>
-            {% for key, direction in recipe.directions %}
+            {% if recipe.directions.isNotEmpty() %}
+                {% for key, direction in recipe.directions %}
+                    {% include 'recipes.form.direction' %}
+                {% endfor %}
+            {% else %}
                 {% include 'recipes.form.direction' %}
-            {% endfor %}
+            {% endif %}
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-6 photos" id="photos">
             <h4>Photos</h4>
+            {% if recipe.photos.isNotEmpty() %}
+                {% for key, photo in recipe.photos %}
+                    {% include 'recipes.form.photo' %}
+                {% endfor %}
+            {% else %}
+                {% include 'recipes.form.photo' %}
+            {% endif %}
         </div>
     </div>
 
@@ -44,6 +59,7 @@
         <div class="offset-md-3 col-md-6">
             {{ form.hidden( 'delete_ingredient', '', { id: 'delete-ingredient' } ) }}
             {{ form.hidden( 'delete_direction', '', { id: 'delete-direction' } ) }}
+            {{ form.hidden( 'delete_photo', '', { id: 'delete-photo' } ) }}
             {{ form.submit( 'Update Recipe', 'success', 'update-recipe' ) }}
         </div>
     </div>
@@ -63,6 +79,11 @@
         $(document).on('click', '.direction .btn-danger.remove-item', function () {
             removeRow(this, 'direction', 'directions');
             renameRows('directions');
+        });
+
+        $(document).on('click', '.photo .btn-danger.remove-item', function () {
+            removeRow(this, 'photo', 'photos');
+            renameRows('photos');
         });
 
         //Generate a new line via tab
@@ -92,6 +113,28 @@
             }
         });
 
+        $('.photos').on('keydown', '.photo-caption', function (event) {
+            if (event.key === 'Tab' && $(this).prop('name') === $('.photo-caption').last().prop('name')) {
+                $('.photos').append(addRow('photo'));
+                renameRows('photos');
+
+                //Show the remove button if there is more than one item in the list
+                if ($('.photo').length > 1) {
+                    $('.photo .remove-item').removeClass('d-none');
+                    $('.photo .sort-item').removeClass('d-none');
+                }
+            }
+        });
+
+        $('input[type=file]').on('change', function () {
+            //Get the file name, replace the fakepath value
+            var fileName = $(this).val().replace('C:\\fakepath\\', '');
+
+            //Display the file name in the file field
+            var label = $(this).parents('.photo').find('.custom-file-label').first();
+            label.html(fileName);
+        });
+
         //Make the ingredient list sortable
         new Sortable(document.getElementById('ingredients'), {
             animation: 150,
@@ -109,6 +152,16 @@
             draggable: '.direction',
             onEnd: function () {
                 renameRows('directions');
+            }
+        });
+
+        //Make the photo list sortable
+        new Sortable(document.getElementById('photos'), {
+            animation: 150,
+            handle: '.sort-item',
+            draggable: '.photo',
+            onEnd: function () {
+                renameRows('photos');
             }
         });
     </script>

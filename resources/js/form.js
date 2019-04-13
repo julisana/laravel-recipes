@@ -7,7 +7,7 @@ function addRow(rowClass) {
     item.innerHTML = html;
 
     //If there are any values in any input or textarea, reset them.
-    $(item).find('input, select, span').each(function (key, element) {
+    $(item).find('input, select, span, label').each(function (key, element) {
         $(element).val('');
 
         if ($(element).hasClass('id')) {
@@ -17,6 +17,9 @@ function addRow(rowClass) {
         //Change the ID display
         if ($(element).hasClass('disabled')) {
             $(element).html('NEW');
+        }
+        if ($(element).hasClass('custom-file-label')) {
+            $(element).html('Add Photo (Optional)')
         }
         //Make the remove button usable again
         else if ($(element).hasClass('remove-item') && $(element).hasClass('btn-secondary')) {

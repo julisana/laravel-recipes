@@ -9,7 +9,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 
 /**
  * App\Models\Direction
@@ -18,15 +17,15 @@ use Illuminate\Database\Eloquent\Builder;
  * @property int|null $recipe_id
  * @property int $order_number
  * @property string|null $name
- * @property array|null $files
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Models\Recipe|null $recipe
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Direction newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Direction newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Direction query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Direction whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Direction whereFiles($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Direction whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Direction whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Direction whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Direction whereOrderNumber($value)
@@ -42,7 +41,7 @@ class Direction extends Model
      * @var array
      */
     protected $fillable = [
-        'recipe_id', 'order_number', 'name', 'files',
+        'recipe_id', 'order_number', 'name', 'notes',
     ];
 
     /**
@@ -51,16 +50,7 @@ class Direction extends Model
      * @var array
      */
     protected $dates = [
-        'created_at', 'updated_at',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'files' => 'array',
+        'created_at', 'updated_at', 'deleted_at'
     ];
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Throwable;
 use Illuminate\Http\Response;
 use App\Http\Requests\Recipe as RecipeRequest;
 
@@ -77,31 +78,14 @@ class RecipeController extends Controller
      * @param int           $id
      *
      * @return Response
+     * @throws Throwable
      */
     public function update( RecipeRequest $request, $id )
     {
-        dd( $request->only( [ 'delete_ingredient', 'delete_direction' ] ) );
-//        $recipe = recipe()->with( 'ingredients', 'directions' )->find( $id );
-//
-//        try {
-//            $details = $request->except( '_token', 'ingredients', 'directions' );
-//            foreach ( $details as $key => $value ) {
-//                $recipe->{ $key } = $value;
-//            }
-//            $recipe->save();
-//
-//            $ingredients = $recipe->ingredients->keyBy( 'id' );
-//            foreach ( $request->get( 'ingredients', [] ) as $key => $row ) {
-//                //Set the order number value. Items should already be in the correct order, just need to add the value
-//                $row[ 'order_number' ] = $key + 1;
-////                $recipe->ingredients()->updateOrCreate( array_keys( $row ), $row );
-//            }
-//        }
-//        catch ( Throwable $exception ) {
-//            return redirect()->back()->withInput();
-//        }
-//
-//        return redirect( $recipe->getUrl() );
+        $recipe = recipe()::find( $id );
+        $recipe->updateItem( $request );
+
+        return redirect( $recipe->getUrl() );
     }
 
     /**
@@ -110,9 +94,13 @@ class RecipeController extends Controller
      * @param int $id
      *
      * @return Response
+     * @throws Throwable
      */
     public function destroy( $id )
     {
-        //
+        $recipe = recipe()::find( $id );
+        $recipe->delete();
+
+        return redirect( route( 'recipes.all' ) );
     }
 }

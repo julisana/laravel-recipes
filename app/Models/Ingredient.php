@@ -20,11 +20,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $notes
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Models\Recipe|null $recipe
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ingredient newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ingredient newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ingredient query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ingredient whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ingredient whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ingredient whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ingredient whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ingredient whereNotes($value)
@@ -50,7 +52,7 @@ class Ingredient extends Model
      * @var array
      */
     protected $dates = [
-        'created_at', 'updated_at',
+        'created_at', 'updated_at', 'deleted_at'
     ];
 
     /**

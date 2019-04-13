@@ -8,6 +8,7 @@
 
 namespace App\Models;
 
+use Exception;
 use Spatie\Tags\HasTags;
 use Carbon\CarbonInterval;
 use Illuminate\Http\Request;
@@ -18,44 +19,43 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Recipe
  *
- * @property int                                                                    $id
- * @property string|null                                                            $name
- * @property string|null                                                            $difficulty
- * @property string|null                                                            $description
- * @property string|null                                                            $source
- * @property string|null                                                            $source_url
- * @property string|null                                                            $notes
- * @property CarbonInterval                                                         $prep_time
- * @property CarbonInterval                                                         $cook_time
- * @property int|null                                                               $servings
- * @property string|null                                                            $serving_size
- * @property array|null                                                             $files
- * @property \Illuminate\Support\Carbon|null                                        $created_at
- * @property \Illuminate\Support\Carbon|null                                        $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Direction[]  $directions
+ * @property int $id
+ * @property string|null $name
+ * @property string|null $difficulty
+ * @property string|null $description
+ * @property string|null $source
+ * @property string|null $source_url
+ * @property string|null $notes
+ * @property CarbonInterval $prep_time
+ * @property CarbonInterval $cook_time
+ * @property int|null $servings
+ * @property string|null $serving_size
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Direction[] $directions
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Ingredient[] $ingredients
- * @property \Illuminate\Database\Eloquent\Collection|\Spatie\Tags\Tag[]            $tags
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\File[] $photos
+ * @property \Illuminate\Database\Eloquent\Collection|\Spatie\Tags\Tag[] $tags
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereCookTime( $value )
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereCreatedAt( $value )
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereDescription( $value )
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereDifficulty( $value )
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereFiles( $value )
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereId( $value )
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereName( $value )
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereNotes( $value )
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe wherePrepTime( $value )
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereServingSize( $value )
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereServings( $value )
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereSource( $value )
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereSourceUrl( $value )
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereUpdatedAt( $value )
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe withAllTags( $tags, $type = null )
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe withAllTagsOfAnyType( $tags )
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe withAnyTags( $tags, $type = null )
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe withAnyTagsOfAnyType( $tags )
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereCookTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereDifficulty($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereNotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe wherePrepTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereServingSize($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereServings($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereSource($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereSourceUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe withAllTags($tags, $type = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe withAllTagsOfAnyType($tags)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe withAnyTags($tags, $type = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe withAnyTagsOfAnyType($tags)
  * @mixin \Eloquent
  */
 class Recipe extends Model
@@ -69,7 +69,7 @@ class Recipe extends Model
      */
     protected $fillable = [
         'name', 'difficulty', 'description', 'source', 'source_url', 'notes', 'prep_time', 'cook_time', 'servings',
-        'serving_size', 'files', 'created_by', 'updated_by',
+        'serving_size', 'created_by', 'updated_by',
     ];
 
     /**
@@ -86,14 +86,22 @@ class Recipe extends Model
      *
      * @var array
      */
-    protected $casts = [
-        'files' => 'array',
-    ];
+    protected $casts = [];
 
     /**
-     * @var File[]|\Illuminate\Database\Eloquent\Collection
+     * Delete the model, and related models, from the database.
+     *
+     * @return bool|null
+     * @throws Exception
      */
-    protected $photos;
+    public function delete()
+    {
+        $this->ingredients()->withTrashed()->forceDelete();
+        $this->directions()->withTrashed()->forceDelete();
+        $this->photos()->withTrashed()->forceDelete();
+
+        return parent::delete();
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -112,15 +120,11 @@ class Recipe extends Model
     }
 
     /**
-     * @return File[]|\Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function photos()
     {
-        if ( !empty( $photos ) ) {
-            return $this->photos;
-        }
-
-        return $this->photos = File::whereIn( 'id', $this->files )->get();
+        return $this->hasMany( File::class )->orderBy( 'order_number', 'asc' );
     }
 
     /**
@@ -204,6 +208,204 @@ class Recipe extends Model
         }
         $recipe->directions()->createMany( $directions );
 
+        $photos = [];
+        foreach ( $request->get( 'photos', [] ) as $key => $row ) {
+            //Set the order number value. Items should already be in the correct order, just need to add the value
+            $row[ 'order_number' ] = $key + 1;
+            $photos[] = $row;
+        }
+        $recipe->photos()->createMany( $photos );
+
         return redirect( $recipe->getUrl() );
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @throws Exception
+     */
+    public function updateItem( Request $request )
+    {
+        $fields = $request->except( '_token', 'ingredients', 'description', 'photos', 'delete_ingredient', 'delete_direction' );
+        /** @var Recipe $recipe */
+        foreach ( $fields as $key => $value ) {
+            $this->{$key} = $value;
+        }
+        $this->save();
+
+        $this->deleteIngredients( explode( ',', $request->get( 'delete_ingredient', '' ) ) )
+            ->updateIngredients( $request->get( 'ingredients', [] ) )
+            ->deleteDirections( explode( ',', $request->get( 'delete_direction', '' ) ) )
+            ->updateDirections( $request->get( 'directions', [] ) )
+            ->deletePhotos( explode( ',', $request->get( 'delete_photo', '' ) ) )
+            ->updatePhotos( $request->get( 'photos', [] ) );
+    }
+
+    /**
+     * @param array $ids
+     *
+     * @return $this
+     * @throws Exception
+     */
+    protected function deleteIngredients( array $ids )
+    {
+        if ( empty( $ids ) ) {
+            return $this;
+        }
+
+        foreach ( $ids as $id ) {
+            $item = $this->ingredients->keyBy( 'id' )->get( $id );
+            if ( $item instanceof Ingredient ) {
+                $item->delete();
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param array $ids
+     *
+     * @return $this
+     * @throws Exception
+     */
+    protected function deleteDirections( array $ids )
+    {
+        if ( empty( $ids ) ) {
+            return $this;
+        }
+
+        foreach ( $ids as $id ) {
+            $item = $this->directions->keyBy( 'id' )->get( $id );
+            if ( $item instanceof Direction ) {
+                $item->delete();
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param array $ids
+     *
+     * @return $this
+     * @throws Exception
+     */
+    protected function deletePhotos( array $ids )
+    {
+        if ( empty( $ids ) ) {
+            return $this;
+        }
+
+        foreach ( $ids as $id ) {
+            $item = $this->photos->keyBy( 'id' )->get( $id );
+            if ( $item instanceof File ) {
+                $item->delete();
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param array $items
+     *
+     * @return $this
+     */
+    protected function updateIngredients( array $items )
+    {
+        $newItems = [];
+        foreach ( $items as $item ) {
+            //Set the order number value. Items should already be in the correct order, just need to add the value
+            $item[ 'order_number' ] = $item + 1;
+
+            if ( !isset( $item[ 'id' ] ) ) {
+                $newItems[] = $item;
+                continue;
+            }
+
+            //Update existing item
+            $ingredient = $this->ingredients->keyBy( 'id' )->get( $item[ 'id' ] );
+            foreach ( $item as $key => $value ) {
+                $ingredient->{$key} = $value;
+            }
+
+            $ingredient->save();
+        }
+
+        //Create new items
+        if ( !empty( $newItems ) ) {
+            $this->ingredients()->createMany( $newItems );
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param array $items
+     *
+     * @return $this
+     */
+    protected function updateDirections( array $items )
+    {
+        $newItems = [];
+        foreach ( $items as $item ) {
+            //Set the order number value. Items should already be in the correct order, just need to add the value
+            $item[ 'order_number' ] = $item + 1;
+
+            if ( !isset( $item[ 'id' ] ) ) {
+                $newItems[] = $item;
+                continue;
+            }
+
+            //Update existing item
+            $direction = $this->directions->keyBy( 'id' )->get( $item[ 'id' ] );
+            foreach ( $item as $key => $value ) {
+                $direction->{$key} = $value;
+            }
+
+            $direction->save();
+        }
+
+        //Create new items
+        if ( !empty( $newItems ) ) {
+            $this->directions()->createMany( $newItems );
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param array $items
+     *
+     * @return $this
+     */
+    protected function updatePhotos( array $items )
+    {
+        $newItems = [];
+        foreach ( $items as $item ) {
+            //Set the order number value. Items should already be in the correct order, just need to add the value
+            $item[ 'order_number' ] = $item + 1;
+
+            if ( !isset( $item[ 'id' ] ) ) {
+                $newItems[] = $item;
+                continue;
+            }
+
+            //Update existing item
+            $photo = $this->photos->keyBy( 'id' )->get( $item[ 'id' ] );
+            foreach ( $item as $key => $value ) {
+                $photo->{$key} = $value;
+            }
+
+            $photo->save();
+        }
+
+        //Create new items
+        if ( !empty( $newItems ) ) {
+            $this->photos()->createMany( $newItems );
+        }
+
+        return $this;
     }
 }
