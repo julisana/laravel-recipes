@@ -9,6 +9,7 @@
 namespace App\Models;
 
 use Exception;
+use Illuminate\Http\UploadedFile;
 use Spatie\Tags\HasTags;
 use Carbon\CarbonInterval;
 use Illuminate\Http\Request;
@@ -209,9 +210,15 @@ class Recipe extends Model
         $recipe->directions()->createMany( $directions );
 
         $photos = [];
+        $files = $request->file( 'photos' );
         foreach ( $request->get( 'photos', [] ) as $key => $row ) {
             //Set the order number value. Items should already be in the correct order, just need to add the value
             $row[ 'order_number' ] = $key + 1;
+
+            $uploadedFile = array_get( $files, $key, '' );
+            if ( $uploadedFile[ 'photo' ] instanceof UploadedFile ) {
+                $item[ 'path' ] = file()::uploadPhoto( $uploadedFile[ 'photo' ], $row->id, $row[ 'order_number' ] );
+            }
             $photos[] = $row;
         }
         $recipe->photos()->createMany( $photos );
@@ -226,7 +233,7 @@ class Recipe extends Model
      */
     public function updateItem( Request $request )
     {
-        $fields = $request->except( '_token', 'ingredients', 'description', 'photos', 'delete_ingredient', 'delete_direction' );
+        $fields = $request->except( '_token', 'ingredients', 'directions', 'photos', 'delete_ingredient', 'delete_direction', 'delete_photo' );
         /** @var Recipe $recipe */
         foreach ( $fields as $key => $value ) {
             $this->{$key} = $value;
@@ -238,7 +245,7 @@ class Recipe extends Model
             ->deleteDirections( explode( ',', $request->get( 'delete_direction', '' ) ) )
             ->updateDirections( $request->get( 'directions', [] ) )
             ->deletePhotos( explode( ',', $request->get( 'delete_photo', '' ) ) )
-            ->updatePhotos( $request->get( 'photos', [] ) );
+            ->updatePhotos( $request->get( 'photos', [] ), $request->file( 'photos', [] ) );
     }
 
     /**
@@ -317,7 +324,7 @@ class Recipe extends Model
         $newItems = [];
         foreach ( $items as $item ) {
             //Set the order number value. Items should already be in the correct order, just need to add the value
-            $item[ 'order_number' ] = $item + 1;
+            $item[ 'order_number' ] = count( $newItems ) + 1;
 
             if ( !isset( $item[ 'id' ] ) ) {
                 $newItems[] = $item;
@@ -351,7 +358,7 @@ class Recipe extends Model
         $newItems = [];
         foreach ( $items as $item ) {
             //Set the order number value. Items should already be in the correct order, just need to add the value
-            $item[ 'order_number' ] = $item + 1;
+            $item[ 'order_number' ] = count( $newItems ) + 1;
 
             if ( !isset( $item[ 'id' ] ) ) {
                 $newItems[] = $item;
@@ -380,14 +387,19 @@ class Recipe extends Model
      *
      * @return $this
      */
-    protected function updatePhotos( array $items )
+    protected function updatePhotos( array $items, array $files )
     {
         $newItems = [];
-        foreach ( $items as $item ) {
+        foreach ( $items as $rowId => $item ) {
             //Set the order number value. Items should already be in the correct order, just need to add the value
-            $item[ 'order_number' ] = $item + 1;
+            $item[ 'order_number' ] = count( $newItems ) + 1;
 
             if ( !isset( $item[ 'id' ] ) ) {
+                $uploadedFile = array_get( $files, $rowId, '' );
+                if ( $uploadedFile[ 'photo' ] instanceof UploadedFile ) {
+                    $item[ 'path' ] = file()::uploadPhoto( $uploadedFile[ 'photo' ], $this->id, $item[ 'order_number' ] );
+                }
+
                 $newItems[] = $item;
                 continue;
             }

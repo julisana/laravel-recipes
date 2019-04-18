@@ -7,6 +7,7 @@
         <div class="form-row mb-2">
             <div class="col-md-11 custom-file">
                 {{ form.file( 'photos[' ~ key ~ '][photo]', '', 'custom-file-input recipe-photo', 'Add Photo (Optional)', false, { 'aria-describedby': '' } ) }}
+                {{ form.hidden( 'photos[' ~ key ~ '][type]', old( 'photos[' ~ key ~ '][type]', 'photo' ), { class: 'type' } ) }}
                 {{ form.hidden( 'photos[' ~ key ~ '][id]', old( 'photos[' ~ key ~ '][id]', photo.id ), { class: 'id' } ) }}
             </div>
             <div class="col-md-1 pl-1 pr-1">

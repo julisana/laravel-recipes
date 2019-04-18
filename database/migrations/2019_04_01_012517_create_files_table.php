@@ -17,9 +17,9 @@ class CreateFilesTable extends Migration
             $table->increments( 'id' );
             $table->unsignedInteger( 'recipe_id' )->nullable();
             $table->unsignedInteger( 'order_number' )->default( 1 );
-            $table->string( 'type' )->index();
-            $table->string( 'path' );
-            $table->text( 'caption' );
+            $table->string( 'type' )->nullable()->index();
+            $table->string( 'path' )->nullable();
+            $table->text( 'caption' )->nullable();
 
             $table->timestamps();
             $table->softDeletes();

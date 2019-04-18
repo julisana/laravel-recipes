@@ -79,9 +79,9 @@ class File extends Model
      *
      * @return string
      */
-    protected function createRecipePhotoName( UploadedFile $uploadedFile, $orderNumber )
+    public static function createPhotoName( UploadedFile $uploadedFile, $orderNumber )
     {
-        $fileName = 'recipe-' . ( $orderNumber + 1 );
+        $fileName = 'photo-' . $orderNumber;
         if ( $extension = $uploadedFile->guessExtension() ) {
             $extension = '.' . $extension;
         }
@@ -92,36 +92,17 @@ class File extends Model
 
     /**
      * @param UploadedFile $uploadedFile
-     * @param string       $type
-     * @param int          $recipeId
-     * @param string       $fileName
-     * @param string       $caption
-     *
-     * @return File
-     */
-    protected function uploadAndCreate( UploadedFile $uploadedFile, $type, $recipeId, $fileName, $caption = '' )
-    {
-        /** @var UploadedFile $uploadedFile */
-        $filePath = $uploadedFile->storeAs( 'photos/recipe-' . $recipeId, $fileName, 'public' );
-
-        return $this->create( [
-            'type' => $type,
-            'path' => $filePath,
-            'caption' => $caption,
-        ] );
-    }
-
-    /**
-     * @param UploadedFile $uploadedFile
      * @param int          $recipeId
      * @param int          $orderNumber
      *
-     * @return File
+     * @return false|string
      */
-    public function uploadAndCreateRecipePhoto( UploadedFile $uploadedFile, $recipeId, $orderNumber )
+    public static function uploadPhoto( UploadedFile $uploadedFile, $recipeId, $orderNumber )
     {
-        $fileName = $this->createRecipePhotoName( $uploadedFile, $orderNumber );
-
-        return $this->uploadAndCreate( $uploadedFile, 'photo', $recipeId, $fileName );
+        return $uploadedFile->storeAs(
+            'photos/recipe-' . $recipeId,
+            self::createPhotoName( $uploadedFile, $orderNumber ),
+            'public'
+        );
     }
 }

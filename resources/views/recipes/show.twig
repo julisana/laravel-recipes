@@ -71,4 +71,16 @@
             {% endfor %}
         </div>
     </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-md-12">
+            <ul>
+                {% for photo in recipe.photos %}
+                    <li><img src="{{ public_asset( 'storage/' ~ photo.path ) }}" width="100" /></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 {% endblock content %}

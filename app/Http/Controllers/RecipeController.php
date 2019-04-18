@@ -27,7 +27,7 @@ class RecipeController extends Controller
      */
     public function create()
     {
-        return view( 'recipes.new', $this->context );
+        return view( 'recipes.create', $this->context );
     }
 
     /**

@@ -179,6 +179,8 @@ return [
             'head',
             'last',
             'str_slug',
+            'public_asset',
+            'external_asset',
         ],
 
         /*

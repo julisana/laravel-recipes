@@ -41,7 +41,8 @@
         },
         "files": [
             "app/Helpers/common.php",
-            "app/Helpers/models.php"
+            "app/Helpers/models.php",
+            "app/Helpers/url.php"
         ],
         "classmap": [
             "database/seeds",
