@@ -9,10 +9,10 @@
 namespace App\Models;
 
 use Exception;
-use Illuminate\Http\UploadedFile;
 use Spatie\Tags\HasTags;
 use Carbon\CarbonInterval;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Routing\Redirector;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Database\Eloquent\Model;
@@ -129,7 +129,6 @@ class Recipe extends Model
     }
 
     /**
-     *
      * @return string
      */
     public function getUrl()
@@ -217,7 +216,7 @@ class Recipe extends Model
 
             $uploadedFile = array_get( $files, $key, '' );
             if ( $uploadedFile[ 'photo' ] instanceof UploadedFile ) {
-                $item[ 'path' ] = file()::uploadPhoto( $uploadedFile[ 'photo' ], $row->id, $row[ 'order_number' ] );
+                $item[ 'path' ] = File::uploadPhoto( $uploadedFile[ 'photo' ], $row->id, $row[ 'order_number' ] );
             }
             $photos[] = $row;
         }
@@ -384,6 +383,7 @@ class Recipe extends Model
 
     /**
      * @param array $items
+     * @param array $files
      *
      * @return $this
      */
@@ -392,15 +392,17 @@ class Recipe extends Model
         $newItems = [];
         foreach ( $items as $rowId => $item ) {
             //Set the order number value. Items should already be in the correct order, just need to add the value
-            $item[ 'order_number' ] = count( $newItems ) + 1;
+            $item[ 'order_number' ] = $rowId + 1;
 
             if ( !isset( $item[ 'id' ] ) ) {
                 $uploadedFile = array_get( $files, $rowId, '' );
-                if ( $uploadedFile[ 'photo' ] instanceof UploadedFile ) {
-                    $item[ 'path' ] = file()::uploadPhoto( $uploadedFile[ 'photo' ], $this->id, $item[ 'order_number' ] );
-                }
+                if ( array_has( $uploadedFile, 'photo' ) ) {
+                    if ( $uploadedFile[ 'photo' ] instanceof UploadedFile ) {
+                        $item[ 'path' ] = File::uploadPhoto( $uploadedFile[ 'photo' ], $this->id, $item[ 'order_number' ] );
+                    }
 
-                $newItems[] = $item;
+                    $newItems[] = $item;
+                }
                 continue;
             }
 

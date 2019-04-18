@@ -60,7 +60,7 @@
 
 {% macro file( name, id, class, placeholder, required, parameters ) %}
     {% set parameters = parameters|default( {} )|merge( {
-        class: 'form-control ' ~ class,
+        class: class,
         id: id,
     } ) %}
     {% if required %}

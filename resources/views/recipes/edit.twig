@@ -47,6 +47,7 @@
                 {% for key, photo in recipe.photos %}
                     {% include 'recipes.form.photo' %}
                 {% endfor %}
+                {% include 'recipes.form.photo' with { key: recipe.photos.length + 1 } %}
             {% else %}
                 {% include 'recipes.form.photo' %}
             {% endif %}

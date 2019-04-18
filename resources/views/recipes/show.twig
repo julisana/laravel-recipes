@@ -75,12 +75,17 @@
     <hr />
 
     <div class="row">
+        {% for chunk in recipe.photos.chunk( 4 ) %}
+            {% for photo in chunk %}
+                <div class="col-md-3">
+                    <img src="{{ public_asset( 'storage/' ~ photo.path ) }}" width="100%" alt="{{ photo.path }}" />
+                    <p>
+                        {{ photo.caption }}
+                    </p>
+                </div>
+            {% endfor %}
+        {% endfor %}
         <div class="col-md-12">
-            <ul>
-                {% for photo in recipe.photos %}
-                    <li><img src="{{ public_asset( 'storage/' ~ photo.path ) }}" width="100" /></li>
-                {% endfor %}
-            </ul>
         </div>
     </div>
 {% endblock content %}

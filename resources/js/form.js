@@ -10,13 +10,14 @@ function addRow(rowClass) {
     $(item).find('input, select, span, label').each(function (key, element) {
         $(element).val('');
 
-        if ($(element).hasClass('id')) {
+        if ($(element).hasClass('id') || $(element).hasClass('path')) {
             $(element).remove();
+            return;
         }
 
         //Change the ID display
-        if ($(element).hasClass('disabled')) {
-            $(element).html('NEW');
+        if ($(element).is('[disabled]')) {
+            $(element).removeAttr('disabled');
         }
         if ($(element).hasClass('custom-file-label')) {
             $(element).html('Add Photo (Optional)')
@@ -33,7 +34,7 @@ function addRow(rowClass) {
 //Remove a row
 function removeRow(element, rowClass, parentClass) {
     //If we're removing the last row, make sure to add a fresh one in
-    if ( $('.' + rowClass).length < 2 ) {
+    if ($('.' + rowClass).length < 2) {
         $('.' + parentClass).append(addRow(rowClass));
     }
 

@@ -5,8 +5,13 @@
 <div class="form-row photo">
     <div class="col-md-12">
         <div class="form-row mb-2">
-            <div class="col-md-11 custom-file">
-                {{ form.file( 'photos[' ~ key ~ '][photo]', '', 'custom-file-input recipe-photo', 'Add Photo (Optional)', false, { 'aria-describedby': '' } ) }}
+            <div class="col-md-11">
+                {% set placeholder = 'Add Photo (Optional)' %}
+                {% if photo.path is not empty %}
+                    {% set placeholder = photo.path %}
+                    {{ form.hidden( 'photos[' ~ key ~ '][path]', old( 'photos[' ~ key ~ '][path]', photo.path ), { class: 'path' } ) }}
+                {% endif %}
+                {{ form.file( 'photos[' ~ key ~ '][photo]', '', 'custom-file-input recipe-photo', placeholder, false, { disabled: ( photo.path is not empty ? true : false ) } ) }}
                 {{ form.hidden( 'photos[' ~ key ~ '][type]', old( 'photos[' ~ key ~ '][type]', 'photo' ), { class: 'type' } ) }}
                 {{ form.hidden( 'photos[' ~ key ~ '][id]', old( 'photos[' ~ key ~ '][id]', photo.id ), { class: 'id' } ) }}
             </div>
