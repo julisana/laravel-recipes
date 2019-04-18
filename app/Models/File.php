@@ -81,7 +81,29 @@ class File extends Model
      */
     public static function createPhotoName( UploadedFile $uploadedFile, $orderNumber )
     {
-        $fileName = 'photo-' . $orderNumber;
+        return self::fileName( $uploadedFile, 'photo-' . $orderNumber );
+    }
+
+    /**
+     * @param UploadedFile $uploadedFile
+     * @param int          $orderNumber
+     *
+     * @return string
+     */
+    public static function createFileName( UploadedFile $uploadedFile, $orderNumber )
+    {
+        return self::fileName( $uploadedFile, 'file-' . $orderNumber );
+
+    }
+
+    /**
+     * @param UploadedFile $uploadedFile
+     * @param string       $fileName
+     *
+     * @return string
+     */
+    protected static function fileName( UploadedFile $uploadedFile, $fileName )
+    {
         if ( $extension = $uploadedFile->guessExtension() ) {
             $extension = '.' . $extension;
         }
@@ -100,8 +122,24 @@ class File extends Model
     public static function uploadPhoto( UploadedFile $uploadedFile, $recipeId, $orderNumber )
     {
         return $uploadedFile->storeAs(
-            'photos/recipe-' . $recipeId,
+            'files/recipe-' . $recipeId,
             self::createPhotoName( $uploadedFile, $orderNumber ),
+            'public'
+        );
+    }
+
+    /**
+     * @param UploadedFile $uploadedFile
+     * @param int          $recipeId
+     * @param int          $orderNumber
+     *
+     * @return false|string
+     */
+    public static function uploadFile( UploadedFile $uploadedFile, $recipeId, $orderNumber )
+    {
+        return $uploadedFile->storeAs(
+            'files/recipe-' . $recipeId,
+            self::createFileName( $uploadedFile, $orderNumber ),
             'public'
         );
     }

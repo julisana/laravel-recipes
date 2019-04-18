@@ -13,7 +13,7 @@
 }
 
 /* Create/Edit */
-.ingredient:not(:last-child), .direction:not(:last-child), .photo:not(:last-child) {
+.ingredient:not(:last-child), .direction:not(:last-child), .photo:not(:last-child), .file:not(:last-child) {
   margin-bottom: 10px;
   padding-bottom: 10px;
   border-bottom: 1px solid #ccc;

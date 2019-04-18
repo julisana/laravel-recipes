@@ -20,43 +20,44 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Recipe
  *
- * @property int $id
- * @property string|null $name
- * @property string|null $difficulty
- * @property string|null $description
- * @property string|null $source
- * @property string|null $source_url
- * @property string|null $notes
- * @property CarbonInterval $prep_time
- * @property CarbonInterval $cook_time
- * @property int|null $servings
- * @property string|null $serving_size
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Direction[] $directions
+ * @property int                                                                    $id
+ * @property string|null                                                            $name
+ * @property string|null                                                            $difficulty
+ * @property string|null                                                            $description
+ * @property string|null                                                            $source
+ * @property string|null                                                            $source_url
+ * @property string|null                                                            $notes
+ * @property CarbonInterval                                                         $prep_time
+ * @property CarbonInterval                                                         $cook_time
+ * @property int|null                                                               $servings
+ * @property string|null                                                            $serving_size
+ * @property \Illuminate\Support\Carbon|null                                        $created_at
+ * @property \Illuminate\Support\Carbon|null                                        $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Direction[]  $directions
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Ingredient[] $ingredients
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\File[] $photos
- * @property \Illuminate\Database\Eloquent\Collection|\Spatie\Tags\Tag[] $tags
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\File[]       $photos
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\File[]       $files
+ * @property \Illuminate\Database\Eloquent\Collection|\Spatie\Tags\Tag[]            $tags
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereCookTime($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereDifficulty($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereNotes($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe wherePrepTime($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereServingSize($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereServings($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereSource($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereSourceUrl($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe withAllTags($tags, $type = null)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe withAllTagsOfAnyType($tags)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe withAnyTags($tags, $type = null)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe withAnyTagsOfAnyType($tags)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereCookTime( $value )
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereCreatedAt( $value )
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereDescription( $value )
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereDifficulty( $value )
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereId( $value )
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereName( $value )
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereNotes( $value )
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe wherePrepTime( $value )
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereServingSize( $value )
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereServings( $value )
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereSource( $value )
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereSourceUrl( $value )
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe whereUpdatedAt( $value )
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe withAllTags( $tags, $type = null )
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe withAllTagsOfAnyType( $tags )
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe withAnyTags( $tags, $type = null )
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Recipe withAnyTagsOfAnyType( $tags )
  * @mixin \Eloquent
  */
 class Recipe extends Model
@@ -125,7 +126,19 @@ class Recipe extends Model
      */
     public function photos()
     {
-        return $this->hasMany( File::class )->orderBy( 'order_number', 'asc' );
+        return $this->hasMany( File::class )
+            ->where( 'type', '=', 'photo' )
+            ->orderBy( 'order_number', 'asc' );
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function files()
+    {
+        return $this->hasMany( File::class )
+            ->where( 'type', '=', 'file' )
+            ->orderBy( 'order_number', 'asc' );
     }
 
     /**
@@ -232,7 +245,7 @@ class Recipe extends Model
      */
     public function updateItem( Request $request )
     {
-        $fields = $request->except( '_token', 'ingredients', 'directions', 'photos', 'delete_ingredient', 'delete_direction', 'delete_photo' );
+        $fields = $request->except( '_token', 'ingredients', 'directions', 'photos', 'files', 'delete_ingredient', 'delete_direction', 'delete_photo', 'delete_file' );
         /** @var Recipe $recipe */
         foreach ( $fields as $key => $value ) {
             $this->{$key} = $value;
@@ -244,7 +257,9 @@ class Recipe extends Model
             ->deleteDirections( explode( ',', $request->get( 'delete_direction', '' ) ) )
             ->updateDirections( $request->get( 'directions', [] ) )
             ->deletePhotos( explode( ',', $request->get( 'delete_photo', '' ) ) )
-            ->updatePhotos( $request->get( 'photos', [] ), $request->file( 'photos', [] ) );
+            ->updatePhotos( $request->get( 'photos', [] ), $request->file( 'photos', [] ) )
+            ->deleteFiles( explode( ',', $request->get( 'delete_file', '' ) ) )
+            ->updateFiles( $request->get( 'files', [] ), $request->file( 'files', [] ) );
     }
 
     /**
@@ -305,6 +320,28 @@ class Recipe extends Model
 
         foreach ( $ids as $id ) {
             $item = $this->photos->keyBy( 'id' )->get( $id );
+            if ( $item instanceof File ) {
+                $item->delete();
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param array $ids
+     *
+     * @return $this
+     * @throws Exception
+     */
+    protected function deleteFiles( array $ids )
+    {
+        if ( empty( $ids ) ) {
+            return $this;
+        }
+
+        foreach ( $ids as $id ) {
+            $item = $this->files->keyBy( 'id' )->get( $id );
             if ( $item instanceof File ) {
                 $item->delete();
             }
@@ -418,6 +455,48 @@ class Recipe extends Model
         //Create new items
         if ( !empty( $newItems ) ) {
             $this->photos()->createMany( $newItems );
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param array $items
+     * @param array $files
+     *
+     * @return $this
+     */
+    protected function updateFiles( array $items, array $files )
+    {
+        $newItems = [];
+        foreach ( $items as $rowId => $item ) {
+            //Set the order number value. Items should already be in the correct order, just need to add the value
+            $item[ 'order_number' ] = $rowId + 1;
+
+            if ( !isset( $item[ 'id' ] ) ) {
+                $uploadedFile = array_get( $files, $rowId, '' );
+                if ( array_has( $uploadedFile, 'file' ) ) {
+                    if ( $uploadedFile[ 'file' ] instanceof UploadedFile ) {
+                        $item[ 'path' ] = File::uploadFile( $uploadedFile[ 'file' ], $this->id, $item[ 'order_number' ] );
+                    }
+
+                    $newItems[] = $item;
+                }
+                continue;
+            }
+
+            //Update existing item
+            $file = $this->files->keyBy( 'id' )->get( $item[ 'id' ] );
+            foreach ( $item as $key => $value ) {
+                $file->{$key} = $value;
+            }
+
+            $file->save();
+        }
+
+        //Create new items
+        if ( !empty( $newItems ) ) {
+            $this->files()->createMany( $newItems );
         }
 
         return $this;
