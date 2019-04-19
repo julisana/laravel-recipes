@@ -74,16 +74,4 @@ class Direction extends Model
     {
         return $this->belongsTo( Recipe::class );
     }
-
-    /**
-     * @return File[]|\Illuminate\Database\Eloquent\Collection
-     */
-    public function photos()
-    {
-        if ( !empty( $photos ) ) {
-            return $this->photos;
-        }
-
-        return $this->photos = File::whereIn( 'id', $this->files )->get();
-    }
 }
