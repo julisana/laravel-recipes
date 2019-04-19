@@ -1,9 +1,9 @@
 <ul class="subnav">
     {% if recipe is defined and currentRoute.getName() != 'recipes.show' %}
-        <li><a href="{{ recipe.getUrl() }}">Show</a></li>
+        <li><a href="{{ recipe.getUrl() }}" class="btn btn-primary btn-sm">Show</a></li>
     {% endif %}
 
     {% if recipe is defined and currentRoute.getName() != 'recipes.edit' %}
-        <li><a href="{{ route( 'recipes.edit', { id: recipe.id } ) }}">Edit</a></li>
+        <li><a href="{{ route( 'recipes.edit', { id: recipe.id } ) }}" class="btn btn-primary btn-sm">Edit</a></li>
     {% endif %}
 </ul>

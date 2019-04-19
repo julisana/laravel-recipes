@@ -72,7 +72,9 @@
         </div>
     </div>
 
-    <hr />
+    {% if recipe.files.isNotEmpty() or recipe.photos.isNotEmpty() %}
+        <hr />
+    {% endif %}
 
     {% if recipe.files.isNotEmpty() %}
         <div class="row">
