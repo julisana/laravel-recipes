@@ -42,6 +42,14 @@
     value: "{{ upload_size_limit }}"
     backup: yes
 
+- name: Ensure "upload_max_filesize=50M is in section [PHP]" in php.ini
+  ini_file:
+    path: /etc/php/{{ php_version }}/fpm/php.ini
+    section: PHP
+    option: upload_max_filesize
+    value: "{{ upload_size_limit }}"
+    backup: yes
+
 - name: Restart php{{ php_version }}-fpm
   become_user: 'root'
   action: service name=php{{ php_version }}-fpm state=restarted enabled=yes

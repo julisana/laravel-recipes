@@ -51,7 +51,14 @@
             <h4>Ingredients</h4>
             <ul>
                 {% for ingredient in recipe.ingredients().get() %}
-                    <li>{{ ingredient.name }}</li>
+                    <li>
+                        {{ ingredient.name }}
+                        {% if ingredient.notes %}
+                            <ul>
+                                <li>{{ ingredient.notes }}</li>
+                            </ul>
+                        {% endif %}
+                    </li>
                 {% endfor %}
             </ul>
         </div>
@@ -59,7 +66,14 @@
             <h4>Directions</h4>
             <ol>
                 {% for direction in recipe.directions().get() %}
-                    <li>{{ direction.name }}</li>
+                    <li>
+                        {{ direction.name }}
+                        {% if direction.notes %}
+                            <ul>
+                                <li>{{ direction.notes }}</li>
+                            </ul>
+                        {% endif %}
+                    </li>
                 {% endfor %}
             </ol>
         </div>

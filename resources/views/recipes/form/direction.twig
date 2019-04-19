@@ -6,7 +6,8 @@
     <div class="col-md-12">
         <div class="form-row mb-2">
             <div class="col-md-11">
-                {{ form.text( 'directions[' ~ key ~ '][name]', old( 'directions[' ~ key ~ '][name]', direction.name ), '', 'direction-name', 'Direction' ) }}
+                {#{ form.text( 'directions[' ~ key ~ '][name]', old( 'directions[' ~ key ~ '][name]', direction.name ), '', 'direction-name', 'Direction' ) }#}
+                {{ form.textarea( 'directions[' ~ key ~ '][name]', old( 'directions[' ~ key ~ '][name]', direction.name ), '', 'direction-name', 'Direction', false, 2 ) }}
                 {{ form.hidden( 'directions[' ~ key ~ '][id]', old( 'directions[' ~ key ~ '][id]', direction.id ), { class: 'id' } ) }}
             </div>
             <div class="col-md-1 pl-1 pr-1">
@@ -17,14 +18,9 @@
             <div class="col-md-11">
                 {{ form.textarea( 'directions[' ~ key ~ '][notes]', old( 'directions[' ~ key ~ '][notes]', direction.notes ), '', 'direction-notes', 'Direction Notes', false, 2 ) }}
             </div>
-            <div class="col-md-1 pl-1 pr-1">
+            <div class="col-md-1">
                 <span class="btn btn-danger remove-item w-100" data-row="{{ key }}">X</span>
             </div>
         </div>
-        {#<div class="form-row mb-2">
-            <div class="col-md-6">
-                {{ form.file( 'directions[' ~ key ~ '][photo]', '', 'custom-file-input direction-photo', 'Add Photo (Optional)' ) }}
-            </div>
-        </div>#}
     </div>
 </div>

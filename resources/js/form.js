@@ -7,7 +7,7 @@ function addRow(rowClass) {
     item.innerHTML = html;
 
     //If there are any values in any input or textarea, reset them.
-    $(item).find('input, select, span, label').each(function (key, element) {
+    $(item).find('input, select, span, label, textarea').each(function (key, element) {
         $(element).val('');
 
         if ($(element).hasClass('id') || $(element).hasClass('path')) {
