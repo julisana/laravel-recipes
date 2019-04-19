@@ -222,18 +222,36 @@ class Recipe extends Model
         $recipe->directions()->createMany( $directions );
 
         $photos = [];
-        $files = $request->file( 'photos' );
+        $uploadedFiles = $request->file( 'photos' );
         foreach ( $request->get( 'photos', [] ) as $key => $row ) {
             //Set the order number value. Items should already be in the correct order, just need to add the value
             $row[ 'order_number' ] = $key + 1;
 
-            $uploadedFile = array_get( $files, $key, '' );
-            if ( $uploadedFile[ 'photo' ] instanceof UploadedFile ) {
-                $item[ 'path' ] = File::uploadPhoto( $uploadedFile[ 'photo' ], $row->id, $row[ 'order_number' ] );
+            $uploadedFile = array_get( $uploadedFiles, $key, '' );
+            if ( array_has( $uploadedFile, 'photo' ) ) {
+                if ( $uploadedFile[ 'photo' ] instanceof UploadedFile ) {
+                    $item[ 'path' ] = File::uploadPhoto( $uploadedFile[ 'photo' ], $row->id, $row[ 'order_number' ] );
+                }
+                $photos[] = $row;
             }
-            $photos[] = $row;
         }
         $recipe->photos()->createMany( $photos );
+
+        $files = [];
+        $uploadedFiles = $request->file( 'files' );
+        foreach ( $request->get( 'files', [] ) as $key => $row ) {
+            //Set the order number value. Items should already be in the correct order, just need to add the value
+            $row[ 'order_number' ] = $key + 1;
+
+            $uploadedFile = array_get( $uploadedFiles, $key, '' );
+            if ( array_has( $uploadedFile, 'file' ) ) {
+                if ( $uploadedFile[ 'file' ] instanceof UploadedFile ) {
+                    $item[ 'path' ] = File::uploadFile( $uploadedFile[ 'file' ], $row->id, $row[ 'order_number' ] );
+                }
+                $files[] = $row;
+            }
+        }
+        $recipe->files()->createMany( $files );
 
         return redirect( $recipe->getUrl() );
     }

@@ -10,6 +10,7 @@ namespace App\Models;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\File as HttpFile;
 
 /**
  * App\Models\File
@@ -71,6 +72,14 @@ class File extends Model
     public function recipe()
     {
         return $this->belongsTo( Recipe::class );
+    }
+
+    /**
+     * @return string
+     */
+    public function getExtension()
+    {
+        return HttpFile::extension( $this->path );
     }
 
     /**

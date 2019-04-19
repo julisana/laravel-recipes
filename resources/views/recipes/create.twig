@@ -5,6 +5,7 @@
 
 {% block title %}Create New Recipe{% endblock %}
 {% block pageTitle %}Create New Recipe{% endblock %}
+{% block buttons %}{% include 'recipes.buttons' %}{% endblock %}
 
 {% block content %}
     {{ form.open( 'recipes.create', 'create_recipe', 'create-recipe' ) }}
@@ -12,6 +13,11 @@
         <div class="col-md-6">
             <h4>Details</h4>
             {% include 'recipes.form.details' %}
+
+            <div class="files" id="files">
+                <h4>Files</h4>
+                {% include 'recipes.form.file' %}
+            </div>
         </div>
 
         <div class="col-md-6 ingredients" id="ingredients">
@@ -41,9 +47,12 @@
             {{ form.hidden( 'delete_ingredient', '', { id: 'delete-ingredient' } ) }}
             {{ form.hidden( 'delete_direction', '', { id: 'delete-direction' } ) }}
             {{ form.hidden( 'delete_photo', '', { id: 'delete-photo' } ) }}
+            {{ form.hidden( 'delete_file', '', { id: 'delete-file' } ) }}
+
             {{ form.submit( 'Save Recipe', 'success', 'save-recipe' ) }}
         </div>
     </div>
+
     {{ form.close() }}
 {% endblock content %}
 
@@ -65,6 +74,11 @@
         $(document).on('click', '.photo .btn-danger.remove-item', function () {
             removeRow(this, 'photo', 'photos');
             renameRows('photos');
+        });
+
+        $(document).on('click', '.file .btn-danger.remove-item', function () {
+            removeRow(this, 'file', 'files');
+            renameRows('files');
         });
 
         //Generate a new line via tab
@@ -107,12 +121,25 @@
             }
         });
 
-        $('input[type=file]').on('change', function () {
+        $('.files').on('keydown', '.file-caption', function (event) {
+            if (event.key === 'Tab' && $(this).prop('name') === $('.file-caption').last().prop('name')) {
+                $('.files').append(addRow('file'));
+                renameRows('files');
+
+                //Show the remove button if there is more than one item in the list
+                if ($('.file').length > 1) {
+                    $('.file .remove-item').removeClass('d-none');
+                    $('.file .sort-item').removeClass('d-none');
+                }
+            }
+        });
+
+        $(document).on('change', '.custom-file-input', function () {
             //Get the file name, replace the fakepath value
             var fileName = $(this).val().replace('C:\\fakepath\\', '');
 
             //Display the file name in the file field
-            var label = $(this).parents('.photo').find('.custom-file-label').first();
+            var label = $(this).closest('div').find('.custom-file-label').first();
             label.html(fileName);
         });
 
@@ -143,6 +170,16 @@
             draggable: '.photo',
             onEnd: function () {
                 renameRows('photos');
+            }
+        });
+
+        //Make the file list sortable
+        new Sortable(document.getElementById('files'), {
+            animation: 150,
+            handle: '.sort-item',
+            draggable: '.file',
+            onEnd: function () {
+                renameRows('files');
             }
         });
     </script>

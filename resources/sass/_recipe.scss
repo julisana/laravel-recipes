@@ -7,7 +7,7 @@
     display: inline;
 
     &:not(:first-child):before {
-      content:" • "
+      content: " • "
     }
   }
 }
@@ -17,4 +17,8 @@
   margin-bottom: 10px;
   padding-bottom: 10px;
   border-bottom: 1px solid #ccc;
+}
+
+.extension {
+  padding-right: .4em;
 }
