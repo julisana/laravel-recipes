@@ -8,6 +8,7 @@
             <div class="col-md-11">
                 {{ form.text( 'ingredients[' ~ key ~ '][name]', old( 'ingredients[' ~ key ~ '][name]', ingredient.name ), '', 'ingredient-name', 'Ingredient Quantity and Name' ) }}
                 {{ form.hidden( 'ingredients[' ~ key ~ '][id]', old( 'ingredients[' ~ key ~ '][id]', ingredient.id ), { class: 'id' } ) }}
+                {{ form.hidden( 'ingredients[' ~ key ~ '][order_number]', old( 'ingredients[' ~ key ~ '][order_number]', ingredient.order_number ), { class: 'order-number' } ) }}
             </div>
             <div class="col-md-1 pl-1 pr-1">
                 <span class="btn btn-light sort-item w-100">&#9776;</span>

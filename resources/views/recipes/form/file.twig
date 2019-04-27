@@ -14,6 +14,7 @@
                 {{ form.file( 'files[' ~ key ~ '][file]', '', 'custom-file-input recipe-file', placeholder, false, { disabled: ( file.path is not empty ? true : false ) } ) }}
                 {{ form.hidden( 'files[' ~ key ~ '][type]', old( 'files[' ~ key ~ '][type]', 'file' ), { class: 'type' } ) }}
                 {{ form.hidden( 'files[' ~ key ~ '][id]', old( 'files[' ~ key ~ '][id]', file.id ), { class: 'id' } ) }}
+                {{ form.hidden( 'files[' ~ key ~ '][order_number]', old( 'files[' ~ key ~ '][order_number]', file.order_number ), { class: 'order-number' } ) }}
             </div>
             <div class="col-md-1 pl-1 pr-1">
                 <span class="btn btn-light sort-item w-100">&#9776;</span>

@@ -6,4 +6,6 @@
     {% if recipe is defined and currentRoute.getName() != 'recipes.edit' %}
         <li><a href="{{ route( 'recipes.edit', { id: recipe.id } ) }}" class="btn btn-primary btn-sm">Edit</a></li>
     {% endif %}
+
+        <li><a href="{{ route( 'recipes.delete', { id: recipe.id } ) }}" class="btn btn-danger btn-sm">Delete</a></li>
 </ul>

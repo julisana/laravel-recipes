@@ -15,10 +15,6 @@ nav {
   padding-left: 0;
   & > li {
     display: inline;
-
-    &:not(:first-child):before {
-      content:" | "
-    }
   }
 }
 

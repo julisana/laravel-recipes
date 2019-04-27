@@ -377,9 +377,6 @@ class Recipe extends Model
     {
         $newItems = [];
         foreach ( $items as $item ) {
-            //Set the order number value. Items should already be in the correct order, just need to add the value
-            $item[ 'order_number' ] = count( $newItems ) + 1;
-
             if ( !isset( $item[ 'id' ] ) ) {
                 $newItems[] = $item;
                 continue;
@@ -411,9 +408,6 @@ class Recipe extends Model
     {
         $newItems = [];
         foreach ( $items as $item ) {
-            //Set the order number value. Items should already be in the correct order, just need to add the value
-            $item[ 'order_number' ] = count( $newItems ) + 1;
-
             if ( !isset( $item[ 'id' ] ) ) {
                 $newItems[] = $item;
                 continue;
@@ -446,9 +440,6 @@ class Recipe extends Model
     {
         $newItems = [];
         foreach ( $items as $rowId => $item ) {
-            //Set the order number value. Items should already be in the correct order, just need to add the value
-            $item[ 'order_number' ] = $rowId + 1;
-
             if ( !isset( $item[ 'id' ] ) ) {
                 $uploadedFile = array_get( $files, $rowId, '' );
                 if ( array_has( $uploadedFile, 'photo' ) ) {
@@ -488,9 +479,6 @@ class Recipe extends Model
     {
         $newItems = [];
         foreach ( $items as $rowId => $item ) {
-            //Set the order number value. Items should already be in the correct order, just need to add the value
-            $item[ 'order_number' ] = $rowId + 1;
-
             if ( !isset( $item[ 'id' ] ) ) {
                 $uploadedFile = array_get( $files, $rowId, '' );
                 if ( array_has( $uploadedFile, 'file' ) ) {

@@ -70,6 +70,10 @@ function renameRows(parentClass) {
                 $(input).attr('name', name);
             }
 
+            if ($(input).hasClass('order-number')) {
+                $(input).attr('value', key + 1);
+            }
+
             if ($(input).is('[id]')) {
                 var id = $(input).attr('id').replace(/\-[\d]+/ig, '-' + key);
                 $(input).attr('id', id);
