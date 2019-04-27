@@ -16,6 +16,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Routing\Redirector;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * App\Models\Recipe
@@ -33,6 +34,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null                                                            $serving_size
  * @property \Illuminate\Support\Carbon|null                                        $created_at
  * @property \Illuminate\Support\Carbon|null                                        $updated_at
+ * @property \Illuminate\Support\Carbon|null                                        $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Direction[]  $directions
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Ingredient[] $ingredients
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\File[]       $photos
@@ -62,7 +64,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Recipe extends Model
 {
-    use HasTags;
+    use HasTags, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -80,7 +82,7 @@ class Recipe extends Model
      * @var array
      */
     protected $dates = [
-        'created_at', 'updated_at',
+        'created_at', 'updated_at', 'deleted_at'
     ];
 
     /**
@@ -98,9 +100,11 @@ class Recipe extends Model
      */
     public function delete()
     {
-        $this->ingredients()->withTrashed()->forceDelete();
-        $this->directions()->withTrashed()->forceDelete();
-        $this->photos()->withTrashed()->forceDelete();
+        //Uncomment to cascade deletes
+//        $this->ingredients()->delete();
+//        $this->directions()->delete();
+//        $this->photos()->delete();
+//        $this->files()->delete();
 
         return parent::delete();
     }

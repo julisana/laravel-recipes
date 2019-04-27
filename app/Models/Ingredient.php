@@ -9,6 +9,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * App\Models\Ingredient
@@ -37,6 +38,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Ingredient extends Model
 {
+    use SoftDeletes;
     /**
      * The attributes that are mass assignable.
      *

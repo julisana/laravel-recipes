@@ -1,6 +1,7 @@
 {% extends 'layout' %}
 
 {% import 'macros.meta' as meta %}
+{% import 'macros.form' as form %}
 
 {% block title %}{{ recipe.name }}{% endblock %}
 {% block pageTitle %}{{ recipe.name }}{% endblock %}
@@ -138,3 +139,27 @@
         </div>
     {% endif %}
 {% endblock content %}
+
+{% block modals %}
+    <div class="modal fade" id="delete-recipe" tabindex="-1" role="dialog" aria-labelledby="deleteRecipe" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteRecipe">Delete Recipe</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you'd like to delete "{{ recipe.name }}"?
+                </div>
+                <div class="modal-footer">
+                    {{ form.open( [ 'recipes.delete', recipe.id ], 'delete_recipe', 'delete-recipe' ) }}
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Delete Recipe</button>
+                    {{ form_close() }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

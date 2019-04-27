@@ -27,7 +27,7 @@ Route::group( [ 'middleware' => [ 'force.ssl', 'global.variables' ] ], function 
         Route::post( '{id}/edit', [ 'uses' => 'RecipeController@update' ] )
             ->where( 'id', '[\d]+' );
 
-        Route::post( '{id}/delete', [ 'as' => 'recipes.delete', 'uses' => 'RecipeController@delete' ] )
+        Route::post( '{id}/delete', [ 'as' => 'recipes.delete', 'uses' => 'RecipeController@destroy' ] )
             ->where( 'id', '[\d]+' );
 
         Route::get( 'create', [ 'as' => 'recipes.create', 'uses' => 'RecipeController@create' ] );

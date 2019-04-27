@@ -7,5 +7,5 @@
         <li><a href="{{ route( 'recipes.edit', { id: recipe.id } ) }}" class="btn btn-primary btn-sm">Edit</a></li>
     {% endif %}
 
-        <li><a href="{{ route( 'recipes.delete', { id: recipe.id } ) }}" class="btn btn-danger btn-sm">Delete</a></li>
+        <li><a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete-recipe">Delete</a></li>
 </ul>

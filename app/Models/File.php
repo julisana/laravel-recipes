@@ -10,6 +10,7 @@ namespace App\Models;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\File as HttpFile;
 
 /**
@@ -39,6 +40,7 @@ use Illuminate\Support\Facades\File as HttpFile;
  */
 class File extends Model
 {
+    use SoftDeletes;
     /**
      * The attributes that are mass assignable.
      *

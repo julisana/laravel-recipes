@@ -101,6 +101,6 @@ class RecipeController extends Controller
         $recipe = recipe()::find( $id );
         $recipe->delete();
 
-        return redirect( route( 'recipes.all' ) );
+        return redirect( route( 'recipes.index' ) );
     }
 }

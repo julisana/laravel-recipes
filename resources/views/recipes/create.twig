@@ -1,4 +1,4 @@
-{% extends 'layout' %}
+{% extends 'recipes.show' %}
 
 {% import 'macros.meta' as meta %}
 {% import 'macros.form' as form %}
@@ -6,6 +6,8 @@
 {% block title %}Create New Recipe{% endblock %}
 {% block pageTitle %}Create New Recipe{% endblock %}
 {% block buttons %}{% include 'recipes.buttons' %}{% endblock %}
+
+{% block meta_canonical %}{% endblock %}
 
 {% block content %}
     {{ form.open( 'recipes.create', 'create_recipe', 'create-recipe' ) }}
