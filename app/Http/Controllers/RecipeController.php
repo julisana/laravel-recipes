@@ -15,7 +15,7 @@ class RecipeController extends Controller
      */
     public function index()
     {
-        $this->addContext( 'recipes', recipe()->all() );
+        $this->addContext( 'recipes', recipe()->paginate( 30 ) );
 
         return view( 'recipes.index', $this->context );
     }

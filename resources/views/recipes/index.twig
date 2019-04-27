@@ -24,4 +24,12 @@
             {% endif %}
         </div>
     </div>
+
+    {% if recipes.links().toHtml() is not empty %}
+        <div class="row">&nbsp;</div>
+
+        <div class="row">
+            {{ recipes.links()|raw }}
+        </div>
+    {% endif %}
 {% endblock content %}
