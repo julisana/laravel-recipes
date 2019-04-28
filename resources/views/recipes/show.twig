@@ -17,12 +17,8 @@
             <p>{{ recipe.description }}</p>
 
             <ul class="details">
-                <li>
-                    <strong>Prep:</strong> {{ recipe.prep_time.forHumans( true ) ?: '0m' }}
-                </li>
-                <li>
-                    <strong>Cook:</strong> {{ recipe.cook_time.forHumans( true ) ?: '0m' }}
-                </li>
+                <li><strong>Prep:</strong> {{ recipe.prep_time.forHumans( true ) ?: '0m' }}</li>
+                <li><strong>Cook:</strong> {{ recipe.cook_time.forHumans( true ) ?: '0m' }}</li>
                 <li><strong>Total:</strong> {{ recipe.getTotalTime().cascade().forHumans( true ) ?: '0m' }}</li>
                 <li><strong>Servings:</strong> {{ recipe.servings }} {{ recipe.serving_size|capitalize }}</li>
                 <li><strong>Difficulty:</strong> {{ recipe.difficulty|capitalize }}</li>
@@ -37,7 +33,7 @@
             <p>
                 {{ recipe.notes }}<br />
                 {% if recipe.source_url and recipe.source %}
-                    Source: <a href="{{ recipe.source_url }}" target="_blank"><span itemprop="author">{{ recipe.source }}</span></a>
+                    Source: <a href="{{ recipe.source_url }}" target="_blank">{{ recipe.source }}</a>
                 {% elseif recipe.source_url %}
                     Source: <a href="{{ recipe.source_url }}" target="_blank">{{ recipe.source_url }}</a>
                 {% elseif recipe.source %}
@@ -50,7 +46,7 @@
     <div class="row">
         <div class="col-md-6">
             <h4>Ingredients</h4>
-            <ul>
+            <ul class="ingredients">
                 {% for ingredient in recipe.ingredients().get() %}
                     <li>
                         {{ ingredient.name }}
@@ -65,9 +61,13 @@
         </div>
         <div class="col-md-6">
             <h4>Directions</h4>
-            <ol>
+            <ol class="directions">
                 {% for direction in recipe.directions().get() %}
                     <li>
+                        <span class="btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="left"
+                              title="Tap/Click to mark as complete">
+                            {{ loop.index }}
+                        </span>
                         {{ direction.name }}
                         {% if direction.notes %}
                             <ul>
@@ -101,7 +101,8 @@
             {% for chunk in recipe.files.chunk( 3 ) %}
                 {% for file in chunk %}
                     <div class="col-md-4">
-                        <i class="fas fa-file-{{ file.getExtension() }} extension"></i><a href="{{ public_asset( 'storage/' ~ file.path ) }}" target="_blank">{{ file.path }}</a>
+                        <i class="fas fa-file-{{ file.getExtension() }} extension"></i>
+                        <a href="{{ public_asset( 'storage/' ~ file.path ) }}" target="_blank">{{ file.path }}</a>
                         <p>
                             {{ file.caption }}
                         </p>
@@ -141,7 +142,8 @@
 {% endblock content %}
 
 {% block modals %}
-    <div class="modal fade" id="delete-recipe" tabindex="-1" role="dialog" aria-labelledby="deleteRecipe" aria-hidden="true">
+    <div class="modal fade" id="delete-recipe" tabindex="-1" role="dialog" aria-labelledby="deleteRecipe"
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -155,11 +157,23 @@
                 </div>
                 <div class="modal-footer">
                     {{ form.open( [ 'recipes.delete', recipe.id ], 'delete_recipe', 'delete-recipe' ) }}
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-danger">Delete Recipe</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Delete Recipe</button>
                     {{ form_close() }}
                 </div>
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block footer_scripts %}
+    <script type="text/javascript">
+        $('.directions .btn').on('click', function () {
+            if ($(this).hasClass('btn-outline-secondary')) {
+                $(this).addClass('btn-success').removeClass('btn-outline-secondary');
+            } else {
+                $(this).addClass('btn-outline-secondary').removeClass('btn-success');
+            }
+        });
+    </script>
 {% endblock %}
