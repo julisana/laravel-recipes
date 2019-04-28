@@ -31,7 +31,14 @@
     <div class="row">
         <div class="col-md-12">
             <p>
-                {{ recipe.notes }}<br />
+                {% if recipe.notes is not empty %}
+                    {{ recipe.notes }}
+                {% endif %}
+
+                {% if recipe.notes is not empty and ( recipe.source_url is not empty or recipe.source is not empty ) %}
+                    <br />
+                {% endif %}
+
                 {% if recipe.source_url and recipe.source %}
                     Source: <a href="{{ recipe.source_url }}" target="_blank">{{ recipe.source }}</a>
                 {% elseif recipe.source_url %}

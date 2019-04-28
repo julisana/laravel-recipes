@@ -8,6 +8,11 @@ function addRow(rowClass) {
 
     //If there are any values in any input or textarea, reset them.
     $(item).find('input, select, span, label, textarea').each(function (key, element) {
+        //If we're specifying the type, like on files or photos, leave the value
+        if ($(element).hasClass('type')) {
+            return;
+        }
+
         $(element).val('');
 
         if ($(element).hasClass('id') || $(element).hasClass('path')) {
