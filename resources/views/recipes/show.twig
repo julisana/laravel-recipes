@@ -136,7 +136,7 @@
                 {% for photo in chunk %}
                     <div class="col-md-3">
                         <a href="#" data-toggle="modal" data-target="#show-photo-{{ loop.index }}">
-                            <img src="{{ public_asset( 'storage/' ~ photo.path ) }}" width="100%" alt="{{ photo.path }}" />
+                            <img src="{{ public_asset( 'storage/' ~ photo.path ) }}" width="100%" alt="{{ photo.path }}" class="img-thumbnail" />
                         </a>
                         <p>
                             {{ photo.caption }}

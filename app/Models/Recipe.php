@@ -9,7 +9,6 @@
 namespace App\Models;
 
 use Exception;
-use Spatie\Tags\HasTags;
 use Carbon\CarbonInterval;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
@@ -64,7 +63,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Recipe extends Model
 {
-    use HasTags, SoftDeletes;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -445,6 +444,10 @@ class Recipe extends Model
         $newItems = [];
         foreach ( $items as $rowId => $item ) {
             if ( !isset( $item[ 'id' ] ) ) {
+                if ( !isset( $item[ 'order_number' ] ) ) {
+                    $item[ 'order_number' ] = $rowId + 1;
+                }
+
                 $uploadedFile = array_get( $files, $rowId, '' );
                 if ( array_has( $uploadedFile, 'photo' ) ) {
                     if ( $uploadedFile[ 'photo' ] instanceof UploadedFile ) {
@@ -484,6 +487,10 @@ class Recipe extends Model
         $newItems = [];
         foreach ( $items as $rowId => $item ) {
             if ( !isset( $item[ 'id' ] ) ) {
+                if ( !isset( $item[ 'order_number' ] ) ) {
+                    $item[ 'order_number' ] = $rowId + 1;
+                }
+
                 $uploadedFile = array_get( $files, $rowId, '' );
                 if ( array_has( $uploadedFile, 'file' ) ) {
                     if ( $uploadedFile[ 'file' ] instanceof UploadedFile ) {
