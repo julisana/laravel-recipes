@@ -33,4 +33,12 @@ Route::group( [ 'middleware' => [ 'force.ssl', 'global.variables' ] ], function 
         Route::get( 'create', [ 'as' => 'recipes.create', 'uses' => 'RecipeController@create' ] );
         Route::post( 'create', [ 'uses' => 'RecipeController@store' ] );
     } );
+
+    Route::group( [ 'prefix' => '/spice-rack' ], function () {
+        Route::get( '/', [ 'as' => 'spice-rack.index', 'uses' => 'SpiceRackController@index' ] );
+    } );
+
+    Route::group( [ 'prefix' => '/pantry' ], function () {
+        Route::get( '/', [ 'as' => 'pantry.index', 'uses' => 'PantryController@index' ] );
+    } );
 } );

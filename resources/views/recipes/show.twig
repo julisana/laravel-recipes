@@ -59,7 +59,7 @@
                         {{ ingredient.name }}
                         {% if ingredient.notes %}
                             <ul>
-                                <li>{{ ingredient.notes }}</li>
+                                <li>{{ ingredient.notes|raw }}</li>
                             </ul>
                         {% endif %}
                     </li>
@@ -78,7 +78,7 @@
                         {{ direction.name }}
                         {% if direction.notes %}
                             <ul>
-                                <li>{{ direction.notes }}</li>
+                                <li>{{ direction.notes|raw }}</li>
                             </ul>
                         {% endif %}
                     </li>

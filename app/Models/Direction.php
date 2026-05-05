@@ -18,20 +18,27 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int|null $recipe_id
  * @property int $order_number
  * @property string|null $name
+ * @property string|null $notes
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Models\Recipe|null $recipe
+ * @method static bool|null forceDelete()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Direction newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Direction newQuery()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Direction onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Direction query()
+ * @method static bool|null restore()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Direction whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Direction whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Direction whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Direction whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Direction whereNotes($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Direction whereOrderNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Direction whereRecipeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Direction whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Direction withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Direction withoutTrashed()
  * @mixin \Eloquent
  */
 class Direction extends Model

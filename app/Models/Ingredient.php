@@ -23,9 +23,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Models\Recipe|null $recipe
+ * @method static bool|null forceDelete()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ingredient newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ingredient newQuery()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Ingredient onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ingredient query()
+ * @method static bool|null restore()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ingredient whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ingredient whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ingredient whereId($value)
@@ -34,6 +37,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ingredient whereOrderNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ingredient whereRecipeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Ingredient whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Ingredient withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Ingredient withoutTrashed()
  * @mixin \Eloquent
  */
 class Ingredient extends Model

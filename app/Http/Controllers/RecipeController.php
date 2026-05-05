@@ -66,7 +66,7 @@ class RecipeController extends Controller
      */
     public function edit( $id )
     {
-        $this->addContext( 'recipe', recipe()->with( 'ingredients', 'directions' )->findOrFail( $id ) );
+        $this->addContext( 'recipe', recipe()->with( [ 'ingredients', 'directions' ] )->findOrFail( $id ) );
 
         return view( 'recipes.edit', $this->context );
     }

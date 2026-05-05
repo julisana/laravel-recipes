@@ -6,12 +6,13 @@
  * Time: 10:09 PM
  */
 
-use Spatie\Tags\Tag;
 use App\Models\File;
 use App\Models\User;
 use App\Models\Recipe;
 use App\Models\Direction;
 use App\Models\Ingredient;
+use App\Models\PantryItem;
+use App\Models\SpiceRackItem;
 
 if ( !function_exists( 'file' ) ) {
     /**
@@ -63,12 +64,22 @@ if ( !function_exists( 'ingredient' ) ) {
     }
 }
 
-if ( !function_exists( 'tag' ) ) {
+if ( !function_exists( 'pantryItem' ) ) {
     /**
-     * @return Tag
+     * @return PantryItem
      */
-    function tag()
+    function pantryItem()
     {
-        return app( Tag::class );
+        return app( PantryItem::class );
+    }
+}
+
+if ( !function_exists( 'spiceRackItem' ) ) {
+    /**
+     * @return SpiceRackItem
+     */
+    function spiceRackItem()
+    {
+        return app( SpiceRackItem::class );
     }
 }
